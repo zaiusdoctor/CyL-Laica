@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigilancia Laicismo · Castilla y León · 2026</title>
+<style>
+  :root{
+    --morado:#6d4aff; --morado-osc:#3b2a9e; --morado-suave:#efeaff;
+    --fondo:#faf9fd; --panel:#ffffff; --borde:#e6e2ef;
+    --texto:#2b2733; --texto-suave:#6f6a7c;
+    --exito:#0f8a5f; --aviso:#c77700; --alerta:#c02626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.55}
+  .contenedor{max-width:1080px;margin:0 auto;padding:24px 18px 60px}
+
+  header.cab{background:linear-gradient(135deg,var(--morado-osc),var(--morado));color:#fff;border-radius:14px;padding:26px 28px;margin-bottom:16px}
+  header.cab h1{font-size:1.3rem;font-weight:600}
+  header.cab p{opacity:.85;font-size:.88rem;margin-top:4px}
+
+  .selector-bloque{margin-bottom:14px}
+  .selector-bloque .etiqueta{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--texto-suave);margin-bottom:6px}
+  nav.vistas{display:flex;flex-wrap:wrap;gap:6px}
+  nav.vistas button{border:1px solid var(--borde);background:var(--panel);color:var(--texto-suave);padding:6px 14px;border-radius:20px;font-size:.8rem;cursor:pointer;font-weight:500}
+  nav.vistas button.activo{background:var(--morado);border-color:var(--morado);color:#fff}
+  nav.vistas button:hover:not(.activo){border-color:var(--morado);color:var(--morado)}
+  nav.ejes{position:sticky;top:0;z-index:50;background:var(--fondo);padding:6px 0}
+  nav.ejes button{font-size:.78rem;padding:5px 12px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px;margin-bottom:18px}
+  .kpi{background:var(--panel);border:1px solid var(--borde);border-radius:12px;padding:15px 17px}
+  .kpi .titulo{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--texto-suave);margin-bottom:3px}
+  .kpi .valor{font-size:1.45rem;font-weight:650;color:var(--morado)}
+  .kpi .detalle{font-size:.77rem;color:var(--texto-suave);margin-top:2px}
+
+  .eco-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 20px}
+  .eco-box{border-radius:12px;padding:15px 17px;border:1px solid var(--borde);background:var(--panel)}
+  .eco-box h3{font-size:.82rem;margin-bottom:8px}
+  .eco-box .figura{font-size:1.35rem;font-weight:650}
+  .eco-box .detalle{font-size:.76rem;color:var(--texto-suave);margin-top:3px}
+  .eco-literal{border-left:4px solid var(--exito)}
+  .eco-estimado{border-left:4px solid var(--aviso)}
+  .eco-privado{border-left:4px solid #7a7490}
+
+  .porciones-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+  .porcion-leyenda{font-size:.78rem;display:flex;flex-direction:column;gap:6px}
+  .porcion-leyenda div{display:flex;align-items:center;gap:8px}
+  .porcion-leyenda i{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0}
+  
+  .ranking-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:18px}
+  .barra-item{margin:8px 0}
+  .barra-label{font-size:.76rem;color:var(--texto-suave);margin-bottom:3px;display:flex;justify-content:space-between}
+  .barra-track{height:24px;background:#e6e2ef;border-radius:4px;overflow:hidden}
+  .barra-fill{height:100%;background:var(--morado);border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.75rem;font-weight:600;color:#fff;min-width:40px;white-space:nowrap}
+  .barra-valor{color:var(--texto);font-size:.8rem}
+  
+  section.panel{background:var(--panel);border:1px solid var(--borde);border-radius:12px;padding:20px 22px;margin-bottom:20px}
+  section.panel h2{font-size:1rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  section.panel h2::before{content:'';width:4px;height:17px;background:var(--morado);border-radius:2px}
+  .nota-panel{font-size:.76rem;color:var(--texto-suave);margin-top:12px}
+  .sin-datos{text-align:center;padding:34px 10px;color:var(--texto-suave);font-size:.9rem;border:1px dashed var(--borde);border-radius:10px}
+  .sin-datos b{display:block;font-size:1.5rem;margin-bottom:6px}
+
+  .reporte{padding:10px 6px;border-bottom:1px dashed var(--borde);font-size:.87rem}
+  .reporte:last-child{border-bottom:none}
+  .reporte a{color:var(--morado);text-decoration:none;font-weight:500}
+  .reporte a:hover{text-decoration:underline}
+  .rep-meta{color:var(--texto-suave);font-size:.76rem;margin-top:4px}
+  .rep-importes{margin-top:6px;font-size:.8rem;background:var(--morado-suave);border-radius:6px;padding:5px 10px;display:inline-block}
+  .rep-boletin{font-size:.76rem;color:var(--texto-suave);margin-top:4px}
+
+  .estado{display:inline-block;font-size:.67rem;font-weight:700;border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px;letter-spacing:.3px}
+  .verified{background:#e2f5ec;color:var(--exito)}
+  .approx{background:#fdf1dd;color:var(--aviso)}
+  .pending{background:#fceaea;color:var(--alerta)}
+  .descartado{background:#eceae4;color:#8a8478}
+
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
+  th{text-align:left;padding:8px 9px;border-bottom:2px solid var(--borde);color:var(--texto-suave);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+  td{padding:8px 9px;border-bottom:1px solid var(--borde);vertical-align:top}
+  .tabla-scroll{overflow-x:auto}
+
+  .sankey-leyenda{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:.78rem;color:var(--texto-suave)}
+  .sankey-leyenda span{display:flex;align-items:center;gap:6px}
+  .sankey-leyenda i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+  footer{color:var(--texto-suave);font-size:.74rem;text-align:center;padding-top:10px}
+  @media(max-width:640px){header.cab{padding:18px}}
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+<header class="cab">
+  <h1>Informe de vigilancia · Laicismo en Castilla y León</h1>
+  <p>Relación instituciones públicas — Iglesia católica</p>
+</header>
+
+<div class="selector-bloque">
+  <div class="etiqueta">📍 Escoger provincia</div>
+  <nav class="vistas" id="navProv"></nav>
+</div>
+<div class="selector-bloque">
+  <div class="etiqueta">🗂 Organizar por eje</div>
+  <nav class="vistas ejes" id="navEje"></nav>
+</div>
+
+<main id="vista"></main>
+
+<footer>Datos derivados de los reportes provinciales cargados · Importes pendientes de verificación excluidos de las sumas · Todo dato procede literalmente de fuentes recuperadas</footer>
+</div>
+
+<script>
+/* ============================================================
+   1 · CONSTANTES DE ESTRUCTURA
+   ============================================================ */
+const PROVINCIAS = ["Ávila","Burgos","León","Palencia","Salamanca","Segovia","Soria","Valladolid","Zamora"];
+const EJES = {
+  1:{nombre:"Eje 1 · Autoridades en actos religiosos", corto:"Eje 1 · Autoridades"},
+  2:{nombre:"Eje 2 · Patrimonio con financiación pública", corto:"Eje 2 · Patrimonio"},
+  3:{nombre:"Eje 3 · Financiación pública a entidades religiosas", corto:"Eje 3 · Financiación"},
+  4:{nombre:"Eje 4 · Marco general", corto:"Eje 4 · Marco general"}
+};
+const ESTADOS = {
+  verified:{clase:"verified", etiq:"✔ Verificado"},
+  approx:{clase:"approx", etiq:"≈ Fecha aproximada"},
+  pending:{clase:"pending", etiq:"⚠ Pendiente / discrepancia"}
+};
+const COLOR_ORIGEN = {
+  /* Agrega aquí las administraciones según tus necesidades:
+     Ejemplo: "Diputación de [Provincia]":"#hex", "Ayuntamiento de [Provincia]":"#hex", */
+};
+
+/* ============================================================
+   2 · DATOS — v2.3 (ESQUELETO SIN DATOS)
+   ============================================================ */
+
+/* ---------- 2.A · REPORTES ---------- */
+const REPORTES = [
+  /* Inserta aquí tus reportes siguiendo el esquema v2.3:
+     {id:"REP-YYYY-NNNN", fecha:"DD/MM/YYYY", titular:"...", eje:N, ...} */
+];
+
+/* ---------- 2.B · INMATRICULACIONES ---------- */
+const INMATRICULACIONES = {
+  "Ávila":null, "Burgos":null, "León":null, "Palencia":null,
+  "Salamanca":null, "Segovia":null, "Soria":null, "Valladolid":null, "Zamora":null
+};
+
+/* ---------- 2.C · DIOCESIS / IRPF ---------- */
+const DIOCESIS = {
+  "Ávila":null, "Burgos":null, "León":null, "Palencia":null,
+  "Salamanca":null, "Segovia":null, "Soria":null, "Valladolid":null, "Zamora":null
+};
+
+/* ---------- 2.D · FLUJOS DE DINERO ---------- */
+const FLUJOS_DINERO = [
+  /* Inserta aquí tus flujos siguiendo el esquema v2.3:
+     {provincia:"...", eje:N, tipoE2:"conservacion|turismo", programa:"...", origen:"...", destino:"...", cantidad:N, concepto:"...", reporteId:"REP-...", pendiente:false} */
+];
+  
+/* ---------- 2.D-bis · CONVENIOS VIGENTES (firmados fuera de rango) ---------- */
+const CONVENIOS_VIGENTES = [
+  /* Inserta aquí convenios fuera de rango temporal pero en ejecución */
+];
+
+/* ---------- 2.E · CONFIG ---------- */
+const CONFIG = {
+  rangoTemporal:"DD/MM/YYYY – DD/MM/YYYY",
+  versionDatos:"Año · Provincia (N reportes) · v2.3"
+};
+
+/* ============================================================
+   3 · MOTOR
+   ============================================================ */
+const fmtEUR = n => n==null ? "—" :
+  new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n);
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let vistaProvincia="CYL", vistaEje="G";
+
+const REPORTE_BY_ID = Object.fromEntries(REPORTES.map(r=>[r.id,r]));
+const esDescartado = id => !!(REPORTE_BY_ID[id] && REPORTE_BY_ID[id].descartado);
+
+function reportesDe(prov, eje){
+  return REPORTES.filter(r=>
+    (prov==="CYL" || r.provincia===prov) && (!eje || r.eje===eje));
+}
+function flujosDe(prov, eje){
+  return FLUJOS_DINERO.filter(f=>
+    (prov==="CYL" || f.provincia===prov) && (!eje || f.eje===eje) && !esDescartado(f.reporteId));
+}
+function sumFlujos(flujos, filtro){
+  return flujos.filter(f=>!f.pendiente && (!filtro || filtro(f))).reduce((a,f)=>a+f.cantidad,0);
+}
+function ordenFecha(s){
+  if(!s) return 999999999;
+  const str=String(s);
+  const d=str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(d) return +d[3]*10000 + +d[2]*100 + +d[1];
+  const m=str.match(/(\d{1,2})\/(\d{4})/);
+  if(m) return +m[2]*10000 + +m[1]*100 + 1;
+  const q=str.match(/(\d{1,2})\/(\d{1,2})\/\D*(\d{4})/);
+  if(q) return +q[3]*10000 + +q[2]*100 + +q[1];
+  return 888888888;
+}
+
+function fichaReporte(r){
+  const e=ESTADOS[r.estado]||ESTADOS.pending;
+  const d=r.descartado
+    ? `<span class="estado descartado">⨯ Descartado — no computa</span>`
+    : "";
+  let imp="";
+  (r.importes||[]).forEach(i=>{
+    const v=(i.unidad??"EUR")==="EUR" ? fmtEUR(i.cantidad) : `${i.cantidad} ${i.unidad}`;
+    imp+=(imp?" · ":"")+`${v}${i.concepto?" — "+esc(i.concepto):""}`;
+  });
+  let bol="";
+  if(r.boletin && r.boletin.tipo){
+    const loc=r.boletin.numero||r.boletin.expediente||r.boletin.link;
+    bol=loc
+      ? `📄 ${esc(r.boletin.tipo)}${r.boletin.numero?" · "+esc(r.boletin.numero):""}${r.boletin.expediente?" · exp. "+esc(r.boletin.expediente):""}${r.boletin.link?` · <a href="${esc(r.boletin.link)}" target="_blank" rel="noopener">boletín</a>`:""}`
+      : `📄 ${esc(r.boletin.tipo)} · pendiente de localizar`;
+  }
+  return `<div class="reporte">
+    <b>${esc(r.titular)}</b><span class="estado ${e.clase}">${e.etiq}</span>${d}
+    <div class="rep-meta">${esc(r.fecha)} · ${esc(r.grupo||"")} · ${esc(r.localidad||"")} · ${esc(r.medio||"")}${r.agencia?" ("+esc(r.agencia)+")":""}${r.link?` · <a href="${esc(r.link)}" target="_blank" rel="noopener">noticia ↗</a>`:""}</div>
+    ${imp?`<div class="rep-importes">${imp}</div>`:""}
+    ${bol?`<div class="rep-boletin">${bol}</div>`:""}
+    ${r.motivoDescarte?`<div class="rep-meta" style="color:#8a8478">⨯ ${esc(r.motivoDescarte)}</div>`:""}
+    ${r.notas?`<div class="rep-meta" style="color:var(--alerta)">⚠ ${esc(r.notas)}</div>`:""}
+  </div>`;
+}
+function desglose(reps){
+  if(!reps.length) return `<section class="panel"><h2>Desglose de reportes</h2>
+    <div class="sin-datos"><b>🗂</b>Sin reportes para esta selección.</div></section>`;
+  const ordenados=[...reps].sort((a,b)=>ordenFecha(a.fecha)-ordenFecha(b.fecha));
+  return `<section class="panel"><h2>Desglose de reportes (${reps.length}) · orden cronológico</h2>`
+    +ordenados.map(fichaReporte).join("")+`</section>`;
+}
+
+function sankeySVG(flujos){
+  if(!flujos.length) return "";
+  const oTot={}, dTot={};
+  flujos.forEach(f=>{ oTot[f.origen]=(oTot[f.origen]||0)+f.cantidad; dTot[f.destino]=(dTot[f.destino]||0)+f.cantidad; });
+  const oKeys=Object.keys(oTot).sort((a,b)=>oTot[b]-oTot[a]);
+  const dKeys=Object.keys(dTot).sort((a,b)=>dTot[b]-dTot[a]);
+  const W=920, xIzq=235, xDer=690, anchoNodo=16, gap=16, margenSup=34, alturaUtil=380;
+  const granMax=Math.max(...Object.values(oTot),...Object.values(dTot));
+  const h=q=>Math.max(5,q/granMax*alturaUtil);
+  let y=margenSup,maxY=0; const oPos={};
+  oKeys.forEach(k=>{const hh=h(oTot[k]); oPos[k]={y,h:hh}; y+=hh+gap;});
+  maxY=Math.max(maxY,y);
+  y=margenSup; const dPos={};
+  dKeys.forEach(k=>{const hh=h(dTot[k]); dPos[k]={y,h:hh}; y+=hh+gap;});
+  maxY=Math.max(maxY,y);
+  const H=maxY+46;
+  const oOff={}, dOff={};
+  oKeys.forEach(k=>oOff[k]=oPos[k].y);
+  dKeys.forEach(k=>dOff[k]=dPos[k].y);
+  let cintas="";
+  flujos.forEach(f=>{
+    const fh=Math.max(2,f.cantidad/granMax*alturaUtil);
+    const y1=oOff[f.origen]; oOff[f.origen]+=fh;
+    const y2=dOff[f.destino]; dOff[f.destino]+=fh;
+    const xm=(xIzq+xDer)/2;
+    const color=COLOR_ORIGEN[f.origen]||"#6f6a7c";
+    const op=f.pendiente?0.15:0.38;
+    cintas+=`<path d="M${xIzq+anchoNodo},${y1} C${xm},${y1} ${xm},${y2} ${xDer},${y2} L${xDer},${y2+fh} C${xm},${y2+fh} ${xm},${y1+fh} ${xIzq+anchoNodo},${y1+fh} Z"
+      fill="${color}" opacity="${op}"><title>${esc(f.origen)} → ${esc(f.destino)}: ${fmtEUR(f.cantidad)} — ${esc(f.concepto||"")}${f.pendiente?" ⚠ PENDIENTE de verificación":""}</title></path>`;
+  });
+  let nodos="";
+  oKeys.forEach(k=>{
+    const color=COLOR_ORIGEN[k]||"#6f6a7c";
+    nodos+=`<rect x="${xIzq}" y="${oPos[k].y}" width="${anchoNodo}" height="${oPos[k].h}" rx="3" fill="${color}"><title>${esc(k)}: ${fmtEUR(oTot[k])}</title></rect>
+      <text x="${xIzq-8}" y="${oPos[k].y+oPos[k].h/2}" text-anchor="end" font-size="11" font-weight="600" fill="#2b2733">${esc(k)}</text>
+      <text x="${xIzq-8}" y="${oPos[k].y+oPos[k].h/2+13}" text-anchor="end" font-size="10" fill="#6f6a7c">${fmtEUR(oTot[k])}</text>`;
+  });
+  dKeys.forEach(k=>{
+    nodos+=`<rect x="${xDer}" y="${dPos[k].y}" width="${anchoNodo}" height="${dPos[k].h}" rx="3" fill="#3b2a9e"><title>${esc(k)}: ${fmtEUR(dTot[k])}</title></rect>
+      <text x="${xDer+anchoNodo+8}" y="${dPos[k].y+dPos[k].h/2}" font-size="11" font-weight="600" fill="#2b2733">${esc(k)}</text>
+      <text x="${xDer+anchoNodo+8}" y="${dPos[k].y+dPos[k].h/2+13}" font-size="10" fill="#6f6a7c">${fmtEUR(dTot[k])}</text>`;
+  });
+  const cab=`<text x="${xIzq}" y="14" font-size="10.5" font-weight="600" fill="#6f6a7c" letter-spacing="1">ADMINISTRACIÓN OTORGANTE</text>
+    <text x="${xDer}" y="14" font-size="10.5" font-weight="600" fill="#6f6a7c" letter-spacing="1" text-anchor="end">ENTIDAD DESTINATARIA</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Diagrama de flujos">${cab}${cintas}${nodos}</svg>`;
+}
+function panelFlujos(flujos, tituloExtra){
+  if(!flujos.length) return "";
+  const totalOK=sumFlujos(flujos);
+  const totalPend=flujos.filter(f=>f.pendiente).reduce((a,f)=>a+f.cantidad,0);
+  const leyenda=[...new Set(flujos.map(f=>f.origen))].map(o=>
+    `<span><i style="background:${COLOR_ORIGEN[o]||"#6f6a7c"}"></i>${esc(o)}</span>`).join("");
+  let t=`<section class="panel"><h2>Flujos de dinero público${tituloExtra?" · "+esc(tituloExtra):""}</h2>`
+    +sankeySVG(flujos)
+    +`<div class="sankey-leyenda">${leyenda}<span><i style="background:#c9c3d6;opacity:.35"></i>Cinta pálida = pendiente de verificación</span></div>
+    <p class="nota-panel">Total rastreado (excluye pendientes): <b>${fmtEUR(totalOK)}</b>${totalPend>0?` · Excluidos por discrepancia: ${fmtEUR(totalPend)}`:""}. Suma propia de importes recuperados — cota inferior, no gasto total.</p>
+    <h3 style="font-size:.85rem;margin:16px 0 8px">Detalle en tabla</h3>
+    <div class="tabla-scroll"><table>
+    <thead><tr><th>Origen</th><th>Destino</th><th>Concepto</th><th>Cantidad</th><th>Estado</th></tr></thead><tbody>`;
+  flujos.forEach(f=>{
+    t+=`<tr><td>${esc(f.origen)}</td><td>${esc(f.destino)}</td><td>${esc(f.concepto||"")}</td>
+    <td>${fmtEUR(f.cantidad)}</td><td>${f.pendiente?'<span class="estado pending">⚠ Pendiente</span>':'<span class="estado verified">✔</span>'}</td></tr>`;
+  });
+  return t+`</tbody></table></div></section>`;
+}
+
+function grid(cards, nota){
+  if(!cards.length) return `<section class="panel"><h2>Resumen</h2>
+    <div class="sin-datos"><b>📊</b>Sin datos cargados para esta selección.</div></section>`;
+  return `<div class="kpis">`+cards.map(c=>
+    `<div class="kpi"><div class="titulo">${esc(c.titulo)}</div><div class="valor">${c.valor}</div><div class="detalle">${esc(c.detalle)}</div></div>`
+  ).join("")+`</div>${nota?`<p class="nota-panel" style="margin:-8px 0 18px">${nota}</p>`:""}`;
+}
+
+  function tarjetaDescartes(prov, eje){
+  const desc=reportesDe(prov,eje).filter(r=>r.descartado);
+  if(!desc.length) return "";
+  return `<div class="kpis">
+    <div class="kpi" style="border-left:4px solid #8a8478">
+      <div class="titulo">Piezas descartadas</div>
+      <div class="valor" style="color:#8a8478">${desc.length}</div>
+      <div class="detalle">${desc.map(r=>esc(r.grupo||r.titular)).join(" · ")}</div>
+    </div>
+  </div>`;
+}
+  
+  function panelConveniosVigentes(prov, ejeNum){
+  if(ejeNum!==2) return "";
+  const conv=CONVENIOS_VIGENTES.filter(c=>prov==="CYL"||c.provincia===prov);
+  if(!conv.length) return "";
+  let t=`<section class="panel"><h2>Convenios plurianuales en ejecución durante 2026</h2>
+    <p class="nota-panel" style="margin:0 0 12px">Firmados fuera del rango temporal del informe. Se listan por su vigencia en 2026 pero <b>no computan en sumas ni en el diagrama de flujos</b>.</p>
+    <div class="tabla-scroll"><table>
+    <thead><tr><th>Convenio</th><th>Importe</th><th>Fecha de firma</th><th>Origen → Destino</th><th>Enlace</th></tr></thead><tbody>`;
+  conv.forEach(c=>{
+    t+=`<tr><td>${esc(c.concepto)}</td><td>${fmtEUR(c.cantidad)}</td><td>${esc(c.fechaFirma)}</td>
+    <td>${esc(c.origen)} → ${esc(c.destino)}</td>
+    <td>${c.link?`<a href="${esc(c.link)}" target="_blank" rel="noopener">ver ↗</a>`:"— pendiente"}</td></tr>`;
+  });
+  return t+`</tbody></table></div></section>`;
+}
+
+/* ---------- Diagramas de porciones (vista General) ---------- */
+const COLOR_PROGRAMA = {
+  "Conservación de patrimonio":"#3b2a9e",
+  "Turismo religioso":"#c77700",
+  "Servicios sociales":"#0f8a5f",
+  "Capellanías hospitalarias":"#8a54c9",
+  "Educación":"#c02626"
+};
+
+function porcionSVG(datos,colores){
+  if(!datos.length) return "";
+  const total=datos.reduce((a,d)=>a+d.valor,0);
+  const cx=110,cy=110,r=95,ancho=28;
+  let ang=-Math.PI/2,trozos="",leyenda="";
+  
+  datos.forEach(d=>{
+    const frac=d.valor/total;
+    const aFin=ang+frac*2*Math.PI;
+    const grande=(aFin-ang)>Math.PI?1:0;
+    
+    const Px=(radio,a)=>cx+radio*Math.cos(a);
+    const Py=(radio,a)=>cy+radio*Math.sin(a);
+    
+    const color=colores[d.nombre]||"#6f6a7c";
+    
+    trozos+=`<path d="
+      M ${Px(r,ang)} ${Py(r,ang)}
+      A ${r} ${r} 0 ${grande} 1 ${Px(r,aFin)} ${Py(r,aFin)}
+      L ${Px(r-ancho,aFin)} ${Py(r-ancho,aFin)}
+      A ${r-ancho} ${r-ancho} 0 ${grande} 0 ${Px(r-ancho,ang)} ${Py(r-ancho,ang)}
+      Z"
+      fill="${color}" style="fill:${color}!important" stroke="#fff" stroke-width="1">
+      <title>${esc(d.nombre)}: ${fmtEUR(d.valor)} (${(frac*100).toFixed(1)}%)</title>
+    </path>`;
+    
+    leyenda+=`<div><i style="background:${color}"></i>${esc(d.nombre)} — <b>${(frac*100).toFixed(1)}%</b> · ${fmtEUR(d.valor)}</div>`;
+    
+    ang=aFin;
+  });
+  
+  return `<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center">
+    <svg viewBox="0 0 220 220" style="width:200px;height:200px;flex-shrink:0">${trozos}
+      <circle cx="${cx}" cy="${cy}" r="67" fill="var(--panel)"></circle>
+      <text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="11" fill="#6f6a7c">TOTAL</text>
+      <text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2b2733">${fmtEUR(total)}</text>
+    </svg>
+    <div class="porcion-leyenda">${leyenda}</div>
+  </div>`;
+}
+
+function agruparPorTipo(origen){
+  if(origen.includes("Diputación")) return "Diputaciones";
+  if(origen.includes("Ayuntamiento")) return "Ayuntamientos";
+  return origen;
+}
+function panelPorciones(prov){
+  const fl=flujosDe(prov).filter(f=>!f.pendiente);
+  if(!fl.length) return "";
+  const porPrograma={}, porAdmin={};
+  fl.forEach(f=>{
+    porPrograma[f.programa]=(porPrograma[f.programa]||0)+f.cantidad;
+        const clave = (prov==="CYL") ? agruparPorTipo(f.origen) : f.origen;
+    porAdmin[clave]=(porAdmin[clave]||0)+f.cantidad;
+  });
+  const dProg=Object.entries(porPrograma).map(([nombre,valor])=>({nombre,valor}))
+    .sort((a,b)=>b.valor-a.valor);
+  const dAdm=Object.entries(porAdmin).map(([nombre,valor])=>({nombre,valor}))
+    .sort((a,b)=>b.valor-a.valor);
+  return `<section class="panel"><h2>Reparto del dinero rastreado</h2>
+  <div class="porciones-cajas">
+    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por tipo de programa</h3>${porcionSVG(dProg,COLOR_PROGRAMA)}</div>
+    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por administración otorgante</h3>${porcionSVG(dAdm,COLOR_ORIGEN)}</div>
+  </div>
+  <p class="nota-panel">Porcentajes sobre ${fmtEUR(dProg.reduce((a,d)=>a+d.valor,0))} rastreados (excluye pendientes y descartados).</p></section>`;
+}
+  
+  function panelRankings(prov){
+  if(prov!=="CYL") return "";
+  const fl=flujosDe(prov).filter(f=>!f.pendiente && (agruparPorTipo(f.origen)==="Ayuntamientos" || agruparPorTipo(f.origen)==="Diputaciones"));
+  if(!fl.length) return "";
+  
+  const aytos={}, dptos={};
+  fl.forEach(f=>{
+    if(agruparPorTipo(f.origen)==="Ayuntamientos"){
+      aytos[f.origen]=(aytos[f.origen]||0)+f.cantidad;
+    }else if(agruparPorTipo(f.origen)==="Diputaciones"){
+      dptos[f.origen]=(dptos[f.origen]||0)+f.cantidad;
+    }
+  });
+  
+  const aytoArr=Object.entries(aytos).map(([nombre,valor])=>({nombre,valor})).sort((a,b)=>b.valor-a.valor);
+  const dpτοArr=Object.entries(dptos).map(([nombre,valor])=>({nombre,valor})).sort((a,b)=>b.valor-a.valor);
+  
+  if(!aytoArr.length && !dpτοArr.length) return "";
+  
+  const maxVal=Math.max(...aytoArr.map(x=>x.valor),...dpτοArr.map(x=>x.valor),1);
+  
+  function renderBaras(arr,titulo){
+    if(!arr.length) return "";
+    let t=`<div><h3 style="font-size:.85rem;margin-bottom:12px">${titulo}</h3>`;
+    arr.forEach(item=>{
+      const pct=(item.valor/maxVal*100).toFixed(1);
+      t+=`<div class="barra-item">
+        <div class="barra-label"><span>${esc(item.nombre)}</span><span class="barra-valor">${fmtEUR(item.valor)}</span></div>
+        <div class="barra-track"><div class="barra-fill" style="width:${pct}%">${fmtEUR(item.valor)}</div></div>
+      </div>`;
+    });
+    return t+`</div>`;
+  }
+  
+  return `<section class="panel"><h2>Comparativa por nivel administrativo (CyL completo)</h2>
+  <div class="ranking-cajas">
+    ${renderBaras(aytoArr,"Ayuntamientos ordenados por importe")}
+    ${renderBaras(dpτοArr,"Diputaciones ordenadas por importe")}
+  </div>
+  <p class="nota-panel">Solo se muestran entidades con flujos de dinero registrados.</p></section>`;
+}
+  
+function kpiGeneral(prov){
+  const reps=reportesDe(prov), cards=[];
+  const porEje={1:0,2:0,3:0,4:0};
+  reps.forEach(r=>porEje[r.eje]=(porEje[r.eje]||0)+1);
+  const ambito=prov==="CYL"?PROVINCIAS:[prov];
+  let f=0,st=0,ibi=0,hayF=false;
+  ambito.forEach(p=>{const im=INMATRICULACIONES[p];
+    if(im){f+=im.fincas||0; st+=im.sinTitulo||0; ibi+=im.ibiEstimado||0; hayF=true;}});
+  if(reps.length) cards.push({titulo:"Reportes",valor:reps.length,detalle:`E1:${porEje[1]} · E2:${porEje[2]} · E3:${porEje[3]} · E4:${porEje[4]}`});
+  if(porEje[1]) cards.push({titulo:"Presencia institucional",valor:porEje[1],detalle:"Actos religiosos con autoridades"});
+  if(hayF) cards.push({titulo:"Fincas inmatriculadas",valor:f,detalle:`${st} sin título · IBI est.: ${ibi?fmtEUR(ibi):"sin dato"}`});
+  return grid(cards,"Consulta cada eje para su desglose económico específico.");
+}
+
+function kpiEje1(prov){
+  const reps=reportesDe(prov,1);
+  if(!reps.length) return grid([]);
+  const actos=new Set(reps.map(r=>r.grupo)).size;
+  const admins=new Set();
+  reps.forEach(r=>(r.admin||[]).forEach(a=>admins.add(a)));
+  const org=reps.filter(r=>r.participacion==="organizacion").length;
+  const inter=reps.filter(r=>r.participacion==="intervencion").length;
+  return grid([
+    {titulo:"Reportes",valor:reps.length,detalle:"Actos con presencia institucional"},
+    {titulo:"Actos distintos",valor:actos,detalle:"Ciclo festivo-religioso cubierto"},
+    {titulo:"Administraciones implicadas",valor:admins.size,detalle:admins.size?[...admins].join(" · "):"Sin identificar en las fuentes"},
+    {titulo:"Organización directa",valor:org,detalle:`Ayuntamiento/entidad organiza el acto${inter?` · ${inter} con intervención hablada`:""}`}
+  ]);
+}
+
+function kpiEje2(prov){
+  const reps=reportesDe(prov,2);
+  const flujos=flujosDe(prov,2);
+  if(!reps.length&&!flujos.length) return grid([]);
+  const convIds=reps.filter(r=>r.estado!=="pending"&&(r.categorias||[]).includes("estructura")).map(r=>r.id);
+  const costeConv=sumFlujos(flujos,f=>convIds.includes(f.reporteId));
+  const singulares=flujos.filter(f=>!f.pendiente && !convIds.includes(f.reporteId));
+  let edif=0,hayE=false;
+  reps.forEach(r=>{if(r.edificio!=null){edif+=r.edificio;hayE=true;}});
+  const conserv=sumFlujos(flujos,f=>f.tipoE2==="conservacion");
+  const turismo=sumFlujos(flujos,f=>f.tipoE2==="turismo");
+  const cards=[{titulo:"Reportes",valor:reps.length,detalle:"Patrimonio con financiación pública"}];
+  if(convIds.length) cards.push({titulo:"Convenios",valor:convIds.length,detalle:`Coste rastreado: ${fmtEUR(costeConv)}`});
+  if(singulares.length) cards.push({titulo:"Ayudas singulares",valor:singulares.length,detalle:`Coste rastreado: ${fmtEUR(singulares.reduce((a,f)=>a+f.cantidad,0))}`});
+  if(hayE) cards.push({titulo:"Edificios intervenidos",valor:edif,detalle:"Según literales de los reportes"});
+  cards.push({titulo:"En listado de inmatriculaciones",valor:"—",detalle:"Requiere cruce finca a finca (no disponible)"});
+  const im=prov==="CYL"?null:INMATRICULACIONES[prov];
+  if(im) cards.push({titulo:"Inmatriculaciones (provincia)",valor:im.fincas,detalle:`${im.sinTitulo} sin título · IBI est.: ${im.ibiEstimado?fmtEUR(im.ibiEstimado):"sin dato"}`});
+  cards.push({titulo:"Dinero a conservación",valor:fmtEUR(conserv),detalle:"Flujos verificados (cota inferior)"});
+  cards.push({titulo:"Dinero a turismo/apertura",valor:fmtEUR(turismo),detalle:"Flujos verificados (cota inferior)"});
+  cards.push({titulo:"Beneficio por entradas",valor:"—",detalle:"Pendiente de datos de visitantes (cierre estival)"});
+  return grid(cards,"Las tarjetas sin dato permanecen visibles para recordar el vacío de información, no como dato nulo.");
+}
+
+function kpiEje3(prov){
+  const reps=reportesDe(prov,3);
+  const flujos=flujosDe(prov,3);
+  if(!reps.length) return grid([]);
+  const conv=reps.filter(r=>Array.isArray(r.importes)&&r.importes.length);
+  const coste=sumFlujos(flujos);
+  const capN=reps.filter(r=>(r.categorias||[]).includes("capellania")).length;
+  const capEUR=sumFlujos(flujosDe(prov,3),f=>f.programa==="Capellanías hospitalarias");
+  const cards=[{titulo:"Reportes",valor:reps.length,detalle:"Servicios y otras facetas"}];
+  if(conv.length) cards.push({titulo:"Convenios y ayudas",valor:conv.length,detalle:`Coste rastreado: ${fmtEUR(coste)}`});
+  if(capN) cards.push({titulo:"Capellanías",valor:capN,detalle:`Coste rastreado: ${fmtEUR(capEUR)}`});
+  return grid(cards,"Importes pendientes excluidos de las sumas.");
+}
+
+function kpiEje4(prov){
+  const reps=reportesDe(prov,4);
+  if(!reps.length) return grid([]);
+  const temas=[...new Set(reps.map(r=>r.grupo))];
+  return grid([
+    {titulo:"Reportes",valor:reps.length,detalle:temas.slice(0,4).join(" · ")||""}
+  ]);
+}
+
+function resumenEconomico(prov){
+  const fl=flujosDe(prov);
+  if(!fl.length) return "";
+  const rastreado=sumFlujos(fl);
+  const rast2=sumFlujos(fl,f=>f.eje===2), rast3=sumFlujos(fl,f=>f.eje===3);
+  const im=prov==="CYL" ? {ibi:PROVINCIAS.reduce((a,p)=>a+((INMATRICULACIONES[p]||{}).ibiEstimado||0),0),hay:PROVINCIAS.some(p=>INMATRICULACIONES[p])}
+                        : (INMATRICULACIONES[prov]?{ibi:INMATRICULACIONES[prov].ibiEstimado||0,hay:true}:{hay:false});
+  const txtEst = !im.hay ? "sin datos de inmatriculaciones"
+               : im.ibi>0 ? "cifra estimada sobre el registro provincial"
+               : "registro de inmatriculaciones cargado, IBI aún sin estimar";
+  return `<section class="panel"><h2>Resumen económico · dinero público hacia lo religioso</h2>
+  <div class="eco-cajas">
+    <div class="eco-box eco-literal">
+      <h3 style="color:var(--exito)">✔ Rastreado (cifras literales)</h3>
+      <div class="figura" style="color:var(--exito)">${fmtEUR(rastreado)}</div>
+      <div class="detalle">Suma propia de importes recuperados en reportes verificados — cota inferior, no gasto total.<br>Eje 2 (patrimonio): ${fmtEUR(rast2)} · Eje 3 (servicios): ${fmtEUR(rast3)}${prov==="CYL"?" (provincias cargadas)":""}</div>
+    </div>
+    <div class="eco-box eco-estimado">
+      <h3 style="color:var(--aviso)">≈ Estimado (inferencias)</h3>
+      <div class="figura" style="color:var(--aviso)">${im.ibi>0?fmtEUR(im.ibi):"—"}</div>
+      <div class="detalle">Exención IBI estimada sobre inmatriculaciones — ${txtEst}.<br>No es gasto público corriente, es evasión patrimonial acumulativa.</div>
+    </div>
+    <div class="eco-box eco-privado">
+      <h3 style="color:#7a7490">● Privado (no público)</h3>
+      <div class="figura" style="color:#7a7490">—</div>
+      <div class="detalle">Donaciones diocesanas, aportaciones de fieles.<br>Fuera del alcance del informe: no son dinero público.</div>
+    </div>
+  </div>
+    <p class="nota-panel">Las tres cajas no se suman entre sí: rastreado es literal, estimado es inferencia metodológica, privado no entra en ningún total de gasto público.</p></section>`;
+}
+
+/* ---------- Motor de renderizado ---------- */
+function renderVista(){
+  document.querySelectorAll("#navProv button").forEach(b=>b.classList.toggle("activo",b.dataset.p===vistaProvincia));
+  document.querySelectorAll("#navEje button").forEach(b=>b.classList.toggle("activo",b.dataset.e===vistaEje));
+
+  let html="";
+        if(vistaEje==="G"){
+    html+=kpiGeneral(vistaProvincia)+resumenEconomico(vistaProvincia);
+    html+=panelFlujos(flujosDe(vistaProvincia), vistaProvincia==="CYL"?"CyL completo":`de ${vistaProvincia}`);
+    html+=panelPorciones(vistaProvincia);
+    html+=panelConveniosVigentes(vistaProvincia, 2);
+    html+=panelRankings(vistaProvincia);
+   }else{
+    const ejeNum=Number(vistaEje);
+    let fnKPI;
+    switch(vistaEje){
+      case "1":fnKPI=kpiEje1;break;
+      case "2":fnKPI=kpiEje2;break;
+      case "3":fnKPI=kpiEje3;break;
+      case "4":fnKPI=kpiEje4;break;
+    }
+    html+=fnKPI(vistaProvincia);
+    html+=tarjetaDescartes(vistaProvincia, ejeNum);
+        if(ejeNum===2||ejeNum===3){
+      html+=panelFlujos(flujosDe(vistaProvincia,ejeNum), ejeNum===2?"Patrimonio (conservación + turismo)":"Servicios y otras facetas");
+    }
+    html+=panelConveniosVigentes(vistaProvincia, ejeNum);
+    html+=desglose(reportesDe(vistaProvincia,ejeNum));
+  }
+  document.getElementById("vista").innerHTML=html;
+}
+
+/* ---------- Inicialización ---------- */
+(function(){
+  const navProv=document.getElementById("navProv"), navEje=document.getElementById("navEje");
+
+  ["CYL",...PROVINCIAS].forEach(p=>{
+    const btn=document.createElement("button");
+    btn.textContent=p; btn.dataset.p=p;
+    btn.onclick=()=>{ vistaProvincia=p; vistaEje="G"; renderVista(); };
+    navProv.appendChild(btn);
+  });
+
+  Object.keys(EJES).forEach(e=>{
+    const btn=document.createElement("button");
+    btn.textContent=EJES[e].corto; btn.dataset.e=e;
+    btn.onclick=()=>{ vistaEje=e; renderVista(); };
+    navEje.appendChild(btn);
+  });
+
+  const btnGen=document.createElement("button");
+  btnGen.textContent="General / Resumen"; btnGen.dataset.e="G";
+  btnGen.onclick=()=>{ vistaEje="G"; renderVista(); };
+  navEje.insertBefore(btnGen, navEje.firstChild);
+
+  renderVista();
+})();
+</script>
+</body>
+</html>
+```
