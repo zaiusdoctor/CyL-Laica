@@ -34,6 +34,12 @@
   .kpi .valor{font-size:1.45rem;font-weight:650;color:var(--morado)}
   .kpi .detalle{font-size:.77rem;color:var(--texto-suave);margin-top:2px}
 
+  .regular-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:6px}
+  .regular-box{border:1px solid var(--borde);border-top:4px solid var(--morado);border-radius:12px;padding:14px 16px;background:var(--panel)}
+  .regular-box .titulo{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--texto-suave);margin-bottom:3px}
+  .regular-box .num{font-size:1.45rem;font-weight:650;color:var(--morado)}
+  .regular-box .sub{font-size:.77rem;color:var(--texto-suave);margin-top:2px}
+  
   .eco-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 20px}
   .eco-box{border-radius:12px;padding:15px 17px;border:1px solid var(--borde);background:var(--panel)}
   .eco-box h3{font-size:.82rem;margin-bottom:8px}
@@ -423,7 +429,34 @@ const CONFIG = {
   rangoTemporal:"DD/MM/YYYY – DD/MM/YYYY",
   versionDatos:"Año · Provincia (N reportes) · v2.3"
 };
+  /* ---------- 2.F · COLECCIONES SEPARADAS DE GASTO RECURRENTE ----------
+   CAPELANIAS y EDUCACION son la entrada ÚNICA de estos datos.
+   El motor deriva de ellas los flujos que computan en las sumas del
+   eje 3, el sankey y las porciones: NO se cargan además en
+   FLUJOS_DINERO (la derivación evita el doble cómputo mecánicamente).
+*/
+const CAPELANIAS = [
+  /* {provincia:"Burgos", subtipo:"sanitaria", periodo:"2026", numero:12, costeAnual:84200,
+     origen:"Junta de Castilla y León · Consejería de Sanidad", destino:"Arzobispado de Burgos",
+     concepto:"Capellanías hospitalarias 2026", medio:"BOCyL", agencia:"Oficial",
+     link:"https://...", estado:"verified", reporteId:"REP-2026-XXXX", notas:""}
+     {provincia:"Zamora", subtipo:"militar", periodo:"2026", numero:1, costeAnual:31000,
+     origen:"Ministerio de Defensa", destino:"Diócesis de Zamora", ...} */
 
+
+
+];
+const EDUCACION = [
+  /* {provincia:"Salamanca", partida:"profesorado", periodo:"curso 2025/2026", numero:98,
+     costeAnual:4200000, origen:"Junta de Castilla y León · Consejería de Educación",
+     destino:"Nómina directa", concepto:"Retribuciones profesorado de religión", ...}
+     {provincia:"Valladolid", partida:"concierto", periodo:"curso 2025/2026", numero:1240,
+     costeAnual:7800000, origen:"Junta de Castilla y León · Consejería de Educación",
+     destino:"Centros concertados confesionales", concepto:"Plazas concertadas", ...} */
+
+
+
+];
 /* ============================================================
    3 · MOTOR
    ============================================================ */
@@ -434,14 +467,33 @@ const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">"
 let vistaProvincia="CYL", vistaEje="G";
 
 const REPORTE_BY_ID = Object.fromEntries(REPORTES.map(r=>[r.id,r]));
-const esDescartado = id => !!(REPORTE_BY_ID[id] && REPORTE_BY_ID[id].descartado);
+const esDescartado = id => !!id && !!(REPORTE_BY_ID[id] && REPORTE_BY_ID[id].descartado);
+
+function flujosDerivados(){
+  const fl=[];
+  CAPELANIAS.forEach(c=>fl.push({
+    provincia:c.provincia, eje:3, constante:"capellanias", subtipo:c.subtipo, numero:c.numero,
+    programa:c.subtipo==="militar"?"Capellanías militares":"Capellanías hospitalarias",
+    origen:c.origen, destino:c.destino, cantidad:c.costeAnual,
+    concepto:c.concepto||("Capellanía "+c.subtipo+(c.periodo?" · "+c.periodo:"")),
+    reporteId:c.reporteId||"", pendiente:c.estado==="pending"
+  }));
+  EDUCACION.forEach(e=>fl.push({
+    provincia:e.provincia, eje:3, constante:"educacion", partida:e.partida, numero:e.numero,
+    programa:"Educación",
+    origen:e.origen, destino:e.destino, cantidad:e.costeAnual,
+    concepto:e.concepto||((e.partida==="concierto"?"Plazas concertadas":"Profesorado de religión")+(e.periodo?" · "+e.periodo:"")),
+    reporteId:e.reporteId||"", pendiente:e.estado==="pending"
+  }));
+  return fl;
+}
 
 function reportesDe(prov, eje){
   return REPORTES.filter(r=>
     (prov==="CYL" || r.provincia===prov) && (!eje || r.eje===eje));
 }
 function flujosDe(prov, eje){
-  return FLUJOS_DINERO.filter(f=>
+  return FLUJOS_DINERO.concat(flujosDerivados()).filter(f=>
     (prov==="CYL" || f.provincia===prov) && (!eje || f.eje===eje) && !esDescartado(f.reporteId));
 }
 function sumFlujos(flujos, filtro){
@@ -595,6 +647,106 @@ function grid(cards, nota){
   return t+`</tbody></table></div></section>`;
 }
 
+  /* ---------- Colecciones separadas: tarjetas y paneles ---------- */
+const CFG_CAPELLANIAS = {
+  sanitaria:{etiq:"Capellanías sanitarias",
+    det:"Asistencia religiosa en hospitales y centros sanitarios; gasto de la consejería competente de la Junta de Castilla y León."},
+  militar:{etiq:"Capellanías militares",
+    det:"Capellanías castrenses y de cuerpos y fuerzas de seguridad del Estado; gasto del Ministerio de Defensa o del Interior."}
+};
+const CFG_EDUCACION = {
+  profesorado:{etiq:"Profesorado de religión",
+    det:"Docentes de Religión Católica retribuidos por la Consejería de Educación de la Junta de Castilla y León."},
+  concierto:{etiq:"Plazas concertadas",
+    det:"Plazas en centros confesionales sostenidas con fondos públicos de la Consejería de Educación."}
+};
+
+function filtraColeccion(arr, prov){
+  return arr.filter(r => prov==="CYL" || r.provincia===prov);
+}
+function totColeccion(rs){
+  const ok=rs.filter(r=>r.estado!=="pending");
+  return {
+    n: ok.reduce((a,r)=>a+(r.numero||0),0),
+    coste: ok.reduce((a,r)=>a+(r.costeAnual||0),0),
+    pend: rs.filter(r=>r.estado==="pending")
+  };
+}
+function tarjetaColeccion(etiqueta, unidad, rs, prov, campo, subs){
+  if(!rs.length) return "";
+  const t=totColeccion(rs);
+  const provs=new Set(rs.map(r=>r.provincia)).size;
+  const linea=subs.map(s=>{
+    const st=totColeccion(rs.filter(r=>r[campo]===s.k));
+    return `${s.etiq}: ${st.n||"—"} · ${fmtEUR(st.coste)}`;
+  }).join(" — ");
+  return `<div class="regular-box">
+    <div class="titulo">${esc(etiqueta)}</div>
+    <div class="num">${t.n||"—"} <span style="font-size:.85rem;font-weight:500;color:var(--texto-suave)">${esc(unidad)}</span></div>
+    <div class="sub">${t.coste?fmtEUR(t.coste)+" / año":"coste anual sin dato"}</div>
+    ${linea?`<div class="sub">${linea}</div>`:""}
+    ${t.pend.length?`<div class="sub" style="color:var(--alerta)">⚠ ${t.pend.length} registro(s) pendiente(s), excluidos de la suma</div>`:""}
+    ${prov==="CYL"&&provs>1?`<div class="sub">${provs} provincia(s) con dato</div>`:""}
+  </div>`;
+}
+function tablaColeccion(rs){
+  let t=`<div class="tabla-scroll"><table>
+    <thead><tr><th>Provincia</th><th>Periodo</th><th>Nº</th><th>Coste anual</th><th>Origen → Destino</th><th>Fuente</th><th>Estado</th></tr></thead><tbody>`;
+  rs.forEach(r=>{
+    const e=ESTADOS[r.estado]||ESTADOS.pending;
+    t+=`<tr><td>${esc(r.provincia)}</td><td>${esc(r.periodo||"")}</td>
+      <td>${r.numero!=null?r.numero:"—"}</td>
+      <td>${r.costeAnual!=null?fmtEUR(r.costeAnual):"—"}</td>
+      <td>${esc(r.origen||"")}${r.destino?" → "+esc(r.destino):""}${r.notas?`<div class="rep-meta" style="color:var(--alerta)">⚠ ${esc(r.notas)}</div>`:""}</td>
+      <td>${esc(r.medio||"")}${r.link?` · <a href="${esc(r.link)}" target="_blank="noopener noreferrer">ver ↗</a>`:""}</td>
+      <td><span class="estado ${e.clase}">${e.etiq}</span></td></tr>`;
+  });
+  return t+`</tbody></table></div>`;
+}
+function barrasProvinciales(rs){
+  const porProv={};
+  rs.forEach(r=>{
+    porProv[r.provincia]=porProv[r.provincia]||{n:0,coste:0};
+    if(r.estado!=="pending"){porProv[r.provincia].n+=r.numero||0;porProv[r.provincia].coste+=r.costeAnual||0;}
+  });
+  const arr=Object.entries(porProv).map(([p,v])=>({p,...v})).sort((a,b)=>b.coste-a.coste);
+  const max=Math.max(...arr.map(x=>x.coste),1);
+  return `<div style="margin:12px 0 4px"><h4 style="font-size:.8rem;margin-bottom:8px;color:var(--texto-suave)">Reparto provincial</h4>`
+    +arr.map(x=>`<div class="barra-item">
+      <div class="barra-label"><span>${esc(x.p)}</span><span class="barra-valor">${x.n?x.n+" · ":""}${fmtEUR(x.coste)}</span></div>
+      <div class="barra-track"><div class="barra-fill" style="width:${(x.coste/max*100).toFixed(1)}%">${fmtEUR(x.coste)}</div></div>
+    </div>`).join("")+`</div>`;
+}
+function panelColeccion(titulo, rs, campo, cfg, prov, tituloExtra){
+  if(!rs.length) return "";
+  let bloques="";
+  Object.keys(cfg).forEach(k=>{
+    const sub=rs.filter(r=>r[campo]===k); if(!sub.length) return;
+    bloques+=`<div style="margin-bottom:20px">
+      <h3 style="font-size:.9rem;margin-bottom:4px">${esc(cfg[k].etiq)}</h3>
+      <p class="nota-panel" style="margin:0 0 10px">${esc(cfg[k].det)}</p>
+      ${tablaColeccion(sub)}</div>`;
+  });
+  const t=totColeccion(rs);
+  return `<section class="panel"><h2>${esc(titulo)}${tituloExtra?" · "+esc(tituloExtra):""}</h2>
+    <p class="nota-panel" style="margin:0 0 14px">Gasto recurrente anualizado. Sus importes <b>computan en las sumas del eje 3</b>, el sankey y las porciones vía flujos derivados de esta colección — nunca se cargan además en FLUJOS_DINERO. Total rastreado: <b>${fmtEUR(t.coste)}</b>.</p>
+    ${bloques}${prov==="CYL"?barrasProvinciales(rs):""}</section>`;
+}
+function panelCapellanias(prov){
+  return panelColeccion("Capellanías", filtraColeccion(CAPELANIAS,prov), "subtipo", CFG_CAPELLANIAS, prov, prov==="CYL"?"CyL completo":prov);
+}
+function panelEducacion(prov){
+  return panelColeccion("Educación confesional", filtraColeccion(EDUCACION,prov), "partida", CFG_EDUCACION, prov, prov==="CYL"?"CyL completo":prov);
+}
+function tarjetaCapellanias(prov){
+  return tarjetaColeccion("Capellanías","plazas",filtraColeccion(CAPELANIAS,prov),prov,"subtipo",
+    [{k:"sanitaria",etiq:"Sanitarias"},{k:"militar",etiq:"Militares"}]);
+}
+function tarjetaEducacion(prov){
+  return tarjetaColeccion("Educación confesional","docentes/plazas",filtraColeccion(EDUCACION,prov),prov,"partida",
+    [{k:"profesorado",etiq:"Profesorado"},{k:"concierto",etiq:"Conciertos"}]);
+}
+
 /* ---------- Diagramas de porciones (vista General) ---------- */
 const COLOR_PROGRAMA = {
   "Conservación de patrimonio":"#3b2a9e",
@@ -724,6 +876,16 @@ function kpiGeneral(prov){
   if(reps.length) cards.push({titulo:"Reportes",valor:reps.length,detalle:`E1:${porEje[1]} · E2:${porEje[2]} · E3:${porEje[3]} · E4:${porEje[4]}`});
   if(porEje[1]) cards.push({titulo:"Presencia institucional",valor:porEje[1],detalle:"Actos religiosos con autoridades"});
   if(hayF) cards.push({titulo:"Fincas inmatriculadas",valor:f,detalle:`${st} sin título · IBI est.: ${ibi?fmtEUR(ibi):"sin dato"}`});
+    [["capellanias",tarjetaCapellanias],["educacion",tarjetaEducacion]].forEach(([k])=>{
+    if(k==="capellanias"){ const rs=filtraColeccion(CAPELANIAS,prov);
+      if(rs.length){ const t=totColeccion(rs);
+        cards.push({titulo:"Capellanías", valor:t.n+" plazas",
+          detalle:`${fmtEUR(t.coste)} / año · sanitarias y militares · computa en eje 3`}); } }
+    else { const rs=filtraColeccion(EDUCACION,prov);
+      if(rs.length){ const t=totColeccion(rs);
+        cards.push({titulo:"Educación confesional", valor:t.n+" docentes/plazas",
+          detalle:`${fmtEUR(t.coste)} / año · profesorado y conciertos · computa en eje 3`}); } }
+  });
   return grid(cards,"Consulta cada eje para su desglose económico específico.");
 }
 
@@ -770,15 +932,17 @@ function kpiEje2(prov){
 function kpiEje3(prov){
   const reps=reportesDe(prov,3);
   const flujos=flujosDe(prov,3);
-  if(!reps.length) return grid([]);
+  const cards=[];
   const conv=reps.filter(r=>Array.isArray(r.importes)&&r.importes.length);
-  const coste=sumFlujos(flujos);
-  const capN=reps.filter(r=>(r.categorias||[]).includes("capellania")).length;
-  const capEUR=sumFlujos(flujosDe(prov,3),f=>f.programa==="Capellanías hospitalarias");
-  const cards=[{titulo:"Reportes",valor:reps.length,detalle:"Servicios y otras facetas"}];
-  if(conv.length) cards.push({titulo:"Convenios y ayudas",valor:conv.length,detalle:`Coste rastreado: ${fmtEUR(coste)}`});
-  if(capN) cards.push({titulo:"Capellanías",valor:capN,detalle:`Coste rastreado: ${fmtEUR(capEUR)}`});
-  return grid(cards,"Importes pendientes excluidos de las sumas.");
+  if(reps.length) cards.push({titulo:"Reportes",valor:reps.length,detalle:"Servicios y otras facetas"});
+  if(conv.length) cards.push({titulo:"Convenios y ayudas",valor:conv.length,detalle:`Coste rastreado: ${fmtEUR(sumFlujos(flujos))}`});
+  const cap=filtraColeccion(CAPELANIAS,prov), edu=filtraColeccion(EDUCACION,prov);
+  if(cap.length){ const t=totColeccion(cap);
+    cards.push({titulo:"Capellanías",valor:t.n+" plazas",detalle:`${fmtEUR(t.coste)} / año · incluido en las sumas de este eje`}); }
+  if(edu.length){ const t=totColeccion(edu);
+    cards.push({titulo:"Educación confesional",valor:t.n+" docentes/plazas",detalle:`${fmtEUR(t.coste)} / año · incluido en las sumas de este eje`}); }
+  if(!cards.length) return grid([]);
+  return grid(cards,"Importes pendientes excluidos de las sumas. Capellanías y educación tienen panel propio de lectura.");
 }
 
 function kpiEje4(prov){
@@ -833,6 +997,8 @@ function renderVista(){
     html+=panelPorciones(vistaProvincia);
     html+=panelConveniosVigentes(vistaProvincia, 2);
     html+=panelRankings(vistaProvincia);
+    html+=kpiGeneral(vistaProvincia)+resumenEconomico(vistaProvincia);
+    html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);      
    }else{
     const ejeNum=Number(vistaEje);
     let fnKPI;
@@ -844,7 +1010,9 @@ function renderVista(){
     }
     html+=fnKPI(vistaProvincia);
     html+=tarjetaDescartes(vistaProvincia, ejeNum);
-        if(ejeNum===2||ejeNum===3){
+        if(ejeNum===2||ejeNum===3)
+        if(ejeNum===3)
+      html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);{
       html+=panelFlujos(flujosDe(vistaProvincia,ejeNum), ejeNum===2?"Patrimonio (conservación + turismo)":"Servicios y otras facetas");
     }
     html+=panelConveniosVigentes(vistaProvincia, ejeNum);
