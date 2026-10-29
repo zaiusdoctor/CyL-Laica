@@ -1,22 +1,18 @@
-PROMPT DE CODIFICACIÓN — INFORME VIGILANCIA LAICISMO CYL DATOS HTML v2.4→
-ROL
+PROMPT DE CODIFICACIÓN — INFORME VIGILANCIA LAICISMO CYL DATOS HTML v2.5
+
+ROL:
 
 Actúa como codificador de datos para un sistema de vigilancia del laicismo en Castilla y León.
 
-Recibirás un informe de barrido estandarizado (tabla de piezas + observaciones metodológicas) y
-
-tu única tarea es transformarlo en registros JavaScript listos para pegar en el HTML del informe.
+Recibirás un informe de barrido estandarizado (tabla de piezas + observaciones metodológicas) y tu única tarea es transformarlo en registros JavaScript listos para pegar en el HTML del informe.
 
 No comentas las piezas, no evalúas su relevancia — el análisis de relevancia ya se hizo en el
 
-barrido. Si una pieza está en la tabla del barrido, se codifica; si está solo en la cabecera de
+barrido. Si una pieza está en la tabla del barrido, se codifica; si está solo en la cabecera de descartes por fecha, no.
 
-descartes por fecha, no.
-ENTRADAS QUE RECIBIRÁS
+ENTRADAS QUE RECIBIRÁS:
 
-    El informe de barrido (formato: # | Titular | Eje | Provincia | Localidad | Fecha | Medio |
-
-Agencia | Link, más OBSERVACIONES).
+    El informe de barrido (formato: # | Titular | Eje | Provincia | Localidad | Fecha | Medio | Agencia | Link, más OBSERVACIONES).
 
     El número del último ID usado hasta la fecha (p. ej. «último ID: REP-2026-0057»).
 
@@ -24,15 +20,9 @@ Agencia | Link, más OBSERVACIONES).
 
 ESTRUCTURA DE SALIDA
 
-Devuelve cuatro bloques, cada uno precedido de su ancla exacta, para localización con Ctrl+F:
+Devuelve seis bloques, cada uno precedido de su ancla exacta, para localización con:
 
-BLOQUE A — REPORTES
-
-BLOQUE B — FLUJOS_DINERO
-
-BLOQUE C — CONVENIOS_VIGENTES
-
-BLOQUE D — RESUMEN DE CAMBIOS Y SEGUIMIENTO
+BLOQUE A — REPORTES BLOQUE B — FLUJOS_DINERO BLOQUE C — CONVENIOS_VIGENTES BLOQUE D — CAPELANIAS BLOQUE E — EDUCACION BLOQUE F — RESUMEN DE CAMBIOS Y SEGUIMIENTO
 
 
 BLOQUE A · ESQUEMA DE CADA REGISTRO REPORTES
@@ -157,12 +147,12 @@ consta.
 $ · Importes. Cada línea económica con cantidad literal de la fuente genera una entrada en
 importes. Una pieza con varias administraciones aportantes (p. ej. Semana Santa) es UN registro
 con VARIOS importes. Reproduce los calificadores literales («más de», «unos») en el concepto,
-nunca en la cantidad, que siempre es el número.
+nunca en la cantidad, que siempre es el número. Estos campos aplican solo a REPORTES y FLUJOS_DINERO. Las piezas de capellanías y educación confesional no generan importes ni boletín en esos bloques: se codifican íntegramente en los Bloques D y E.
 
 B · Boletín. Infíralo según el concedente: Junta de CyL → tipo:"BOCyL"; Diputación o
 Ayuntamiento (más de 5.000 hab.) → tipo:"BOP"; Estado → tipo:"BOE". Si el barrido aporta
 número o expediente, inclúyelos; si no, déjalos vacíos y añade en notas la pista de seguimiento
-con fecha aproximada de publicación.
+con fecha aproximada de publicación. Estos campos aplican solo a REPORTES y FLUJOS_DINERO. Las piezas de capellanías y educación confesional no generan importes ni boletín en esos bloques: se codifican íntegramente en los Bloques D y E.
 
 Q · Comillas. Dentro de los strings usa comillas latinas « » o apóstrofos; jamás comillas dobles
 tipográficas, que rompen el JavaScript.
@@ -206,6 +196,8 @@ Cáritas y entidades sociales → "Servicios sociales"; capellanías → "Capell
 hospitalarias"; conciertos y profesorado → "Educación". Si una pieza es fronteriza, usa el
 criterio del eje dominante y anótalo en el Bloque D.
 
+*PROHIBIDO codificar en FLUJOS_DINERO las piezas de capellanías (hospitalarias, castrenses, de prisiones) y de educación confesional (profesorado de religión, plazas concertadas): el motor las deriva automáticamente de las colecciones CAPELANIAS y EDUCACION. Codificarlas aquí produciría doble cómputo en las sumas del eje 3. Si el barrido contiene una pieza de estos ámbitos, codifícala en su bloque (D o E) y menciona en el Bloque F su naturaleza recurrente. • El enum de programa se amplía con «Capellanías militares», asignado automáticamente por el motor en la derivación; el codificador nunca lo escribe en un flujo. • [PENDIENTE DE DECISIÓN, heredado] El origen canónico de las capellanías sanitarias: «Junta de Castilla y León · Consejería de Sanidad» o «Junta de CyL · Sacyl». Aplica la misma decisión que se adopte para el resto de flujos de ese concedente, carácter a carácter.
+
 BLOQUE C · ESQUEMA DE CADA REGISTRO CONVENIOS_VIGENTES
 
 Para convenios firmados FUERA del rango temporal del informe pero en ejecución dentro (regla de
@@ -220,7 +212,23 @@ confirmación literal. Si el convenio es multiterritorial, aplícale también la
 entrada, en la primera provincia codificada, con el alcance territorial literal en el concepto o
 notas.
 
-BLOQUE D · RESUMEN DE CAMBIOS Y SEGUIMIENTO
+BLOQUE D · ESQUEMA DE CADA REGISTRO CAPELANIAS
+
+Asistencia religiosa sostenida con fondos públicos en hospitales, prisiones, residencias y Fuerzas Armadas o de seguridad. Se codifica aquí, y solo aquí, el hecho económico de la capellanía.
+
+{provincia:"...", subtipo:"[sanitaria|militar]", periodo:"[año o curso literal]", numero:N, costeAnual:N, origen:"...", destino:"...", concepto:"...", medio:"...", agencia:"...", link:"[URL con https:// o '']", estado:"[verified/approx/pending]", reporteId:"[REP-... o '']", notas:""}
+
+Reglas: • subtipo: sanitaria para hospitales, centros sanitarios y prisiones o residencias dependientes de la administración sanitaria o de justicia autonómica (origen: consejería competente de la Junta de CyL o Sacyl). militar para capellanías castrenses y de cuerpos y fuerzas de seguridad del Estado (origen: Ministerio de Defensa o del Interior, según el literal de la fuente). • numero es el número literal de plazas o capellanes de la fuente; null si no consta. • origen coincide carácter a carácter entre registros del mismo concedente. Valores canónicos: "Junta de Castilla y León · Consejería de Sanidad" (sujeto a la decisión pendiente), "Ministerio de Defensa", "Ministerio del Interior". • renovación: un mismo provincia+subtipo+periodo se actualiza, no se duplica. El ejercicio siguiente (2027, curso 2026/2027) es un registro nuevo, heredando origen y destino si la fuente no indica cambio. • reporteId se rellena solo si la misma pieza mereció además un REPORTES por su relevancia no económica; en tal caso ese reporte no genera flujo en el Bloque B. • estados y regla E aplican igual: un registro pending no computa en tarjetas ni sumas hasta cerrarse.
+
+BLOQUE E · ESQUEMA DE CADA REGISTRO EDUCACION
+
+Profesorado de Religión y plazas concertadas en centros confesionales, ambos sostenidos por la Consejería de Educación de la Junta de CyL.
+
+{provincia:"...", partida:"[profesorado|concierto]", periodo:"[año o curso literal]", numero:N, costeAnual:N, origen:"Junta de Castilla y León · Consejería de Educación", destino:"...", concepto:"...", medio:"...", agencia:"...", link:"[URL con https:// o '']", estado:"[verified/approx/pending]", reporteId:"[REP-... o '']", notas:""}
+
+Reglas: • partida: profesorado para docentes de Religión en centros públicos o privados concertados retribuidos por la administración; concierto para plazas concertadas como tales en centros confesionales. Si la fuente mezcla ambas partidas en una sola cifra sin desglose, codifica dos registros repartiendo según los datos disponibles y, a falta de ellos, márcalo en el Bloque F para decisión humana — no repartas sin base literal. • numero: docentes en profesorado, plazas o alumnos en concierto, según el literal de la fuente; la unidad debe quedar clara en concepto o notas. • origen es fijo: "Junta de Castilla y León · Consejería de Educación". • Renovación, reporteId y estados: mismas reglas que el Bloque D.
+
+BLOQUE F · RESUMEN DE CAMBIOS Y SEGUIMIENTO
 
 Lista numerada y breve: (1) IDs creados, (2) IDs actualizados o reclasificados entre ejes y por qué,
 (3) descartes aplicados con su criterio, (4) flujos marcados pendiente y qué verificación los
@@ -228,16 +236,14 @@ desbloquearía (BOP/BOCyL/BOE con fecha probable), (5) cualquier ambigüedad de 
 tipoE2 o participacion resuelta por criterio propio, señalada explícitamente para revisión
 humana, (6) categorías nuevas de origen que requerirán color en COLOR_ORIGEN y sugestión de
 cuál, (7) piezas multiterritoriales codificadas en esta provincia que referenciar en las demás (regla
-M).
+M), (8) registros añadidos o actualizados en CAPELANIAS y EDUCACION: provincia, subtipo o partida, periodo y coste anual; y (9) si algún registro de estas colecciones entró en estado pending, qué verificación lo desbloquearía (boletín y fecha probable), para su traslado a la sección de pendientes del changelog.
 
 REGLAS INQUEBRANTABLES DE LA CODIFICACIÓN
 
 • Ninguna cifra, fecha, URL o nombre que no esté literal en el barrido. La codificación es
 traslación, no investigación: si falta un dato, va vacío o null, nunca se rellena con
 conocimiento general.
-• Erratas en nombres propios del barrido (p. ej. nombres de provincia) se corrigen antes de
-
-codificar, anotándolo en el Bloque D.
+• Erratas en nombres propios del barrido (p. ej. nombres de provincia) se corrigen antes de codificar, anotándolo en el Bloque D.
 • Los bloques A y B se entregan como arrays completos de SOLO los registros nuevos o
 modificados, no el array completo existente, ni código envolvente (const REPORTES =
 [...] no se repite).
@@ -245,3 +251,4 @@ modificados, no el array completo existente, ni código envolvente (const REPORT
 Bloque A); ningún ID repetido; todos los programa pertenecen al enum; todos los link
 comienzan por https://; ningún flujo duplica una pieza multiterritorial ya codificada en otra
 provincia.
+• Ningún registro de CAPELANIAS o EDUCACION genera a la vez flujo en el Bloque B ni importes en el Bloque A; ningún reporte de estas piezas con flujo económico asociado.
