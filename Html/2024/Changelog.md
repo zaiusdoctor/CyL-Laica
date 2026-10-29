@@ -9,9 +9,16 @@ Archivo de datos: Informe-laicismo-CYL-2024.html · Motor: madre v2.4
 No hay registros de eje 1 y 4, se podrían buscar completar.
 Verificar con barrido posibles subvenciones de diputación y Ayuntamiento de Ávila en 2024
 
+Verifivar la subvención "comarcal" de Burgos.
+
 
 ---
 
+## 29-10-2026 · Carga de datos — Burgos Ejes 2 y 3 reportes y flujos
+
+**Añadidos**
+
+Reportes 0042-0098 Ejes 2 y 3 y flujos.
 
 ## 29-10-2026 · Carga de datos — Ávila Ejes 2 y 3 reportes y flujos
 
