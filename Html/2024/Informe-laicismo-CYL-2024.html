@@ -139,6 +139,7 @@ const COLOR_ORIGEN = {
   "Junta de Castilla y León":"#c02626",
   "Ayuntamientos":"#4fc3f7",
   "Diputaciones":"#c77700",
+  "Estado":"#F1BF00",
   
   /* --- LEÓN (ya definidos en tu lista) --- */
   "Ayuntamiento de León":"#8e1b3f",
@@ -421,6 +422,88 @@ function desglose(reps){
     +ordenados.map(fichaReporte).join("")+`</section>`;
 }
 
+/* ---------- V · Vista agregada (CYL) ---------- */
+const ETIQ_GRU = {
+  OR:"Órdenes religiosas católicas",
+  ID:"Iglesia católica diocesana",
+  EC:"Entidades confesionales católicas",
+  MIX:"Entidades mixtas",
+  EV:"Iglesias evangélicas",
+  JU:"Comunidades judías",
+  IS:"Comunidades islámicas",
+  HI:"Hinduistas",
+  ORT:"Ortodoxos",
+  BU:"Budistas",
+  OC:"Otras confesiones"
+};
+
+/* Retrofit provisional: GRU de los destinos de Ávila ya codificados.
+   Se irá vaciando a medida que las provincias nuevas lleven gru: en el propio flujo. */
+const GRU_DESTINO = {
+  "Benedictinas - Abadía de la Santísima Trinidad":"OR",
+  "Hijas de la Caridad - Colegio La Milagrosa":"OR",
+  "Siervas del Evangelio - Casa Nazaret":"OR",
+  "Esclavas de la Virgen - Villa Santa Teresa":"OR",
+  "Esclavas Virgen Dolorosa - Villa Santa Teresa":"OR",
+  "Salesianos - Seminario Menor":"OR",
+  "Carmelitas - Convento Santa Teresa":"OR",
+  "Carmelitas - Convento Madre de Dios":"OR",
+  "Teresianas - Convento":"OR",
+  "Fundación Diocesana de Enseñanza Obispo Santos Moro":"ID",
+  "Diócesis":"ID",
+  "Universidad Católica Santa Teresa de Jesús - Obispado":"ID",
+  "Centro de Educación Especial Santa Teresa":"ID",
+  "Colegios Diocesanos - CD":"ID",
+  "Parroquia San Nicolás de Bari":"ID",
+  "Parroquia San Cipriano":"ID",
+  "Parroquia de la Asunción":"ID",
+  "Parroquia de San Sebastián":"ID",
+  "Junta de Cofradías":"EC",
+  "Cáritas":"ID",
+  "Banco de Alimentos":"EC"
+};
+
+function origenGeneral(f){
+  const o=f.origen||"";
+  if(o==="Junta de Castilla y León") return "Junta de Castilla y León";
+  if(o.indexOf("M. de ")===0 || o.indexOf("Ministerio")===0) return "Estado";
+  const m=o.match(/^(?:Ayuntamiento|Diputación) de (.+?)(?: ·|$)/);
+  if(m) return m[1].trim()+" (local)";
+  if(o==="Comarca") return "Comarcas";
+  return o;
+}
+function gruDe(f){
+  if(f.gru) return f.gru;
+  return GRU_DESTINO[f.destino]||"OC";
+}
+function destinoGeneral(f){
+  return ETIQ_GRU[gruDe(f)] || f.destino;
+}
+function colorDeOrigen(o){
+  if(COLOR_ORIGEN[o]) return COLOR_ORIGEN[o];
+  if(o.indexOf("(local)")>0){
+    const prov=o.replace(" (local)","");
+    return COLOR_ORIGEN["Diputación de "+prov]||"#6f6a7c";
+  }
+  return "#6f6a7c";
+}
+function flujosAgregados(flujos){
+  const acc={};
+  flujos.forEach(f=>{
+    const og=origenGeneral(f), dg=destinoGeneral(f);
+    const clave=og+"→"+dg+"|"+f.eje+"|"+(f.programa||"")+"|"+(f.pendiente?"p":"ok");
+    acc[clave]=acc[clave]||{
+      provincia:f.provincia, eje:f.eje, tipoE2:f.tipoE2, programa:f.programa||"",
+      origen:og, destino:dg, cantidad:0, reporteId:"", pendiente:!!f.pendiente, n:0
+    };
+    acc[clave].cantidad+=f.cantidad;
+    acc[clave].n++;
+  });
+  return Object.values(acc).map(a=>({
+    ...a, concepto:a.n+" línea(s) de subvención agregada(s)"
+  }));
+}
+
 function sankeySVG(flujos){
   if(!flujos.length) return "";
   const oTot={}, dTot={};
@@ -429,21 +512,42 @@ function sankeySVG(flujos){
   const dKeys=Object.keys(dTot).sort((a,b)=>dTot[b]-dTot[a]);
   const W=920, xIzq=235, xDer=690, anchoNodo=16, gap=16, margenSup=34, alturaUtil=380;
   const granMax=Math.max(...Object.values(oTot),...Object.values(dTot));
-  const h=q=>Math.max(5,q/granMax*alturaUtil);
-  let y=margenSup,maxY=0; const oPos={};
-  oKeys.forEach(k=>{const hh=h(oTot[k]); oPos[k]={y,h:hh}; y+=hh+gap;});
+  const minFlowH=5;
+
+  /* 1 · Altura de cada cinta (con mínimo de legibilidad).
+     El importe mostrado sigue siendo el literal; la altura es solo geometría. */
+  const fhFlow=f=>Math.max(minFlowH, f.cantidad/granMax*alturaUtil);
+
+  /* 2 · DECLARADAS ANTES DE USARSE: altura de cada nodo = suma de sus cintas.
+     Así nunca hay desborde ni necesidad de clamp. */
+  const oNodeH={}, dNodeH={};
+  oKeys.forEach(k=>oNodeH[k]=0);
+  dKeys.forEach(k=>dNodeH[k]=0);
+  flujos.forEach(f=>{
+    oNodeH[f.origen]+=fhFlow(f);
+    dNodeH[f.destino]+=fhFlow(f);
+  });
+
+  /* 3 · Posiciones verticales de los nodos */
+  let y=margenSup, maxY=0;
+  const oPos={};
+  oKeys.forEach(k=>{ oPos[k]={y:y, h:oNodeH[k]}; y+=oNodeH[k]+gap; });
   maxY=Math.max(maxY,y);
-  y=margenSup; const dPos={};
-  dKeys.forEach(k=>{const hh=h(dTot[k]); dPos[k]={y,h:hh}; y+=hh+gap;});
+  y=margenSup;
+  const dPos={};
+  dKeys.forEach(k=>{ dPos[k]={y:y, h:dNodeH[k]}; y+=dNodeH[k]+gap; });
   maxY=Math.max(maxY,y);
   const H=maxY+46;
+
+  /* 4 · Acumuladores de apilado dentro de cada nodo (declarados antes de los forEach de cintas) */
   const oOff={}, dOff={};
   oKeys.forEach(k=>oOff[k]=oPos[k].y);
   dKeys.forEach(k=>dOff[k]=dPos[k].y);
+
   let cintas="";
   flujos.forEach(f=>{
-    const fh=Math.max(2,f.cantidad/granMax*alturaUtil);
-    const y1=oOff[f.origen]; oOff[f.origen]+=fh;
+    const fh=fhFlow(f);
+    const y1=oOff[f.origen];  oOff[f.origen]+=fh;
     const y2=dOff[f.destino]; dOff[f.destino]+=fh;
     const xm=(xIzq+xDer)/2;
     const color=COLOR_ORIGEN[f.origen]||"#6f6a7c";
@@ -451,6 +555,7 @@ function sankeySVG(flujos){
     cintas+=`<path d="M${xIzq+anchoNodo},${y1} C${xm},${y1} ${xm},${y2} ${xDer},${y2} L${xDer},${y2+fh} C${xm},${y2+fh} ${xm},${y1+fh} ${xIzq+anchoNodo},${y1+fh} Z"
       fill="${color}" opacity="${op}"><title>${esc(f.origen)} → ${esc(f.destino)}: ${fmtEUR(f.cantidad)} — ${esc(f.concepto||"")}${f.pendiente?" ⚠ PENDIENTE de verificación":""}</title></path>`;
   });
+
   let nodos="";
   oKeys.forEach(k=>{
     const color=COLOR_ORIGEN[k]||"#6f6a7c";
@@ -467,7 +572,9 @@ function sankeySVG(flujos){
     <text x="${xDer}" y="14" font-size="10.5" font-weight="600" fill="#6f6a7c" letter-spacing="1" text-anchor="end">ENTIDAD DESTINATARIA</text>`;
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Diagrama de flujos">${cab}${cintas}${nodos}</svg>`;
 }
-function panelFlujos(flujos, tituloExtra){
+
+function panelFlujos(fl, tituloExtra){
+  const flujos = (vistaProvincia==="CYL") ? flujosAgregados(fl) : fl;
   if(!flujos.length) return "";
   const totalOK=sumFlujos(flujos);
   const totalPend=flujos.filter(f=>f.pendiente).reduce((a,f)=>a+f.cantidad,0);
@@ -684,17 +791,19 @@ function panelPorciones(prov){
   const porPrograma={}, porAdmin={};
   fl.forEach(f=>{
     porPrograma[f.programa]=(porPrograma[f.programa]||0)+f.cantidad;
-        const clave = (prov==="CYL") ? agruparPorTipo(f.origen) : f.origen;
+    const clave = (prov==="CYL") ? origenGeneral(f) : f.origen;
     porAdmin[clave]=(porAdmin[clave]||0)+f.cantidad;
   });
   const dProg=Object.entries(porPrograma).map(([nombre,valor])=>({nombre,valor}))
     .sort((a,b)=>b.valor-a.valor);
   const dAdm=Object.entries(porAdmin).map(([nombre,valor])=>({nombre,valor}))
     .sort((a,b)=>b.valor-a.valor);
+  const coloresAdmin={};
+  Object.keys(porAdmin).forEach(k=>coloresAdmin[k]=colorDeOrigen(k));
   return `<section class="panel"><h2>Reparto del dinero rastreado</h2>
   <div class="porciones-cajas">
     <div><h3 style="font-size:.85rem;margin-bottom:10px">Por tipo de programa</h3>${porcionSVG(dProg,COLOR_PROGRAMA)}</div>
-    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por administración otorgante</h3>${porcionSVG(dAdm,COLOR_ORIGEN)}</div>
+    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por administración otorgante</h3>${porcionSVG(dAdm,coloresAdmin)}</div>
   </div>
   <p class="nota-panel">Porcentajes sobre ${fmtEUR(dProg.reduce((a,d)=>a+d.valor,0))} rastreados (excluye pendientes y descartados).</p></section>`;
 }
