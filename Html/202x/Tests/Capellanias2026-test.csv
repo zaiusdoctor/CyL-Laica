@@ -1,0 +1,46 @@
+provincia;subtipo;periodo;numero;coste_anual;origen;destino;concepto;fuente;link;estado;reporte_id;notas
+Ávila;sanitaria;2026;1;18000;Junta de CyL · Sacyl;Complejo Asistencial de Ávila;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Ávila;sanitaria;2026;1;9500;Junta de CyL · Sacyl;Hospital Nuestra Señora de Sonsoles;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Ávila;sanitaria;2026;1;8500;Junta de CyL · Sacyl;Centro de Salud Mental de Ávila;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Ávila;militar;2026;1;22000;Ministerio de Defensa;Capellanía castrense de Ávila;Capellanía castrense — jornada completa;BOE;;verified;;
+Ávila;militar;2026;;11000;Ministerio del Interior;Centro Penitenciario de Ávila;Capellanía de prisiones — media jornada;BOE;;pending;;Coste 2026 sin confirmar; la cifra procede de la partida homóloga de 2025
+Burgos;sanitaria;2026;2;36000;Junta de CyL · Sacyl;Hospital Universitario de Burgos;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Burgos;sanitaria;2026;1;12000;Junta de CyL · Sacyl;Hospital Santos Reyes (Aranda de Duero);Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Burgos;sanitaria;2026;1;10000;Junta de CyL · Sacyl;Hospital Santiago Apóstol (Miranda de Ebro);Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Burgos;militar;2026;1;24000;Ministerio de Defensa;Capellanía castrense de Burgos;Capellanía castrense — jornada completa;BOE;;verified;;
+Burgos;militar;2026;1;12000;Ministerio del Interior;Centro Penitenciario de Burgos;Capellanía de prisiones — media jornada;BOE;;approx;;Coste anual estimado a partir del contrato de 2025
+León;sanitaria;2026;2;34000;Junta de CyL · Sacyl;Complejo Asistencial Universitario de León;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+León;sanitaria;2026;1;9000;Junta de CyL · Sacyl;Hospital Comarcal de Ponferrada;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+León;militar;2026;1;23000;Ministerio de Defensa;Capellanía castrense de León;Capellanía castrense — jornada completa;BOE;;verified;;
+León;militar;2026;1;23000;Ministerio de Defensa;Capellanía castrense de León;Capellanía castrense — jornada completa;BOE;;verified;;
+León;militar;2026;1;11500;Ministerio del Interior;Centro Penitenciario de León;Capellanía de prisiones — media jornada;BOE;;pending;;Coste 2026 pendiente de confirmación por el Ministerio
+Palencia;sanitaria;2026;1;18500;Junta de CyL · Sacyl;Hospital Universitario de Palencia;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Palencia;sanitaria;2026;1;9200;Junta de CyL · Sacyl;Hospital San Telmo;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Palencia;sanitaria;2026;;;Junta de CyL · Sacyl;Centro de Salud Mental de Palencia;Capellanía hospitalaria — media jornada;Consejería de Sanidad (respuesta a solicitud de información);;pending;;Coste no desglosado en la respuesta; plaza compartida con la del hospital
+Palencia;militar;2026;1;22500;Ministerio de Defensa;Capellanía castrense de Palencia;Capellanía castrense — jornada completa;BOE;;verified;;
+Palencia;militar;2026;1;11500;Ministerio del Interior;Centro Penitenciario de Dueñas;Capellanía de prisiones — media jornada;BOE;;approx;;Coste anual estimado; sin desglose de jornada en la fuente
+Salamanca;sanitaria;2026;3;52000;Junta de CyL · Sacyl;Complejo Asistencial Universitario de Salamanca;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Salamanca;sanitaria;2026;1;10000;Junta de CyL · Sacyl;Hospital Virgen de la Vega;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Salamanca;sanitaria;2026;1;9500;Junta de CyL · Sacyl;Hospital Clínico Universitario de Salamanca;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Salamanca;militar;2026;1;24500;Ministerio de Defensa;Capellanía castrense de Salamanca;Capellanía castrense — jornada completa;BOE;;verified;;
+Salamanca;militar;2026;1;12000;Ministerio del Interior;Centro Penitenciario de Salamanca;Capellanía de prisiones — media jornada;BOE;;verified;;
+Segovia;sanitaria;2026;1;18000;Junta de CyL · Sacyl;Hospital General de Segovia;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Segovia;sanitaria;2026;1;9000;Junta de CyL · Sacyl;Centro de Salud Mental de Segovia;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Segovia;sanitaria;2026;1;8800;Junta de CyL · Sacyl;Hospital Nuestra Señora de la Misericordia;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Segovia;militar;2026;1;22000;Ministerio de Defensa;Capellanía castrense de Segovia;Capellanía castrense — jornada completa;BOE;;verified;;
+Segovia;militar;2026;1;11000;Ministerio del Interior;Centro Penitenciario de Segovia;Capellanía de prisiones — media jornada;BOE;;pending;;Sin confirmación del coste para el ejercicio 2026
+Soria;sanitaria;2026;1;17500;Junta de CyL · Sacyl;Complejo Asistencial de Soria;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Soria;sanitaria;2026;1;8900;Junta de CyL · Sacyl;Centro de Salud Mental de Soria;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Soria;sanitaria;2026;1;8600;Junta de CyL · Sacyl;Hospital Santa Isabel (Almazán);Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Soria;militar;2026;1;21500;Ministerio de Defensa;Capellanía castrense de Soria;Capellanía castrense — jornada completa;BOE;;verified;;
+Soria;militar;2026;1;10500;Ministerio del Interior;Centro Penitenciario de Soria;Capellanía de prisiones — media jornada;BOE;;approx;;Coste anual estimado por extrapolación del ejercicio anterior
+Valladolid;sanitaria;2026;3;56000;Junta de CyL · Sacyl;Hospital Clínico Universitario de Valladolid;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Valladolid;sanitaria;2026;1;12500;Junta de CyL · Sacyl;Hospital Río Hortega;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Valladolid;sanitaria;2026;1;9800;Junta de CyL · Sacyl;Hospital de Medina del Campo;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Valladolid;militar;2026;2;48000;Ministerio de Defensa;Capellanía castrense de Valladolid;Capellanía castrense — jornada completa;BOE;;verified;;
+Valladolid;militar;2026;1;12500;Ministerio del Interior;Centro Penitenciario de Valladolid;Capellanía de prisiones — media jornada;BOE;;verified;;
+Zamora;sanitaria;2026;1;17800;Junta de CyL · Sacyl;Complejo Asistencial de Zamora;Capellanía hospitalaria — jornada completa;BOCyL;;verified;;
+Zamora;sanitaria;2026;1;8900;Junta de CyL · Sacyl;Centro de Salud Mental de Zamora;Capellanía hospitalaria — media jornada;BOCyL;;verified;;
+Zamora;sanitaria;2026;1;8400;Junta de CyL · Sacyl;Hospital Comarcal de Benavente;Capellanía hospitalaria — media jornada;BOCyL;;approx;;Coste anual aproximado; cifra redondeada por la fuente
+Zamora;militar;2026;1;21800;Ministerio de Defensa;Capellanía castrense de Zamora;Capellanía castrense — jornada completa;BOE;;verified;;
+Zamora;militar;2026;1;10800;Ministerio del Interior;Centro Penitenciario de Zamora;Capellanía de prisiones — media jornada;BOE;;pending;;A la espera de la respuesta a la solicitud de información
