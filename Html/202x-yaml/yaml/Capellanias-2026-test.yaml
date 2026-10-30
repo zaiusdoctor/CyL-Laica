@@ -1,0 +1,552 @@
+# esquema: 1.0
+# capellanias.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
+# 45 registros · 9 provincias · duplicado sembrado en León (CAP-0013/CAP-0014)
+
+- id: CYL-2026-CAP-0001
+  provincia: Ávila
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 18000
+  origen: Junta de CyL · Sacyl
+  destino: Complejo Asistencial de Ávila
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0002
+  provincia: Ávila
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9500
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Nuestra Señora de Sonsoles
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0003
+  provincia: Ávila
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8500
+  origen: Junta de CyL · Sacyl
+  destino: Centro de Salud Mental de Ávila
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0004
+  provincia: Ávila
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 22000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Ávila
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0005
+  provincia: Ávila
+  estado: pending
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 11000
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Ávila
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Coste 2026 sin confirmar; la cifra procede de la partida homóloga de 2025
+
+- id: CYL-2026-CAP-0006
+  provincia: Burgos
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 2
+  coste_anual: 36000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Universitario de Burgos
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0007
+  provincia: Burgos
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 12000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Santos Reyes (Aranda de Duero)
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0008
+  provincia: Burgos
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 10000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Santiago Apóstol (Miranda de Ebro)
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0009
+  provincia: Burgos
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 24000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Burgos
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0010
+  provincia: Burgos
+  estado: approx
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 12000
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Burgos
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Coste anual estimado a partir del contrato de 2025
+
+- id: CYL-2026-CAP-0011
+  provincia: León
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 2
+  coste_anual: 34000
+  origen: Junta de CyL · Sacyl
+  destino: Complejo Asistencial Universitario de León
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0012
+  provincia: León
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Comarcal de Ponferrada
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0013
+  provincia: León
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 23000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de León
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0014
+  provincia: León
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 23000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de León
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+  notas: DUPLICADO SEMBRADO PARA PRUEBA — misma clave natural provincia+subtipo+periodo; el validador debe distinguir renovación (periodo distinto) de duplicado real
+
+- id: CYL-2026-CAP-0015
+  provincia: León
+  estado: pending
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 11500
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de León
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Coste 2026 pendiente de confirmación por el Ministerio
+
+- id: CYL-2026-CAP-0016
+  provincia: Palencia
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 18500
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Universitario de Palencia
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0017
+  provincia: Palencia
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9200
+  origen: Junta de CyL · Sacyl
+  destino: Hospital San Telmo
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0018
+  provincia: Palencia
+  estado: pending
+  subtipo: sanitaria
+  periodo: 2026
+  origen: Junta de CyL · Sacyl
+  destino: Centro de Salud Mental de Palencia
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: Consejería de Sanidad (respuesta a solicitud de información)
+  notas: Coste no desglosado en la respuesta; plaza compartida con la del hospital
+
+- id: CYL-2026-CAP-0019
+  provincia: Palencia
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 22500
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Palencia
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0020
+  provincia: Palencia
+  estado: approx
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 11500
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Dueñas
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Coste anual estimado; sin desglose de jornada en la fuente
+
+- id: CYL-2026-CAP-0021
+  provincia: Salamanca
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 3
+  coste_anual: 52000
+  origen: Junta de CyL · Sacyl
+  destino: Complejo Asistencial Universitario de Salamanca
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0022
+  provincia: Salamanca
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 10000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Virgen de la Vega
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0023
+  provincia: Salamanca
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9500
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Clínico Universitario de Salamanca
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0024
+  provincia: Salamanca
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 24500
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Salamanca
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0025
+  provincia: Salamanca
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 12000
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Salamanca
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+
+- id: CYL-2026-CAP-0026
+  provincia: Segovia
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 18000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital General de Segovia
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0027
+  provincia: Segovia
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9000
+  origen: Junta de CyL · Sacyl
+  destino: Centro de Salud Mental de Segovia
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0028
+  provincia: Segovia
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8800
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Nuestra Señora de la Misericordia
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0029
+  provincia: Segovia
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 22000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Segovia
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0030
+  provincia: Segovia
+  estado: pending
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 11000
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Segovia
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Sin confirmación del coste para el ejercicio 2026
+
+- id: CYL-2026-CAP-0031
+  provincia: Soria
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 17500
+  origen: Junta de CyL · Sacyl
+  destino: Complejo Asistencial de Soria
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0032
+  provincia: Soria
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8900
+  origen: Junta de CyL · Sacyl
+  destino: Centro de Salud Mental de Soria
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0033
+  provincia: Soria
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8600
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Santa Isabel (Almazán)
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0034
+  provincia: Soria
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 21500
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Soria
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0035
+  provincia: Soria
+  estado: approx
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 10500
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Soria
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: Coste anual estimado por extrapolación del ejercicio anterior
+
+- id: CYL-2026-CAP-0036
+  provincia: Valladolid
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 3
+  coste_anual: 56000
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Clínico Universitario de Valladolid
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0037
+  provincia: Valladolid
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 12500
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Río Hortega
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0038
+  provincia: Valladolid
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 9800
+  origen: Junta de CyL · Sacyl
+  destino: Hospital de Medina del Campo
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0039
+  provincia: Valladolid
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 2
+  coste_anual: 48000
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Valladolid
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+  notas: numero 2 plazas; coste anual es el total, no el unitario — el motor no debe duplicar al derivar flujos
+
+- id: CYL-2026-CAP-0040
+  provincia: Valladolid
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 12500
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Valladolid
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+
+- id: CYL-2026-CAP-0041
+  provincia: Zamora
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 17800
+  origen: Junta de CyL · Sacyl
+  destino: Complejo Asistencial de Zamora
+  concepto: Capellanía hospitalaria — jornada completa
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0042
+  provincia: Zamora
+  estado: verified
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8900
+  origen: Junta de CyL · Sacyl
+  destino: Centro de Salud Mental de Zamora
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+
+- id: CYL-2026-CAP-0043
+  provincia: Zamora
+  estado: approx
+  subtipo: sanitaria
+  periodo: 2026
+  numero: 1
+  coste_anual: 8400
+  origen: Junta de CyL · Sacyl
+  destino: Hospital Comarcal de Benavente
+  concepto: Capellanía hospitalaria — media jornada
+  fuente: BOCyL
+  notas: Coste anual aproximado; cifra redondeada por la fuente
+
+- id: CYL-2026-CAP-0044
+  provincia: Zamora
+  estado: verified
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 21800
+  origen: Ministerio de Defensa
+  destino: Capellanía castrense de Zamora
+  concepto: Capellanía castrense — jornada completa
+  fuente: BOE
+
+- id: CYL-2026-CAP-0045
+  provincia: Zamora
+  estado: pending
+  subtipo: militar
+  periodo: 2026
+  numero: 1
+  coste_anual: 10800
+  origen: Ministerio del Interior
+  destino: Centro Penitenciario de Zamora
+  concepto: Capellanía de prisiones — media jornada
+  fuente: BOE
+  notas: A la espera de la respuesta a la solicitud de información

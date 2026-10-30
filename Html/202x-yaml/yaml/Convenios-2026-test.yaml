@@ -1,0 +1,114 @@
+# esquema: 1.0
+# convenios.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
+# 9 registros · sin flujos, sin reportes, puramente contextuales
+
+- id: CYL-2026-CON-0001
+  provincia: Ávila
+  notas: Convenio plurianual firmado fuera de rango con anualidad en ejecución
+  tags: restauracion|plurianual
+  origen: Junta de Castilla y León
+  destino: Diócesis de Ávila
+  cantidad: 628915
+  concepto: Convenio plurianual de restauración de iglesias (3 anualidades)
+  fecha_firma: "[12/2025]"
+  pendiente: false
+
+- id: CYL-2026-CON-0002
+  provincia: Burgos
+  notas: Plan de restauración a gran escala
+  tags: restauracion|plan
+  origen: Diputación de Burgos
+  destino: Diócesis de Burgos
+  cantidad: 2000000
+  concepto: Marco de colaboración para el plan de restauración de templos
+  fecha_firma: 15/11/2025
+  pendiente: false
+
+- id: CYL-2026-CON-0003
+  provincia: León
+  notas: Capellanías sanitarias en centros Sacyl
+  tags: capellanias|sanitaria
+  origen: Junta de Castilla y León · Sacyl
+  destino: Diócesis de León
+  cantidad: 46000
+  concepto: Convenio de asistencia religiosa hospitalaria en centros de la provincia
+  fecha_firma: 03/11/2025
+  pendiente: false
+
+- id: CYL-2026-CON-0004
+  provincia: Palencia
+  notas: Convenio marco plurianual (2025-2028)
+  tags: caritas|convenio
+  origen: Diputación de Palencia
+  destino: Cáritas Diocesana de Palencia
+  cantidad: 70000
+  concepto: Convenio marco de colaboración en programas de inclusión social (vigencia 2025-2028)
+  fecha_firma: 22/07/2024
+  pendiente: false
+
+- id: CYL-2026-CON-0005
+  provincia: Salamanca
+  notas: Convenio de financiación canónica sin importe confirmado
+  tags: universidad|financiacion
+  origen: Junta de Castilla y León
+  destino: Universidad Pontificia de Salamanca
+  cantidad: 310000
+  concepto: Convenio plurianual de financiación de titulaciones canónicas
+  fecha_firma: "[10/2025]"
+  pendiente: true
+
+- id: CYL-2026-CON-0006
+  provincia: Segovia
+  notas: Renovable anualmente
+  tags: cofradias|semana-santa
+  origen: Ayuntamiento de Segovia
+  destino: Junta de Cofradías de Segovia
+  cantidad: 18500
+  concepto: Convenio anual de colaboración en Semana Santa (renovable)
+  fecha_firma: 29/01/2026
+  pendiente: false
+
+- id: CYL-2026-CON-0007
+  provincia: Soria
+  notas: Importe pendiente de publicación
+  tags: apertura-templos
+  origen: Junta de Castilla y León
+  destino: Diócesis de Osma-Soria
+  concepto: Convenio de apertura turística de templos, importe pendiente de publicación
+  fecha_firma: "[12/2025]"
+  pendiente: true
+
+- id: CYL-2026-CON-0008
+  provincia: Valladolid
+  notas: Patrimonio monumental diocesano
+  tags: patrimonio|monumental
+  origen: Ayuntamiento de Valladolid
+  destino: Arzobispado de Valladolid
+  cantidad: 350000
+  concepto: Convenio de conservación del patrimonio monumental de propiedad diocesana
+  fecha_firma: 18/12/2025
+  pendiente: true
+
+- id: CYL-2026-CON-0009
+  provincia: Zamora
+  notas: Conjunto catedralicio
+  tags: restauracion|catedral
+  origen: Diputación de Zamora
+  destino: Diócesis de Zamora
+  cantidad: 60000
+  concepto: Convenio de mantenimiento del conjunto catedralicio
+  fecha_firma: 09/10/2025
+  pendiente: false
+
+- id: CYL-2026-CON-0010
+  provincia: Salamanca
+  notas: Convenio marco autonómico firmado en Salamanca, alcance en dos provincias
+  tags: educacion|escuelas-catolicas
+  origen: Junta de Castilla y León
+  destino: Escuelas Católicas de Castilla y León
+  cantidad: 300000
+  concepto: Convenio marco autonómico de apoyo educativo (firmado en Salamanca, alcance en dos provincias)
+  fecha_firma: 12/11/2025
+  link: https://example.org/convenio-escuelas-catolicas-cyl
+  pendiente: false
+  alcance: Salamanca|Valladolid

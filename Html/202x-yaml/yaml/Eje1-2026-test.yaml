@@ -1,0 +1,706 @@
+# esquema: 1.0
+# eje1.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
+
+- id: CYL-2026-E1-0001
+  fecha: 10/01/2026
+  titular: Corporación municipal asiste a la misa de apertura del Año Jubilar Teresiano
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Ávilared
+  estado: verified
+  grupo: Actos con autoridades
+  tags: jubileo|presencia-institucional
+  notas: Caso sintético de prueba
+  fuente_oficial: BOCyL 9281
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcaldesa de Ávila
+  participacion: asistencia
+
+- id: CYL-2026-E1-0002
+  fecha: 28/02/2026
+  titular: Presentación institucional del cartel de Semana Santa con intervención del alcalde y el obispo
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Diario de Ávila
+  estado: verified
+  grupo: Semana Santa
+  tags: semana-santa|cartel
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Ávila
+  participacion: intervencion
+
+- id: CYL-2026-E1-0003
+  fecha: "[03/2026]"
+  titular: Pregón oficial de la Semana Santa pronunciado por el presidente de la Diputación
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Tribuna de Ávila
+  estado: approx
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  notas: Fecha de mes aproximado, día no precisado
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Ávila
+  participacion: intervencion
+
+- id: CYL-2026-E1-0004
+  fecha: 02/05/2026
+  titular: Corporación municipal acompaña la romería de San Segundo portando el pendón municipal
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Ávilared
+  link: https://example.org/romeria-san-segundo
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|pendon
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Ávila
+  participacion: intervencion
+
+- id: CYL-2026-E1-0005
+  fecha: 08/09/2026
+  titular: Presidente de la Junta preside la misa en el santuario de la Virgen de Sonsoles
+  provincia: Ávila
+  localidad: Ávila
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Actos con autoridades
+  tags: virgen-de-sonsoles|presencia-institucional
+  fuente_oficial: BOCyL 9304
+  eje: 1
+  admin: Junta
+  autoridad: Presidente de la Junta de Castilla y León
+  participacion: asistencia
+
+- id: CYL-2026-E1-0006
+  fecha: 22/03/2026
+  titular: Alcalde de Burgos pronuncia el discurso de apertura de la Semana Santa en el teatro Principal
+  provincia: Burgos
+  localidad: Burgos
+  fuente: Diario de Burgos
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Burgos
+  participacion: intervencion
+
+- id: CYL-2026-E1-0007
+  fecha: 29/03/2026
+  titular: Corporación municipal de Burgos asiste a la procesión del Domingo de Ramos en la catedral
+  provincia: Burgos
+  localidad: Burgos
+  fuente: Diario de Burgos
+  estado: verified
+  grupo: Semana Santa
+  tags: domingo-de-ramos|presencia-institucional
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Burgos
+  participacion: asistencia
+
+- id: CYL-2026-E1-0008
+  fecha: 20/06/2026
+  titular: Misa castrense organizada por el regimiento con asistencia de la plana mayor
+  provincia: Burgos
+  localidad: Burgos
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Actos militares
+  tags: misa-castrense|fuerzas-armadas
+  notas: "Caso esquina: Fuerzas Armadas como origen del acto"
+  fuente_oficial: BOE 8742
+  eje: 1
+  admin: Estado
+  autoridad: Coronel jefe del Regimiento de Artillería
+  participacion: organizacion
+
+- id: CYL-2026-E1-0009
+  fecha: 15/07/2026
+  titular: Junta de Cofradías recibida oficialmente en el salón de plenos antes del acto de exaltación
+  provincia: Burgos
+  localidad: Burgos
+  fuente: Diario de Burgos
+  estado: verified
+  grupo: Protocolo institucional
+  tags: cofradias|recepcion-oficial
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Concejal de Fiestas del Ayuntamiento de Burgos
+  participacion: protocolo
+
+- id: CYL-2026-E1-0010
+  fecha: 06/09/2026
+  titular: Concejales asisten a la misa de acción de gracias familiar en la parroquia de San Lesmes
+  provincia: Burgos
+  localidad: Burgos
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Actos con autoridades
+  tags: misa|familia
+  notas: Acto estrictamente privado sin representación institucional formal
+  descartado: si
+  motivo_descarte: Acto privado sin representación institucional
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Concejal del Ayuntamiento de Burgos
+  participacion: asistencia
+
+- id: CYL-2026-E1-0011
+  fecha: 04/05/2026
+  titular: Alcalde de León recibe al obispo en el arco de la Plaza Mayor antes de la procesión
+  provincia: León
+  localidad: León
+  fuente: Diario de León
+  estado: verified
+  grupo: Protocolo institucional
+  tags: recepcion-oficial|procesion
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de León
+  participacion: protocolo
+
+- id: CYL-2026-E1-0012
+  fecha: 28/03/2026
+  titular: Junta y Ayuntamiento participan conjuntamente en el pregón de la Semana Santa de León
+  provincia: León
+  localidad: León
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  notas: "Caso esquina: dos administraciones en un mismo acto"
+  eje: 1
+  admin: Junta|Ayuntamiento
+  autoridad: Delegado territorial de la Junta en León
+  participacion: intervencion
+
+- id: CYL-2026-E1-0013
+  fecha: 15/08/2026
+  titular: Comandante de la Guardia Civil asiste a la procesión de la Virgen del Camino
+  provincia: León
+  localidad: Virgen del Camino
+  fuente: La Nueva Crónica
+  estado: verified
+  grupo: Actos militares
+  tags: cuerpos-seguridad|procesion
+  notas: "Caso esquina: cuerpo de seguridad del Estado"
+  fuente_oficial: BOE 8911
+  eje: 1
+  admin: Estado
+  autoridad: Comandante jefe de la Comandancia de la Guardia Civil
+  participacion: asistencia
+
+- id: CYL-2026-E1-0014
+  fecha: 22/07/2026
+  titular: Diputación organiza el ciclo de música sacra en la catedral de León
+  provincia: León
+  localidad: León
+  fuente: Diario de León
+  estado: verified
+  grupo: Organización institucional
+  tags: musica-sacra|catedral
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de León
+  participacion: organizacion
+
+- id: CYL-2026-E1-0015
+  fecha: 19/07/2026?
+  titular: Consejero asiste a la misa bilingüe del Cristo del Mercado
+  provincia: León
+  localidad: León
+  fuente: El Norte de Castilla
+  estado: pending
+  grupo: Actos con autoridades
+  tags: misa|presencia-institucional
+  notas: "Discrepancia de fecha entre fuentes: 19 o 26 de julio"
+  eje: 1
+  admin: Junta
+  autoridad: Consejero de Presidencia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0016
+  fecha: 24/05/2026
+  titular: Alcaldesa de Palencia asiste a la procesión de la Virgen de la Calle
+  provincia: Palencia
+  localidad: Palencia
+  fuente: El Día de Palencia
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|presencia-institucional
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcaldesa de Palencia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0017
+  fecha: 12/04/2026
+  titular: Concejal de Fiestas lee la proclamación del pregón de Semana Santa
+  provincia: Palencia
+  localidad: Palencia
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Concejal de Fiestas del Ayuntamiento de Palencia
+  participacion: intervencion
+
+- id: CYL-2026-E1-0018
+  fecha: 08/09/2026
+  titular: Delegado territorial asiste a la misa de la Virgen de la Brezoza en Carrión
+  provincia: Palencia
+  localidad: Carrión de los Condes
+  fuente: Palentina Hoy
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|presencia-institucional
+  eje: 1
+  admin: Junta
+  autoridad: Delegado territorial de la Junta en Palencia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0019
+  fecha: 03/06/2026
+  titular: Presidente de la Diputación recibe la imagen del Cristo del Amparo en la diputación
+  provincia: Palencia
+  localidad: Palencia
+  fuente: El Día de Palencia
+  estado: verified
+  grupo: Protocolo institucional
+  tags: recepcion-oficial
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Palencia
+  participacion: protocolo
+
+- id: CYL-2026-E1-0020
+  fecha: "[06-07]/06/2026"
+  titular: Corporación municipal asiste a las misas de la novena del Corpus
+  provincia: Palencia
+  localidad: Palencia
+  fuente: El Día de Palencia
+  estado: approx
+  grupo: Actos con autoridades
+  tags: corpus|novena
+  notas: "Rango de días no precisado por la fuente"
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Palencia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0021
+  fecha: 21/03/2026
+  titular: Alcalde de Salamanca pronuncia el pregón de la Semana Santa charra
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Salamanca
+  participacion: intervencion
+
+- id: CYL-2026-E1-0022
+  fecha: 04/06/2026
+  titular: Corporación municipal completa asiste a la procesión del Corpus
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: La Gaceta de Salamanca
+  estado: verified
+  grupo: Actos con autoridades
+  tags: corpus|procesion
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Salamanca
+  participacion: asistencia
+
+- id: CYL-2026-E1-0023
+  fecha: 26/09/2026
+  titular: Presidente de la Junta asiste a la clausura eucarística del Encuentro Nacional de Cofradías
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: La Crónica de Salamanca
+  estado: verified
+  grupo: Actos con autoridades
+  tags: cofradias|clausura
+  eje: 1
+  admin: Junta
+  autoridad: Presidente de la Junta de Castilla y León
+  participacion: asistencia
+
+- id: CYL-2026-E1-0024
+  fecha: 14/09/2026
+  titular: Presidenta de la Diputación preside el acto de exaltación de la Virgen de la Peña
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: La Gaceta de Salamanca
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|presencia-institucional
+  eje: 1
+  admin: Diputación
+  autoridad: Presidenta de la Diputación de Salamanca
+  participacion: protocolo
+
+- id: CYL-2026-E1-0025
+  fecha: 24/09/2026?
+  titular: Consejera asiste a la inauguración de la exposición cofrade con el obispo
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  estado: pending
+  grupo: Actos con autoridades
+  tags: exposicion|cofradias
+  notas: "Discrepancia de fecha entre fuentes: 24 o 25 de septiembre"
+  eje: 1
+  admin: Junta
+  autoridad: Consejera de Cultura y Turismo
+  participacion: asistencia
+
+- id: CYL-2026-E1-0026
+  fecha: 14/03/2026
+  titular: Alcaldesa de Segovia pronuncia el pregón de la Semana Santa
+  provincia: Segovia
+  localidad: Segovia
+  fuente: El Adelantado de Segovia
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcaldesa de Segovia
+  participacion: intervencion
+
+- id: CYL-2026-E1-0027
+  fecha: 25/04/2026
+  titular: Corporación municipal asiste a las velas de San Frutos
+  provincia: Segovia
+  localidad: San Frutos
+  fuente: El Adelantado de Segovia
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|velas
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Segovia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0028
+  fecha: 13/09/2026
+  titular: Delegado territorial acompaña al obispo en la subasta de la Virgen del Rosario
+  provincia: Segovia
+  localidad: Cuéllar
+  fuente: El Adelantado de Segovia
+  estado: verified
+  grupo: Actos con autoridades
+  tags: subasta|romeria
+  eje: 1
+  admin: Junta
+  autoridad: Delegado territorial de la Junta en Segovia
+  participacion: protocolo
+
+- id: CYL-2026-E1-0029
+  fecha: 07/06/2026
+  titular: Presidente de la Diputación organiza la recepción institucional de la imagen de la Candelera
+  provincia: Segovia
+  localidad: Segovia
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Protocolo institucional
+  tags: recepcion-oficial
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Segovia
+  participacion: organizacion
+
+- id: CYL-2026-E1-0030
+  fecha: "[07/2026]"
+  titular: Teniente coronel jefe del acuartelamiento asiste a la misa de la patrona
+  provincia: Segovia
+  localidad: Segovia
+  fuente: El Adelantado de Segovia
+  estado: approx
+  grupo: Actos militares
+  tags: patrona|fuerzas-armadas
+  notas: Fecha de mes aproximado
+  eje: 1
+  admin: Estado
+  autoridad: Teniente coronel del Acuartelamiento de Segovia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0031
+  fecha: 21/03/2026
+  titular: Alcalde de Soria pronuncia el pregón de la Semana Santa
+  provincia: Soria
+  localidad: Soria
+  fuente: Heraldo de Soria
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Soria
+  participacion: intervencion
+
+- id: CYL-2026-E1-0032
+  fecha: 30/05/2026
+  titular: Consejero de Presidencia asiste a la procesión de las relicarias de San Saturio
+  provincia: Soria
+  localidad: Soria
+  fuente: desdeSoria
+  estado: verified
+  grupo: Actos con autoridades
+  tags: san-saturio|procesion
+  fuente_oficial: BOCyL 9415
+  eje: 1
+  admin: Junta
+  autoridad: Consejero de la Presidencia
+  participacion: asistencia
+
+- id: CYL-2026-E1-0033
+  fecha: 14/09/2026
+  titular: Corporación municipal asiste a la procesión de San Saturio
+  provincia: Soria
+  localidad: Soria
+  fuente: Heraldo de Soria
+  estado: verified
+  grupo: Actos con autoridades
+  tags: san-saturio|procesion
+  notas: DUPLICADO SEMBRADO PARA PRUEBA
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Soria
+  participacion: asistencia
+
+- id: CYL-2026-E1-0034
+  fecha: 14/09/2026
+  titular: Corporación municipal asiste a la procesión de San Saturio
+  provincia: Soria
+  localidad: Soria
+  fuente: desdeSoria
+  estado: verified
+  grupo: Actos con autoridades
+  tags: san-saturio|procesion
+  notas: DUPLICADO SEMBRADO PARA PRUEBA — mismo acto recogido por dos medios con ids distintos
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Soria
+  participacion: asistencia
+
+- id: CYL-2026-E1-0035
+  fecha: 25/07/2026
+  titular: Sargento de la Guardia Civil asiste a la romería de la Virgen del Monte
+  provincia: Soria
+  localidad: Monteagudo de las Vicarías
+  fuente: Heraldo de Soria
+  estado: verified
+  grupo: Actos militares
+  tags: cuerpos-seguridad|romeria
+  eje: 1
+  admin: Estado
+  autoridad: Sargento del Puesto de la Guardia Civil
+  participacion: asistencia
+
+- id: CYL-2026-E1-0036
+  fecha: 19/09/2026
+  titular: Alcalde y concejal asisten a la procesión de clausura del Año Jubilar Franciscano
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: Glorias de Valladolid
+  link: https://example.org/clausura-jubileo-franciscano
+  estado: verified
+  grupo: Actos con autoridades
+  tags: jubileo|clausura
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Valladolid
+  participacion: asistencia
+
+- id: CYL-2026-E1-0037
+  fecha: 28/03/2026
+  titular: Alcalde de Valladolid pronuncia el pregón de la Semana Santa en la iglesia de la Pasión
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcalde de Valladolid
+  participacion: intervencion
+
+- id: CYL-2026-E1-0038
+  fecha: 22/01/2026
+  titular: Corporación municipal asiste a la misa de San Vicente Mártir en la iglesia de la Magdalena
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Actos con autoridades
+  tags: san-vicente|misa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Valladolid
+  participacion: asistencia
+
+- id: CYL-2026-E1-0039
+  fecha: 12/05/2026
+  titular: Presidente de la Diputación recibe al arzobispo en la Casa Consistorial antes del Corpus
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: Diario de Valladolid
+  estado: verified
+  grupo: Protocolo institucional
+  tags: recepcion-oficial|corpus
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Valladolid
+  participacion: protocolo
+
+- id: CYL-2026-E1-0040
+  fecha: "[08-09]/08/2026"
+  titular: Concejal de Fiestas asiste a la novena de la Virgen de San Lorenzo
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: Diario de Valladolid
+  estado: approx
+  grupo: Actos con autoridades
+  tags: novena|presencia-institucional
+  notas: Rango de días no precisado
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Concejal de Fiestas del Ayuntamiento de Valladolid
+  participacion: asistencia
+
+- id: CYL-2026-E1-0041
+  fecha: 16/03/2026
+  titular: Alcaldesa de Zamora pronuncia el pregón de la Semana Santa
+  provincia: Zamora
+  localidad: Zamora
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|semana-santa
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Alcaldesa de Zamora
+  participacion: intervencion
+
+- id: CYL-2026-E1-0042
+  fecha: 13/06/2026
+  titular: Corporación municipal asiste a la procesión del Corpus Christi
+  provincia: Zamora
+  localidad: Zamora
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Actos con autoridades
+  tags: corpus|procesion
+  eje: 1
+  admin: Ayuntamiento
+  autoridad: Corporación municipal de Zamora
+  participacion: asistencia
+
+- id: CYL-2026-E1-0043
+  fecha: 08/09/2026
+  titular: Consejero de Cultura asiste a la misa de la Virgen del Tránsito y luego a la representación de la Hispanic
+  provincia: Zamora
+  localidad: Toroes
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Actos con autoridades
+  tags: hispanic|virgen-del-transito
+  eje: 1
+  admin: Junta
+  autoridad: Consejero de Cultura y Turismo
+  participacion: asistencia
+
+- id: CYL-2026-E1-0044
+  fecha: 04/05/2026
+  titular: Presidente de la Diputación preside el acto de ofrecimiento de flores a la Virgen del Moral
+  provincia: Zamora
+  localidad: Fermoselle
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Actos con autoridades
+  tags: romeria|ofrecimiento
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Zamora
+  participacion: protocolo
+
+- id: CYL-2026-E1-0045
+  fecha: "[09/2026]"
+  titular: Capitán de la Guardia Civil asiste a la romería del Cristo del Valle
+  provincia: Zamora
+  localidad: Alcañices
+  fuente: La Opinión de Zamora
+  estado: approx
+  grupo: Actos militares
+  tags: cuerpos-seguridad|romeria
+  notas: Fecha de mes aproximado
+  eje: 1
+  admin: Estado
+  autoridad: Capitán de la Comandancia de la Guardia Civil
+  participacion: asistencia
+
+- id: CYL-2026-E1-0046
+  fecha: 12/09/2026
+  titular: Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  link: https://example.org/encuentro-interprovincial
+  estado: verified
+  grupo: Actos con autoridades
+  tags: cofradias|encuentro-interprovincial
+  notas: "Pieza multiterritorial (regla M): mismo acto replicado en tres provincias"
+  alcance: Salamanca|Zamora|Ávila
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Salamanca
+  participacion: asistencia
+
+- id: CYL-2026-E1-0047
+  fecha: 12/09/2026
+  titular: Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones
+  provincia: Zamora
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  link: https://example.org/encuentro-interprovincial
+  estado: verified
+  grupo: Actos con autoridades
+  tags: cofradias|encuentro-interprovincial
+  notas: "Pieza multiterritorial (regla M): mismo acto replicado en tres provincias"
+  alcance: Salamanca|Zamora|Ávila
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Zamora
+  participacion: asistencia
+
+- id: CYL-2026-E1-0048
+  fecha: 12/09/2026
+  titular: Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones
+  provincia: Ávila
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  link: https://example.org/encuentro-interprovincial
+  estado: verified
+  grupo: Actos con autoridades
+  tags: cofradias|encuentro-interprovincial
+  notas: "Pieza multiterritorial (regla M): mismo acto replicado en tres provincias"
+  alcance: Salamanca|Zamora|Ávila
+  eje: 1
+  admin: Diputación
+  autoridad: Presidente de la Diputación de Ávila
+  participacion: asistencia

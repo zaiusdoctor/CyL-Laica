@@ -1,0 +1,257 @@
+# esquema: 1.0
+# eje4.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
+
+- id: CYL-2026-E4-0001
+  fecha: 10/02/2026
+  titular: Alcaldesa de Ávila defiende el belén municipal como «parte de nuestra tradición»
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Ávilared
+  estado: verified
+  grupo: Simbolismo religioso
+  tags: belen|tradicion
+  eje: 4
+  actor: Alcaldesa de Ávila
+  tema: Belenes municipales
+
+- id: CYL-2026-E4-0002
+  fecha: "[05/2026]"
+  titular: Presidente de la Diputación de Ávila califica la restauración de iglesias de «deuda histórica» con la Iglesia
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Diario de Ávila
+  estado: approx
+  grupo: Discursos institucionales
+  tags: romanico|identidad
+  notas: Fecha de mes aproximada, día no precisado
+  eje: 4
+  actor: Presidente de la Diputación de Ávila
+  tema: Patrimonio religioso
+
+- id: CYL-2026-E4-0003
+  fecha: 28/03/2026
+  titular: "Alcalde de Burgos: la Semana Santa es «motor espiritual y económico» de la ciudad"
+  provincia: Burgos
+  localidad: Burgos
+  fuente: Diario de Burgos
+  estado: verified
+  grupo: Semana Santa
+  tags: pregon|declaraciones
+  eje: 4
+  actor: Alcalde de Burgos
+  tema: Semana Santa
+
+- id: CYL-2026-E4-0004
+  fecha: 15/10/2026
+  titular: Presidenta de la Diputación de Burgos asegura que los convenios con la Iglesia se mantendrán «pase lo que pase»
+  provincia: Burgos
+  localidad: Burgos
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Discursos institucionales
+  tags: convenios|iglesia
+  eje: 4
+  actor: Presidenta de la Diputación de Burgos
+  tema: Convenios Iglesia-administración
+
+- id: CYL-2026-E4-0005
+  fecha: 18/02/2026
+  titular: Alcalde de León ve «perfectamente compatible» la misa de apertura de San Froilán con la aconfesionalidad del consistorio
+  provincia: León
+  localidad: León
+  fuente: Diario de León
+  estado: verified
+  grupo: Discursos institucionales
+  tags: aconfesionalidad|actos-religiosos
+  eje: 4
+  actor: Alcalde de León
+  tema: Actos religiosos institucionales
+
+- id: CYL-2026-E4-0006
+  fecha: 09/09/2026
+  titular: "Consejero de Sanidad: la asistencia religiosa hospitalaria «no está en cuestión» en CyL"
+  provincia: León
+  localidad: León
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Discursos institucionales
+  tags: capellanias|sanidad
+  notas: Declaración formulada durante una visita al hospital de León
+  eje: 4
+  actor: Consejero de Sanidad de la Junta de Castilla y León
+  tema: Capellanías hospitalarias
+
+- id: CYL-2026-E4-0007
+  fecha: 12/03/2026
+  titular: Concejal del ayuntamiento de Palencia propone reinstalar una cruz en el salón de plenos
+  provincia: Palencia
+  localidad: Palencia
+  fuente: El Día de Palencia
+  estado: verified
+  grupo: Simbolismo religioso
+  tags: crucifijo|salon-plenos
+  eje: 4
+  actor: Concejal del Ayuntamiento de Palencia
+  tema: Simbología en instituciones
+
+- id: CYL-2026-E4-0008
+  fecha: "[04/2026]"
+  titular: Presidenta de la Diputación de Palencia reivindica la «matriz cristiana» de la provincia
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Palentina Hoy
+  estado: approx
+  grupo: Discursos institucionales
+  tags: identidad-cristiana
+  notas: Fecha de mes aproximada, día no precisado
+  eje: 4
+  actor: Presidenta de la Diputación de Palencia
+  tema: Identidad religiosa
+
+- id: CYL-2026-E4-0009
+  fecha: 07/09/2026
+  titular: Rector de la Universidad de Salamanca defiende la misa del Curso como «señal de identidad» académica
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: La Gaceta de Salamanca
+  estado: verified
+  grupo: Discursos institucionales
+  tags: universidad|misa-curso
+  eje: 4
+  actor: Rector de la Universidad de Salamanca
+  tema: Religión en la universidad
+
+- id: CYL-2026-E4-0010
+  fecha: 23/05/2026
+  titular: Alcaldesa de Salamanca califica la procesión del Corpus de «acto consustancial a la ciudad»
+  provincia: Salamanca
+  localidad: Salamanca
+  fuente: Tribuna de Salamanca
+  estado: verified
+  grupo: Semana Santa
+  tags: corpus|procesion
+  eje: 4
+  actor: Alcaldesa de Salamanca
+  tema: Procesiones institucionales
+
+- id: CYL-2026-E4-0011
+  fecha: 14/04/2026
+  titular: "Alcalde de Segovia rechaza retirar el crucifijo del salón de plenos: «está donde debe estar»"
+  provincia: Segovia
+  localidad: Segovia
+  fuente: El Adelantado de Segovia
+  estado: verified
+  grupo: Simbolismo religioso
+  tags: crucifijo|salon-plenos
+  eje: 4
+  actor: Alcalde de Segovia
+  tema: Simbología en instituciones
+
+- id: CYL-2026-E4-0012
+  fecha: 30/09/2026?
+  titular: Delegado territorial celebra el récord de visitantes en los templos segovianos
+  provincia: Segovia
+  localidad: Segovia
+  fuente: El Adelantado de Segovia
+  estado: pending
+  grupo: Turismo religioso
+  tags: apertura-templos|visitantes
+  notas: "Discrepancia de fecha entre fuentes: 30 de septiembre u 1 de octubre"
+  eje: 4
+  actor: Delegado territorial de la Junta en Segovia
+  tema: Turismo religioso
+
+- id: CYL-2026-E4-0013
+  fecha: 16/10/2026
+  titular: Alcalde de Soria defiende la subvención municipal a la banda de Semana Santa
+  provincia: Soria
+  localidad: Soria
+  fuente: Heraldo de Soria
+  estado: verified
+  grupo: Semana Santa
+  tags: banda|subvencion
+  eje: 4
+  actor: Alcalde de Soria
+  tema: Subvenciones a Semana Santa
+
+- id: CYL-2026-E4-0014
+  fecha: 16/10/2026
+  titular: Alcalde de Soria defiende la subvención municipal a la banda de Semana Santa
+  provincia: Soria
+  localidad: Soria
+  fuente: desdeSoria
+  estado: verified
+  grupo: Semana Santa
+  tags: banda|subvencion
+  notas: DUPLICADO SEMBRADO PARA PRUEBA — misma declaración recogida por dos medios con ids distintos
+  eje: 4
+  actor: Alcalde de Soria
+  tema: Subvenciones a Semana Santa
+
+- id: CYL-2026-E4-0015
+  fecha: 08/03/2026
+  titular: "Consejera de Educación: la clase de Religión en Castilla y León «la piden las familias»"
+  provincia: Soria
+  localidad: Soria
+  fuente: Heraldo de Soria
+  estado: verified
+  grupo: Educación confesional
+  tags: religion|aula
+  eje: 4
+  actor: Consejera de Educación de la Junta de Castilla y León
+  tema: Religión escolar
+
+- id: CYL-2026-E4-0016
+  fecha: 25/04/2026
+  titular: Alcalde de Valladolid reclama el reconocimiento de la UNESCO para la Semana Santa
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Semana Santa
+  tags: unesco|patrimonio
+  eje: 4
+  actor: Alcalde de Valladolid
+  tema: Semana Santa
+
+- id: CYL-2026-E4-0017
+  fecha: 19/11/2026
+  titular: Notable vecino de Valladolid pide reinstaurar el rezo en los plenos municipales
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: El Norte de Castilla
+  estado: verified
+  grupo: Discursos institucionales
+  tags: rezo|plenos
+  notas: Particular sin cargo público ni representación institucional
+  descartado: si
+  motivo_descarte: Particular sin cargo público
+  eje: 4
+  actor: Presidente de la peña «Amigos del Rosario» (particular)
+  tema: Rezo en instituciones
+
+- id: CYL-2026-E4-0018
+  fecha: 02/03/2026
+  titular: "Alcaldesa de Zamora responde a las críticas por el gasto público en Semana Santa: «no se toca»"
+  provincia: Zamora
+  localidad: Zamora
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Semana Santa
+  tags: criticas|gasto-publico
+  eje: 4
+  actor: Alcaldesa de Zamora
+  tema: Semana Santa
+
+- id: CYL-2026-E4-0019
+  fecha: 13/06/2026
+  titular: Presidente de la Diputación de Zamora califica el convenio con la diócesis de «política de Estado»
+  provincia: Zamora
+  localidad: Zamora
+  fuente: La Opinión de Zamora
+  estado: verified
+  grupo: Discursos institucionales
+  tags: convenios|diocesis
+  eje: 4
+  actor: Presidente de la Diputación de Zamora
+  tema: Convenios Iglesia-administración

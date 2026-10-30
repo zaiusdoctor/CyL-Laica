@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vigilancia Laicismo · Castilla y León · 2026</title>
+<style>
+  :root{
+    --morado:#6d4aff; --morado-osc:#3b2a9e; --morado-suave:#efeaff;
+    --fondo:#faf9fd; --panel:#ffffff; --borde:#e6e2ef;
+    --texto:#2b2733; --texto-suave:#6f6a7c;
+    --exito:#0f8a5f; --aviso:#c77700; --alerta:#c02626;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.55}
+  .contenedor{max-width:1080px;margin:0 auto;padding:24px 18px 60px}
+
+  header.cab{background:linear-gradient(135deg,var(--morado-osc),var(--morado));color:#fff;border-radius:14px;padding:26px 28px;margin-bottom:16px}
+  header.cab h1{font-size:1.3rem;font-weight:600}
+  header.cab p{opacity:.85;font-size:.88rem;margin-top:4px}
+
+  .selector-bloque{margin-bottom:14px}
+  .selector-bloque .etiqueta{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--texto-suave);margin-bottom:6px}
+  nav.vistas{display:flex;flex-wrap:wrap;gap:6px}
+  nav.vistas button{border:1px solid var(--borde);background:var(--panel);color:var(--texto-suave);padding:6px 14px;border-radius:20px;font-size:.8rem;cursor:pointer;font-weight:500}
+  nav.vistas button.activo{background:var(--morado);border-color:var(--morado);color:#fff}
+  nav.vistas button:hover:not(.activo){border-color:var(--morado);color:var(--morado)}
+  nav.ejes{position:sticky;top:0;z-index:50;background:var(--fondo);padding:6px 0}
+  nav.ejes button{font-size:.78rem;padding:5px 12px}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:12px;margin-bottom:18px}
+  .kpi{background:var(--panel);border:1px solid var(--borde);border-radius:12px;padding:15px 17px}
+  .kpi .titulo{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--texto-suave);margin-bottom:3px}
+  .kpi .valor{font-size:1.45rem;font-weight:650;color:var(--morado)}
+  .kpi .detalle{font-size:.77rem;color:var(--texto-suave);margin-top:2px}
+
+  .regular-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-bottom:6px}
+  .regular-box{border:1px solid var(--borde);border-top:4px solid var(--morado);border-radius:12px;padding:14px 16px;background:var(--panel)}
+  .regular-box .titulo{font-size:.7rem;text-transform:uppercase;letter-spacing:.6px;color:var(--texto-suave);margin-bottom:3px}
+  .regular-box .num{font-size:1.45rem;font-weight:650;color:var(--morado)}
+  .regular-box .sub{font-size:.77rem;color:var(--texto-suave);margin-top:2px}
+  
+  .eco-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0 20px}
+  .eco-box{border-radius:12px;padding:15px 17px;border:1px solid var(--borde);background:var(--panel)}
+  .eco-box h3{font-size:.82rem;margin-bottom:8px}
+  .eco-box .figura{font-size:1.35rem;font-weight:650}
+  .eco-box .detalle{font-size:.76rem;color:var(--texto-suave);margin-top:3px}
+  .eco-literal{border-left:4px solid var(--exito)}
+  .eco-estimado{border-left:4px solid var(--aviso)}
+  .eco-privado{border-left:4px solid #7a7490}
+
+  .porciones-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+  .porcion-leyenda{font-size:.78rem;display:flex;flex-direction:column;gap:6px}
+  .porcion-leyenda div{display:flex;align-items:center;gap:8px}
+  .porcion-leyenda i{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0}
+  
+  .ranking-cajas{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-top:18px}
+  .barra-item{margin:8px 0}
+  .barra-label{font-size:.76rem;color:var(--texto-suave);margin-bottom:3px;display:flex;justify-content:space-between}
+  .barra-track{height:24px;background:#e6e2ef;border-radius:4px;overflow:hidden}
+  .barra-fill{height:100%;background:var(--morado);border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.75rem;font-weight:600;color:#fff;min-width:40px;white-space:nowrap}
+  .barra-valor{color:var(--texto);font-size:.8rem}
+  
+  section.panel{background:var(--panel);border:1px solid var(--borde);border-radius:12px;padding:20px 22px;margin-bottom:20px}
+  section.panel h2{font-size:1rem;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  section.panel h2::before{content:'';width:4px;height:17px;background:var(--morado);border-radius:2px}
+  .nota-panel{font-size:.76rem;color:var(--texto-suave);margin-top:12px}
+  .sin-datos{text-align:center;padding:34px 10px;color:var(--texto-suave);font-size:.9rem;border:1px dashed var(--borde);border-radius:10px}
+  .sin-datos b{display:block;font-size:1.5rem;margin-bottom:6px}
+
+  .reporte{padding:10px 6px;border-bottom:1px dashed var(--borde);font-size:.87rem}
+  .reporte:last-child{border-bottom:none}
+  .reporte a{color:var(--morado);text-decoration:none;font-weight:500}
+  .reporte a:hover{text-decoration:underline}
+  .rep-meta{color:var(--texto-suave);font-size:.76rem;margin-top:4px}
+  .rep-importes{margin-top:6px;font-size:.8rem;background:var(--morado-suave);border-radius:6px;padding:5px 10px;display:inline-block}
+  .rep-boletin{font-size:.76rem;color:var(--texto-suave);margin-top:4px}
+
+  .estado{display:inline-block;font-size:.67rem;font-weight:700;border-radius:4px;padding:2px 7px;vertical-align:middle;margin-left:6px;letter-spacing:.3px}
+  .verified{background:#e2f5ec;color:var(--exito)}
+  .approx{background:#fdf1dd;color:var(--aviso)}
+  .pending{background:#fceaea;color:var(--alerta)}
+  .descartado{background:#eceae4;color:#8a8478}
+
+  table{width:100%;border-collapse:collapse;font-size:.82rem}
+  th{text-align:left;padding:8px 9px;border-bottom:2px solid var(--borde);color:var(--texto-suave);font-size:.7rem;text-transform:uppercase;letter-spacing:.5px}
+  td{padding:8px 9px;border-bottom:1px solid var(--borde);vertical-align:top}
+  .tabla-scroll{overflow-x:auto}
+
+  .sankey-leyenda{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:.78rem;color:var(--texto-suave)}
+  .sankey-leyenda span{display:flex;align-items:center;gap:6px}
+  .sankey-leyenda i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+  footer{color:var(--texto-suave);font-size:.74rem;text-align:center;padding-top:10px}
+  @media(max-width:640px){header.cab{padding:18px}}
+</style>
+</head>
+<body>
+<div class="contenedor">
+
+<header class="cab">
+  <h1>Informe de vigilancia · Laicismo en Castilla y León</h1>
+  <p>Relación instituciones públicas — Iglesia católica</p>
+</header>
+
+<div class="selector-bloque">
+  <div class="etiqueta">📍 Escoger provincia</div>
+  <nav class="vistas" id="navProv"></nav>
+</div>
+<div class="selector-bloque">
+  <div class="etiqueta">🗂 Organizar por eje</div>
+  <nav class="vistas ejes" id="navEje"></nav>
+</div>
+
+<main id="vista"></main>
+
+<footer>Datos derivados de los reportes provinciales cargados · Importes pendientes de verificación excluidos de las sumas · Todo dato procede literalmente de fuentes recuperadas</footer>
+</div>
+
+<script>
+/* ============================================================
+   1 · CONSTANTES DE ESTRUCTURA
+   ============================================================ */
+const PROVINCIAS = ["Ávila","Burgos","León","Palencia","Salamanca","Segovia","Soria","Valladolid","Zamora"];
+const EJES = {
+  1:{nombre:"Eje 1 · Autoridades en actos religiosos", corto:"Eje 1 · Autoridades"},
+  2:{nombre:"Eje 2 · Patrimonio con financiación pública", corto:"Eje 2 · Patrimonio"},
+  3:{nombre:"Eje 3 · Financiación pública a entidades religiosas", corto:"Eje 3 · Financiación"},
+  4:{nombre:"Eje 4 · Marco general", corto:"Eje 4 · Marco general"}
+};
+const ESTADOS = {
+  verified:{clase:"verified", etiq:"✔ Verificado"},
+  approx:{clase:"approx", etiq:"≈ Fecha aproximada"},
+  pending:{clase:"pending", etiq:"⚠ Pendiente / discrepancia"}
+};
+const COLOR_ORIGEN = {
+  
+  /* --- ADMINISTRACIÓN GENERAL (uso genérico cuando no hay provincialización) --- */
+  "Junta de Castilla y León":"#c02626",
+  "Ayuntamientos":"#4fc3f7",
+  "Diputaciones":"#c77700",
+  "Estado":"#F1BF00",
+  
+  /* --- LEÓN (ya definidos en tu lista) --- */
+  "Ayuntamiento de León":"#8e1b3f",
+  "Diputación de León":"#5c0f28",
+  "Diputación de León · ILC":"#5c0f28",
+  
+  /* --- ÁVILA --- */
+  "Ayuntamiento de Ávila":"#f4a7bb",
+  "Diputación de Ávila":"#c2185b",
+  
+  /* --- PALENCIA --- */
+  "Ayuntamiento de Palencia":"#ba68c8",     /* lila claro */
+  "Diputación de Palencia":"#4a148c",       /* lila oscuro */
+  
+  /* --- BURGOS --- */
+  "Ayuntamiento de Burgos":"#ffb74d",       /* amarillo ocre claro */
+  "Diputación de Burgos":"#f57c00",         /* amarillo ocre oscuro */
+  
+  /* --- SORIA --- */
+  "Ayuntamiento de Soria":"#a1887f",        /* marrón claro */
+  "Diputación de Soria":"#3e2723",          /* marrón oscuro */
+  
+  /* --- SEGOVIA --- */
+  "Ayuntamiento de Segovia":"#ffb74d",      /* naranja claro */
+  "Diputación de Segovia":"#e65100",        /* naranja oscuro */
+  
+  /* --- SALAMANCA --- */
+  "Ayuntamiento de Salamanca":"#efebe9",    /* beige claro */
+  "Diputación de Salamanca":"#795548",      /* beige oscuro */
+  
+  /* --- ZAMORA --- */
+  "Ayuntamiento de Zamora":"#66bb6a",       /* verde claro */
+  "Diputación de Zamora":"#1b5e20",         /* verde oscuro */
+  
+  /* --- VALLADOLID --- */
+  "Ayuntamiento de Valladolid":"#80cbc4",  /* turquesa claro */
+  "Diputación de Valladolid":"#00796b",     /* turquesa oscuro */
+ 
+};
+/* ============================================================
+   2 · DATOS — v2.3 (ESQUELETO SIN DATOS)
+   ============================================================ */
+
+   /*__DATOS__*/
+const REPORTES = [
+
+  /* ===== ÁVILA ===== */
+  {id:"CYL-2026-E1-0001", fecha:"10/01/2026", titular:"Corporación municipal asiste a la misa de apertura del Año Jubilar Teresiano", eje:1, provincia:"Ávila", localidad:"Ávila", medio:"Ávilared", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Alcaldesa de Ávila", categorias:[], importes:[], boletin:{"tipo": "BOCyL", "numero": "9281", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["jubileo", "presencia-institucional"], notas:"Caso sintético de prueba"},
+  {id:"CYL-2026-E1-0002", fecha:"28/02/2026", titular:"Presentación institucional del cartel de Semana Santa con intervención del alcalde y el obispo", eje:1, provincia:"Ávila", localidad:"Ávila", medio:"Diario de Ávila", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcalde de Ávila", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["semana-santa", "cartel"], notas:""},
+  {id:"CYL-2026-E1-0003", fecha:"[03/2026]", titular:"Pregón oficial de la Semana Santa pronunciado por el presidente de la Diputación", eje:1, provincia:"Ávila", localidad:"Ávila", medio:"Tribuna de Ávila", agencia:"", link:"", estado:"approx", grupo:"Semana Santa", admin:["Diputación"], participacion:"intervencion", autoridad:"Presidente de la Diputación de Ávila", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:"Fecha de mes aproximado, día no precisado"},
+  {id:"CYL-2026-E1-0004", fecha:"02/05/2026", titular:"Corporación municipal acompaña la romería de San Segundo portando el pendón municipal", eje:1, provincia:"Ávila", localidad:"Ávila", medio:"Ávilared", agencia:"", link:"https://example.org/romeria-san-segundo", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Corporación municipal de Ávila", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "pendon"], notas:""},
+  {id:"CYL-2026-E1-0005", fecha:"08/09/2026", titular:"Presidente de la Junta preside la misa en el santuario de la Virgen de Sonsoles", eje:1, provincia:"Ávila", localidad:"Ávila", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Presidente de la Junta de Castilla y León", categorias:[], importes:[], boletin:{"tipo": "BOCyL", "numero": "9304", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["virgen-de-sonsoles", "presencia-institucional"], notas:""},
+  {id:"CYL-2026-E1-0048", fecha:"12/09/2026", titular:"Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones", eje:1, provincia:"Ávila", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"https://example.org/encuentro-interprovincial", estado:"verified", grupo:"Actos con autoridades", admin:["Diputación"], participacion:"asistencia", autoridad:"Presidente de la Diputación de Ávila", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cofradias", "encuentro-interprovincial"], notas:"Pieza multiterritorial (regla M): mismo acto replicado en tres provincias | Alcance territorial: Salamanca|Zamora|Ávila"},
+  {id:"CYL-2026-E2-0001", fecha:"16/07/2026", titular:"Convenio Diputación-Obispado para restaurar 3 iglesias de la provincia", eje:2, provincia:"Ávila", localidad:"Pedro Rodríguez", medio:"Diócesis de Ávila", agencia:"", link:"https://www.diocesisdeavila.com/2026/07/16/diocesis-y-diputacion-renuevan-su-convenio-para-restaurar-3-iglesias-de-la-provincia", estado:"verified", grupo:"Restauración bienes religiosos", edificio:3, categorias:[], importes:[{"cantidad": 75000, "concepto": "Convenio restauración iglesias no BIC", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "convenio"], notas:"Caso sintético basado en pieza real del informe de Ávila"},
+  {id:"CYL-2026-E2-0002", fecha:"24/05/2026", titular:"Obras en la iglesia de San Andrés (anualidad 2026 de subvención plurianual)", eje:2, provincia:"Ávila", localidad:"Ávila", medio:"Diario de Ávila", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 333325, "concepto": "Anualidad 2026 de subvención plurianual", "unidad": "EUR"}], boletin:{"tipo": "BOCyL", "numero": "9301", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "plurianual"], notas:"Anualidad 2026 del convenio plurianual de 628.915 € aprobado en diciembre de 2025 (concesión fuera de rango, vigencia en periodo)"},
+  {id:"CYL-2026-E3-0001", fecha:"15/10/2026", titular:"Subvención de la Junta a Cáritas Diocesana de Ávila", eje:3, provincia:"Ávila", localidad:"Ávila", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 116806, "concepto": "Subvención a servicios sociales (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "servicios-sociales"], notas:"Caso normal de referencia"},
+  {id:"CYL-2026-E3-0002", fecha:"03/03/2026", titular:"Subvención del Ayuntamiento de Arévalo a la parroquia de San Martín", eje:3, provincia:"Ávila", localidad:"Arévalo", medio:"Ávilared", agencia:"", link:"", estado:"verified", grupo:"Financiación directa a la Iglesia", categorias:[], importes:[{"cantidad": 1500, "concepto": "Subvención línea IC (ACT: IC)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["iglesia-catolica", "ayuntamiento"], notas:"Caso esquina: municipio pequeño como financiador"},
+  {id:"CYL-2026-E4-0001", fecha:"10/02/2026", titular:"Alcaldesa de Ávila defiende el belén municipal como «parte de nuestra tradición»", eje:4, provincia:"Ávila", localidad:"Ávila", medio:"Ávilared", agencia:"", link:"", estado:"verified", grupo:"Simbolismo religioso", actor:"Alcaldesa de Ávila", tema:"Belenes municipales", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["belen", "tradicion"], notas:""},
+  {id:"CYL-2026-E4-0002", fecha:"[05/2026]", titular:"Presidente de la Diputación de Ávila califica la restauración de iglesias de «deuda histórica» con la Iglesia", eje:4, provincia:"Ávila", localidad:"Ávila", medio:"Diario de Ávila", agencia:"", link:"", estado:"approx", grupo:"Discursos institucionales", actor:"Presidente de la Diputación de Ávila", tema:"Patrimonio religioso", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romanico", "identidad"], notas:"Fecha de mes aproximada, día no precisado"},
+
+  /* ===== BURGOS ===== */
+  {id:"CYL-2026-E1-0006", fecha:"22/03/2026", titular:"Alcalde de Burgos pronuncia el discurso de apertura de la Semana Santa en el teatro Principal", eje:1, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcalde de Burgos", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0007", fecha:"29/03/2026", titular:"Corporación municipal de Burgos asiste a la procesión del Domingo de Ramos en la catedral", eje:1, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Burgos", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["domingo-de-ramos", "presencia-institucional"], notas:""},
+  {id:"CYL-2026-E1-0008", fecha:"20/06/2026", titular:"Misa castrense organizada por el regimiento con asistencia de la plana mayor", eje:1, provincia:"Burgos", localidad:"Burgos", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Actos militares", admin:["Estado"], participacion:"organizacion", autoridad:"Coronel jefe del Regimiento de Artillería", categorias:[], importes:[], boletin:{"tipo": "BOE", "numero": "8742", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["misa-castrense", "fuerzas-armadas"], notas:"Caso esquina: Fuerzas Armadas como origen del acto"},
+  {id:"CYL-2026-E1-0009", fecha:"15/07/2026", titular:"Junta de Cofradías recibida oficialmente en el salón de plenos antes del acto de exaltación", eje:1, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Protocolo institucional", admin:["Ayuntamiento"], participacion:"protocolo", autoridad:"Concejal de Fiestas del Ayuntamiento de Burgos", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cofradias", "recepcion-oficial"], notas:""},
+  {id:"CYL-2026-E1-0010", fecha:"06/09/2026", titular:"Concejales asisten a la misa de acción de gracias familiar en la parroquia de San Lesmes", eje:1, provincia:"Burgos", localidad:"Burgos", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Concejal del Ayuntamiento de Burgos", descartado:true, motivoDescarte:"Acto privado sin representación institucional", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["misa", "familia"], notas:"Acto estrictamente privado sin representación institucional formal"},
+  {id:"CYL-2026-E2-0003", fecha:"15/03/2026", titular:"Plan de la Diputación de Burgos para la restauración de iglesias de la diócesis", eje:2, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 2000000, "concepto": "Plan de restauración de iglesias", "unidad": "EUR"}], boletin:{"tipo": "BOP", "numero": "1183/26", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "plan-provincial"], notas:""},
+  {id:"CYL-2026-E2-0004", fecha:"05/03/2026", titular:"Restauración de iglesias de la Diócesis (programa pluriautoridad)", eje:2, provincia:"Burgos", localidad:"Poza de la Sal", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 150000, "concepto": "Aporte Junta de Castilla y León", "unidad": "EUR"}, {"cantidad": 160000, "concepto": "Aporte Diputación de Burgos", "unidad": "EUR"}, {"cantidad": 60000, "concepto": "Aporte Ayuntamiento de Poza", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "multiautoridad"], notas:"Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación + Ayuntamiento"},
+  {id:"CYL-2026-E3-0003", fecha:"20/06/2026", titular:"Convenio de la Diputación de Burgos con Cáritas para programas de inclusión", eje:3, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 40000, "concepto": "Convenio de inclusión social", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:""},
+  {id:"CYL-2026-E3-0004", fecha:"30/09/2026", titular:"Subvención de la Junta al Banco de Alimentos de Burgos", eje:3, provincia:"Burgos", localidad:"Burgos", medio:"BDNS", agencia:"", link:"", estado:"pending", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 25000, "concepto": "Subvención a banco de alimentos (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["banco-alimentos"], notas:"DUPLICADO SEMBRADO PARA PRUEBA (par A) | Posible duplicación con CYL-2026-E3-0005 (misma fecha, importe, origen y destino) — verificar y corregir a mano."},
+  {id:"CYL-2026-E3-0005", fecha:"30/09/2026", titular:"Subvención de la Junta al Banco de Alimentos de Burgos (versión duplicada)", eje:3, provincia:"Burgos", localidad:"Burgos", medio:"BDNS", agencia:"", link:"", estado:"pending", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 25000, "concepto": "Subvención a banco de alimentos (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["banco-alimentos"], notas:"DUPLICADO SEMBRADO PARA PRUEBA (par B) — misma pieza volcada dos veces con ids distintos | Posible duplicación con CYL-2026-E3-0004 (misma fecha, importe, origen y destino) — verificar y corregir a mano."},
+  {id:"CYL-2026-E4-0003", fecha:"28/03/2026", titular:"Alcalde de Burgos: la Semana Santa es «motor espiritual y económico» de la ciudad", eje:4, provincia:"Burgos", localidad:"Burgos", medio:"Diario de Burgos", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcalde de Burgos", tema:"Semana Santa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "declaraciones"], notas:""},
+  {id:"CYL-2026-E4-0004", fecha:"15/10/2026", titular:"Presidenta de la Diputación de Burgos asegura que los convenios con la Iglesia se mantendrán «pase lo que pase»", eje:4, provincia:"Burgos", localidad:"Burgos", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", actor:"Presidenta de la Diputación de Burgos", tema:"Convenios Iglesia-administración", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["convenios", "iglesia"], notas:""},
+
+  /* ===== LEÓN ===== */
+  {id:"CYL-2026-E1-0011", fecha:"04/05/2026", titular:"Alcalde de León recibe al obispo en el arco de la Plaza Mayor antes de la procesión", eje:1, provincia:"León", localidad:"León", medio:"Diario de León", agencia:"", link:"", estado:"verified", grupo:"Protocolo institucional", admin:["Ayuntamiento"], participacion:"protocolo", autoridad:"Alcalde de León", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["recepcion-oficial", "procesion"], notas:""},
+  {id:"CYL-2026-E1-0012", fecha:"28/03/2026", titular:"Junta y Ayuntamiento participan conjuntamente en el pregón de la Semana Santa de León", eje:1, provincia:"León", localidad:"León", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Junta", "Ayuntamiento"], participacion:"intervencion", autoridad:"Delegado territorial de la Junta en León", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:"Caso esquina: dos administraciones en un mismo acto"},
+  {id:"CYL-2026-E1-0013", fecha:"15/08/2026", titular:"Comandante de la Guardia Civil asiste a la procesión de la Virgen del Camino", eje:1, provincia:"León", localidad:"Virgen del Camino", medio:"La Nueva Crónica", agencia:"", link:"", estado:"verified", grupo:"Actos militares", admin:["Estado"], participacion:"asistencia", autoridad:"Comandante jefe de la Comandancia de la Guardia Civil", categorias:[], importes:[], boletin:{"tipo": "BOE", "numero": "8911", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cuerpos-seguridad", "procesion"], notas:"Caso esquina: cuerpo de seguridad del Estado"},
+  {id:"CYL-2026-E1-0014", fecha:"22/07/2026", titular:"Diputación organiza el ciclo de música sacra en la catedral de León", eje:1, provincia:"León", localidad:"León", medio:"Diario de León", agencia:"", link:"", estado:"verified", grupo:"Organización institucional", admin:["Diputación"], participacion:"organizacion", autoridad:"Presidente de la Diputación de León", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["musica-sacra", "catedral"], notas:""},
+  {id:"CYL-2026-E1-0015", fecha:"19/07/2026?", titular:"Consejero asiste a la misa bilingüe del Cristo del Mercado", eje:1, provincia:"León", localidad:"León", medio:"El Norte de Castilla", agencia:"", link:"", estado:"pending", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Consejero de Presidencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["misa", "presencia-institucional"], notas:"Discrepancia de fecha entre fuentes: 19 o 26 de julio"},
+  {id:"CYL-2026-E2-0005", fecha:"10/06/2026", titular:"Restauración de la cubierta de la catedral de León", eje:2, provincia:"León", localidad:"León", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 54000, "concepto": "Restauración de cubierta de la catedral", "unidad": "EUR"}], boletin:{"tipo": "BOCyL", "numero": "9310", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "catedral"], notas:""},
+  {id:"CYL-2026-E2-0006", fecha:"28/03/2026", titular:"Apertura de templos durante la Semana Santa de León", eje:2, provincia:"León", localidad:"León", medio:"Diario de León", agencia:"", link:"", estado:"verified", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 12000, "concepto": "Apertura de templos en Semana Santa", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["semana-santa", "apertura-templos"], notas:""},
+  {id:"CYL-2026-E3-0006", fecha:"10/09/2026", titular:"Conciertos educativos de la Junta con la Fundación Diocesana de Enseñanza", eje:3, provincia:"León", localidad:"León", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Educación confesional", categorias:[], importes:[{"cantidad": 150000, "concepto": "Concierto educativo, plazas concertadas", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["concierto", "educacion"], notas:""},
+  {id:"CYL-2026-E3-0007", fecha:"22/04/2026", titular:"Subvención de la Xunta de Galicia al Seminario Mayor de Astorga", eje:3, provincia:"León", localidad:"Astorga", medio:"Diario de León", agencia:"", link:"", estado:"verified", grupo:"Educación confesional", categorias:[], importes:[{"cantidad": 30000, "concepto": "Subvención educativa a seminario", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["seminario", "otra-comunidad"], notas:"Caso esquina: financiador de otra comunidad autónoma, conserva etiqueta propia en vista CYL"},
+  {id:"CYL-2026-E4-0005", fecha:"18/02/2026", titular:"Alcalde de León ve «perfectamente compatible» la misa de apertura de San Froilán con la aconfesionalidad del consistorio", eje:4, provincia:"León", localidad:"León", medio:"Diario de León", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", actor:"Alcalde de León", tema:"Actos religiosos institucionales", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["aconfesionalidad", "actos-religiosos"], notas:""},
+  {id:"CYL-2026-E4-0006", fecha:"09/09/2026", titular:"Consejero de Sanidad: la asistencia religiosa hospitalaria «no está en cuestión» en CyL", eje:4, provincia:"León", localidad:"León", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", actor:"Consejero de Sanidad de la Junta de Castilla y León", tema:"Capellanías hospitalarias", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["capellanias", "sanidad"], notas:"Declaración formulada durante una visita al hospital de León"},
+
+  /* ===== PALENCIA ===== */
+  {id:"CYL-2026-E1-0016", fecha:"24/05/2026", titular:"Alcaldesa de Palencia asiste a la procesión de la Virgen de la Calle", eje:1, provincia:"Palencia", localidad:"Palencia", medio:"El Día de Palencia", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Alcaldesa de Palencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "presencia-institucional"], notas:""},
+  {id:"CYL-2026-E1-0017", fecha:"12/04/2026", titular:"Concejal de Fiestas lee la proclamación del pregón de Semana Santa", eje:1, provincia:"Palencia", localidad:"Palencia", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Concejal de Fiestas del Ayuntamiento de Palencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0018", fecha:"08/09/2026", titular:"Delegado territorial asiste a la misa de la Virgen de la Brezoza en Carrión", eje:1, provincia:"Palencia", localidad:"Carrión de los Condes", medio:"Palentina Hoy", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Delegado territorial de la Junta en Palencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "presencia-institucional"], notas:""},
+  {id:"CYL-2026-E1-0019", fecha:"03/06/2026", titular:"Presidente de la Diputación recibe la imagen del Cristo del Amparo en la diputación", eje:1, provincia:"Palencia", localidad:"Palencia", medio:"El Día de Palencia", agencia:"", link:"", estado:"verified", grupo:"Protocolo institucional", admin:["Diputación"], participacion:"protocolo", autoridad:"Presidente de la Diputación de Palencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["recepcion-oficial"], notas:""},
+  {id:"CYL-2026-E1-0020", fecha:"[06-07]/06/2026", titular:"Corporación municipal asiste a las misas de la novena del Corpus", eje:1, provincia:"Palencia", localidad:"Palencia", medio:"El Día de Palencia", agencia:"", link:"", estado:"approx", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Palencia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["corpus", "novena"], notas:"Rango de días no precisado por la fuente"},
+  {id:"CYL-2026-E2-0007", fecha:"20/05/2026", titular:"Restauración del retablo mayor de la parroquia de San Miguel", eje:2, provincia:"Palencia", localidad:"Palencia", medio:"El Día de Palencia", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 28000, "concepto": "Restauración de retablo mayor", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "retablo"], notas:""},
+  {id:"CYL-2026-E2-0008", fecha:"08/07/2026", titular:"Rehabilitación de la ermita de San Juan de Baños para uso cultural", eje:2, provincia:"Palencia", localidad:"Baños de Cerrato", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", descartado:true, motivoDescarte:"Propiedad pública municipal + destino cultural no religioso", categorias:[], importes:[{"cantidad": 45000, "concepto": "Rehabilitación para centro de interpretación", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["rehabilitacion", "ermita"], notas:"Regla D: flujo codificado igualmente; el motor lo excluirá de sumas vía reporteId"},
+  {id:"CYL-2026-E3-0008", fecha:"13/02/2026", titular:"Subvención M. de T. Digital a Esclavas de la Virgen", eje:3, provincia:"Palencia", localidad:"Palencia", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Funcionamiento entidades", categorias:[], importes:[{"cantidad": 10250, "concepto": "Subvención a funcionamiento (ACT: FUN)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["funcionamiento", "ministerio"], notas:"Sigla ministerial literal sin expandir"},
+  {id:"CYL-2026-E3-0009", fecha:"29/06/2026", titular:"Convenio del Ayuntamiento de Palencia con Cáritas Diocesana", eje:3, provincia:"Palencia", localidad:"Palencia", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 230000, "concepto": "Convenio anual de acción social", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:"Cifra tomada del expediente BDNS de 2026"},
+  {id:"CYL-2026-E4-0007", fecha:"12/03/2026", titular:"Concejal del ayuntamiento de Palencia propone reinstalar una cruz en el salón de plenos", eje:4, provincia:"Palencia", localidad:"Palencia", medio:"El Día de Palencia", agencia:"", link:"", estado:"verified", grupo:"Simbolismo religioso", actor:"Concejal del Ayuntamiento de Palencia", tema:"Simbología en instituciones", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["crucifijo", "salon-plenos"], notas:""},
+  {id:"CYL-2026-E4-0008", fecha:"[04/2026]", titular:"Presidenta de la Diputación de Palencia reivindica la «matriz cristiana» de la provincia", eje:4, provincia:"Palencia", localidad:"Palencia", medio:"Palentina Hoy", agencia:"", link:"", estado:"approx", grupo:"Discursos institucionales", actor:"Presidenta de la Diputación de Palencia", tema:"Identidad religiosa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["identidad-cristiana"], notas:"Fecha de mes aproximada, día no precisado"},
+
+  /* ===== SALAMANCA ===== */
+  {id:"CYL-2026-E1-0021", fecha:"21/03/2026", titular:"Alcalde de Salamanca pronuncia el pregón de la Semana Santa charra", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcalde de Salamanca", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0022", fecha:"04/06/2026", titular:"Corporación municipal completa asiste a la procesión del Corpus", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"La Gaceta de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Salamanca", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["corpus", "procesion"], notas:""},
+  {id:"CYL-2026-E1-0023", fecha:"26/09/2026", titular:"Presidente de la Junta asiste a la clausura eucarística del Encuentro Nacional de Cofradías", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"La Crónica de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Presidente de la Junta de Castilla y León", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cofradias", "clausura"], notas:""},
+  {id:"CYL-2026-E1-0024", fecha:"14/09/2026", titular:"Presidenta de la Diputación preside el acto de exaltación de la Virgen de la Peña", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"La Gaceta de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Diputación"], participacion:"protocolo", autoridad:"Presidenta de la Diputación de Salamanca", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "presencia-institucional"], notas:""},
+  {id:"CYL-2026-E1-0025", fecha:"24/09/2026?", titular:"Consejera asiste a la inauguración de la exposición cofrade con el obispo", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"", estado:"pending", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Consejera de Cultura y Turismo", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["exposicion", "cofradias"], notas:"Discrepancia de fecha entre fuentes: 24 o 25 de septiembre"},
+  {id:"CYL-2026-E1-0046", fecha:"12/09/2026", titular:"Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones", eje:1, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"https://example.org/encuentro-interprovincial", estado:"verified", grupo:"Actos con autoridades", admin:["Diputación"], participacion:"asistencia", autoridad:"Presidente de la Diputación de Salamanca", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cofradias", "encuentro-interprovincial"], notas:"Pieza multiterritorial (regla M): mismo acto replicado en tres provincias | Alcance territorial: Salamanca|Zamora|Ávila"},
+  {id:"CYL-2026-E2-0009", fecha:"21/03/2026", titular:"Subvención a las cofradías de la Semana Santa charra", eje:2, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", categorias:[], importes:[{"cantidad": 16000, "concepto": "Subvención a cofradías de Semana Santa", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["semana-santa", "cofradias"], notas:""},
+  {id:"CYL-2026-E2-0010", fecha:"04/09/2026", titular:"Restauración de la cubierta de la Catedral Vieja", eje:2, provincia:"Salamanca", localidad:"Salamanca", medio:"La Gaceta de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 120000, "concepto": "Restauración de cubierta de la Catedral Vieja", "unidad": "EUR"}], boletin:{"tipo": "BOP", "numero": "1893/26", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "catedral"], notas:""},
+  {id:"CYL-2026-E2-0020", fecha:"20/03/2026", titular:"Programa de Apertura de Monumentos de Semana Santa (desglose provincial)", eje:2, provincia:"Salamanca", localidad:"Provincia", medio:"Astorga Digital", agencia:"", link:"https://example.org/apertura-monumentos-semana-santa-2026", estado:"pending", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 21961, "concepto": "desglose estimado proporcional — total 65.885 € para tres provincias", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "semana-santa", "multiterritorial"], notas:"Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026 | Alcance territorial: Salamanca|Zamora|Soria"},
+  {id:"CYL-2026-E3-0010", fecha:"06/08/2026", titular:"Convenio de la Diputación de Salamanca con Cáritas Diocesana", eje:3, provincia:"Salamanca", localidad:"Salamanca", medio:"lasalina.es", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 99763, "concepto": "Convenio intervención colectivos desfavorecidos", "unidad": "EUR"}], boletin:{"tipo": "Decreto", "numero": "574/26", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:"Pieza basada en caso real, Decreto de Presidencia 574/26"},
+  {id:"CYL-2026-E3-0011", fecha:"05/09/2026", titular:"Junta anuncia convocatoria de ayudas a entidades confesionales sin resolución", eje:3, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"", estado:"pending", grupo:"Convocatorias", categorias:[], importes:[{"cantidad": 60000, "concepto": "Convocatoria anunciada, importe previsto", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["convocatoria", "pendiente"], notas:"Convocatoria sin resolución publicada, pendiente hasta verificar BOCyL con resolución esperada en diciembre de 2026"},
+  {id:"CYL-2026-E3-0021", fecha:"12/11/2026", titular:"Programa autonómico de apoyo a Escuelas Católicas (desglose provincial)", eje:3, provincia:"Salamanca", localidad:"Provincia", medio:"Ical", agencia:"", link:"", estado:"pending", grupo:"Educación confesional", categorias:[], importes:[{"cantidad": 150000, "concepto": "desglose estimado proporcional, total 300.000 € para dos provincias", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["escuelas-catolicas", "multiterritorial"], notas:"Pieza multiterritorial (regla M), desglose estimado proporcional sobre total de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para diciembre de 2026 | Alcance territorial: Valladolid|Salamanca"},
+  {id:"CYL-2026-E4-0009", fecha:"07/09/2026", titular:"Rector de la Universidad de Salamanca defiende la misa del Curso como «señal de identidad» académica", eje:4, provincia:"Salamanca", localidad:"Salamanca", medio:"La Gaceta de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", actor:"Rector de la Universidad de Salamanca", tema:"Religión en la universidad", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["universidad", "misa-curso"], notas:""},
+  {id:"CYL-2026-E4-0010", fecha:"23/05/2026", titular:"Alcaldesa de Salamanca califica la procesión del Corpus de «acto consustancial a la ciudad»", eje:4, provincia:"Salamanca", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcaldesa de Salamanca", tema:"Procesiones institucionales", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["corpus", "procesion"], notas:""},
+
+  /* ===== SEGOVIA ===== */
+  {id:"CYL-2026-E1-0026", fecha:"14/03/2026", titular:"Alcaldesa de Segovia pronuncia el pregón de la Semana Santa", eje:1, provincia:"Segovia", localidad:"Segovia", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcaldesa de Segovia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0027", fecha:"25/04/2026", titular:"Corporación municipal asiste a las velas de San Frutos", eje:1, provincia:"Segovia", localidad:"San Frutos", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Segovia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "velas"], notas:""},
+  {id:"CYL-2026-E1-0028", fecha:"13/09/2026", titular:"Delegado territorial acompaña al obispo en la subasta de la Virgen del Rosario", eje:1, provincia:"Segovia", localidad:"Cuéllar", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"protocolo", autoridad:"Delegado territorial de la Junta en Segovia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["subasta", "romeria"], notas:""},
+  {id:"CYL-2026-E1-0029", fecha:"07/06/2026", titular:"Presidente de la Diputación organiza la recepción institucional de la imagen de la Candelera", eje:1, provincia:"Segovia", localidad:"Segovia", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Protocolo institucional", admin:["Diputación"], participacion:"organizacion", autoridad:"Presidente de la Diputación de Segovia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["recepcion-oficial"], notas:""},
+  {id:"CYL-2026-E1-0030", fecha:"[07/2026]", titular:"Teniente coronel jefe del acuartelamiento asiste a la misa de la patrona", eje:1, provincia:"Segovia", localidad:"Segovia", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"approx", grupo:"Actos militares", admin:["Estado"], participacion:"asistencia", autoridad:"Teniente coronel del Acuartelamiento de Segovia", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["patrona", "fuerzas-armadas"], notas:"Fecha de mes aproximado"},
+  {id:"CYL-2026-E2-0011", fecha:"12/06/2026", titular:"Restauración de iglesias románicas del sur de la provincia", eje:2, provincia:"Segovia", localidad:"Sepúlveda", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", edificio:4, categorias:[], importes:[{"cantidad": 22000, "concepto": "Restauración de conjunto románico", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "romanico"], notas:""},
+  {id:"CYL-2026-E2-0012", fecha:"15/08/2026", titular:"Apertura turística de los templos del arciprestazgo durante el verano", eje:2, provincia:"Segovia", localidad:"Sepúlveda", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 6200, "concepto": "Apertura turística de templos", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "turismo-rural"], notas:""},
+  {id:"CYL-2026-E3-0012", fecha:"18/07/2026", titular:"Convenio del Ayuntamiento de Segovia con Cáritas", eje:3, provincia:"Segovia", localidad:"Segovia", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 45000, "concepto": "Convenio anual de acción social", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:""},
+  {id:"CYL-2026-E3-0013", fecha:"23/12/2026", titular:"Subvención de la Junta a la Diócesis de Segovia (línea de Iglesia católica)", eje:3, provincia:"Segovia", localidad:"Segovia", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Financiación directa a la Iglesia", categorias:[], importes:[{"cantidad": 89000, "concepto": "Subvención línea IC", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["iglesia-catolica"], notas:"ACT: IC, programa provisional, ver Bloque F"},
+  {id:"CYL-2026-E4-0011", fecha:"14/04/2026", titular:"Alcalde de Segovia rechaza retirar el crucifijo del salón de plenos: «está donde debe estar»", eje:4, provincia:"Segovia", localidad:"Segovia", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"verified", grupo:"Simbolismo religioso", actor:"Alcalde de Segovia", tema:"Simbología en instituciones", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["crucifijo", "salon-plenos"], notas:""},
+  {id:"CYL-2026-E4-0012", fecha:"30/09/2026?", titular:"Delegado territorial celebra el récord de visitantes en los templos segovianos", eje:4, provincia:"Segovia", localidad:"Segovia", medio:"El Adelantado de Segovia", agencia:"", link:"", estado:"pending", grupo:"Turismo religioso", actor:"Delegado territorial de la Junta en Segovia", tema:"Turismo religioso", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "visitantes"], notas:"Discrepancia de fecha entre fuentes: 30 de septiembre u 1 de octubre"},
+
+  /* ===== SORIA ===== */
+  {id:"CYL-2026-E1-0031", fecha:"21/03/2026", titular:"Alcalde de Soria pronuncia el pregón de la Semana Santa", eje:1, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcalde de Soria", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0032", fecha:"30/05/2026", titular:"Consejero de Presidencia asiste a la procesión de las relicarias de San Saturio", eje:1, provincia:"Soria", localidad:"Soria", medio:"desdeSoria", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Consejero de la Presidencia", categorias:[], importes:[], boletin:{"tipo": "BOCyL", "numero": "9415", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["san-saturio", "procesion"], notas:""},
+  {id:"CYL-2026-E1-0033", fecha:"14/09/2026", titular:"Corporación municipal asiste a la procesión de San Saturio", eje:1, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Alcalde de Soria", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["san-saturio", "procesion"], notas:"DUPLICADO SEMBRADO PARA PRUEBA"},
+  {id:"CYL-2026-E1-0034", fecha:"14/09/2026", titular:"Corporación municipal asiste a la procesión de San Saturio", eje:1, provincia:"Soria", localidad:"Soria", medio:"desdeSoria", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Alcalde de Soria", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["san-saturio", "procesion"], notas:"DUPLICADO SEMBRADO PARA PRUEBA — mismo acto recogido por dos medios con ids distintos"},
+  {id:"CYL-2026-E1-0035", fecha:"25/07/2026", titular:"Sargento de la Guardia Civil asiste a la romería de la Virgen del Monte", eje:1, provincia:"Soria", localidad:"Monteagudo de las Vicarías", medio:"Heraldo de Soria", agencia:"", link:"", estado:"verified", grupo:"Actos militares", admin:["Estado"], participacion:"asistencia", autoridad:"Sargento del Puesto de la Guardia Civil", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cuerpos-seguridad", "romeria"], notas:""},
+  {id:"CYL-2026-E2-0013", fecha:"[06/2026]", titular:"Restauración de la torre de la concatedral de San Pedro", eje:2, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"approx", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 9500, "concepto": "Restauración de torre", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "concatedral"], notas:"Fecha de mes aproximada, día no precisado por la fuente"},
+  {id:"CYL-2026-E2-0014", fecha:"03/09/2026", titular:"Subvención para la restauración del conjunto catedralicio", eje:2, provincia:"Soria", localidad:"Soria", medio:"desdeSoria", agencia:"", link:"", estado:"pending", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 15000, "concepto": "Restauración del conjunto catedralicio", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "catedral"], notas:"Posible duplicación con CYL-2026-E2-0015 (misma fecha, importe, origen y destino) — verificar y corregir a mano."},
+  {id:"CYL-2026-E2-0015", fecha:"03/09/2026", titular:"Subvención para la restauración del conjunto catedralicio", eje:2, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"pending", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 15000, "concepto": "Restauración del conjunto catedralicio", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "catedral"], notas:"DUPLICADO SEMBRADO PARA PRUEBA — misma pieza recogida por dos medios con ids distintos | Posible duplicación con CYL-2026-E2-0014 (misma fecha, importe, origen y destino) — verificar y corregir a mano."},
+  {id:"CYL-2026-E2-0022", fecha:"20/03/2026", titular:"Programa de Apertura de Monumentos de Semana Santa (desglose provincial)", eje:2, provincia:"Soria", localidad:"Provincia", medio:"Astorga Digital", agencia:"", link:"https://example.org/apertura-monumentos-semana-santa-2026", estado:"pending", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 21962, "concepto": "desglose estimado proporcional — total 65.885 € para tres provincias", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "semana-santa", "multiterritorial"], notas:"Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026 | Alcance territorial: Salamanca|Zamora|Soria"},
+  {id:"CYL-2026-E3-0014", fecha:"11/10/2026", titular:"Subvención de la Junta a Cáritas Diocesana de Soria", eje:3, provincia:"Soria", localidad:"Soria", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 55000, "concepto": "Subvención a servicios sociales (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "servicios-sociales"], notas:""},
+  {id:"CYL-2026-E3-0015", fecha:"07/05/2026", titular:"Subvención M. de Igualdad a congregación por programa de empleo femenino", eje:3, provincia:"Soria", localidad:"Soria", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 18000, "concepto": "Subvención a inserción laboral (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["ministerio", "empleo"], notas:"Sigla ministerial literal sin expandir"},
+  {id:"CYL-2026-E4-0013", fecha:"16/10/2026", titular:"Alcalde de Soria defiende la subvención municipal a la banda de Semana Santa", eje:4, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcalde de Soria", tema:"Subvenciones a Semana Santa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["banda", "subvencion"], notas:""},
+  {id:"CYL-2026-E4-0014", fecha:"16/10/2026", titular:"Alcalde de Soria defiende la subvención municipal a la banda de Semana Santa", eje:4, provincia:"Soria", localidad:"Soria", medio:"desdeSoria", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcalde de Soria", tema:"Subvenciones a Semana Santa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["banda", "subvencion"], notas:"DUPLICADO SEMBRADO PARA PRUEBA — misma declaración recogida por dos medios con ids distintos"},
+  {id:"CYL-2026-E4-0015", fecha:"08/03/2026", titular:"Consejera de Educación: la clase de Religión en Castilla y León «la piden las familias»", eje:4, provincia:"Soria", localidad:"Soria", medio:"Heraldo de Soria", agencia:"", link:"", estado:"verified", grupo:"Educación confesional", actor:"Consejera de Educación de la Junta de Castilla y León", tema:"Religión escolar", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["religion", "aula"], notas:""},
+
+  /* ===== VALLADOLID ===== */
+  {id:"CYL-2026-E1-0036", fecha:"19/09/2026", titular:"Alcalde y concejal asisten a la procesión de clausura del Año Jubilar Franciscano", eje:1, provincia:"Valladolid", localidad:"Valladolid", medio:"Glorias de Valladolid", agencia:"", link:"https://example.org/clausura-jubileo-franciscano", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Alcalde de Valladolid", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["jubileo", "clausura"], notas:""},
+  {id:"CYL-2026-E1-0037", fecha:"28/03/2026", titular:"Alcalde de Valladolid pronuncia el pregón de la Semana Santa en la iglesia de la Pasión", eje:1, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcalde de Valladolid", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0038", fecha:"22/01/2026", titular:"Corporación municipal asiste a la misa de San Vicente Mártir en la iglesia de la Magdalena", eje:1, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Valladolid", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["san-vicente", "misa"], notas:""},
+  {id:"CYL-2026-E1-0039", fecha:"12/05/2026", titular:"Presidente de la Diputación recibe al arzobispo en la Casa Consistorial antes del Corpus", eje:1, provincia:"Valladolid", localidad:"Valladolid", medio:"Diario de Valladolid", agencia:"", link:"", estado:"verified", grupo:"Protocolo institucional", admin:["Diputación"], participacion:"protocolo", autoridad:"Presidente de la Diputación de Valladolid", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["recepcion-oficial", "corpus"], notas:""},
+  {id:"CYL-2026-E1-0040", fecha:"[08-09]/08/2026", titular:"Concejal de Fiestas asiste a la novena de la Virgen de San Lorenzo", eje:1, provincia:"Valladolid", localidad:"Valladolid", medio:"Diario de Valladolid", agencia:"", link:"", estado:"approx", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Concejal de Fiestas del Ayuntamiento de Valladolid", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["novena", "presencia-institucional"], notas:"Rango de días no precisado"},
+  {id:"CYL-2026-E2-0016", fecha:"18/06/2026", titular:"Restauración de la fachada de la iglesia conventual de San Pablo", eje:2, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 30000, "concepto": "Restauración de fachada", "unidad": "EUR"}], boletin:{"tipo": "BOCyL", "numero": "9342", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "conventual"], notas:""},
+  {id:"CYL-2026-E2-0017", fecha:"03/09/2026", titular:"Templos vallisoletanos abiertos en el programa de Apertura de Monumentos Verano", eje:2, provincia:"Valladolid", localidad:"Valladolid", medio:"Astorga Digital", agencia:"", link:"", estado:"verified", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 45000, "concepto": "Programa de apertura de monumentos", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "verano"], notas:""},
+  {id:"CYL-2026-E3-0016", fecha:"15/07/2026", titular:"Convenio del Ayuntamiento de Valladolid con Cáritas", eje:3, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 350000, "concepto": "Convenio anual de acción social", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:"Cifra tomada del convenio homólogo de 2024"},
+  {id:"CYL-2026-E3-0017", fecha:"28/08/2026", titular:"Subvención de la Junta a la Federación Católica de AMPAs", eje:3, provincia:"Valladolid", localidad:"Valladolid", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Educación confesional", categorias:[], importes:[{"cantidad": 12000, "concepto": "Subvención educativa (ACT: ED)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["ampa", "educacion"], notas:""},
+  {id:"CYL-2026-E3-0020", fecha:"12/11/2026", titular:"Programa autonómico de apoyo a Escuelas Católicas (desglose provincial)", eje:3, provincia:"Valladolid", localidad:"Provincia", medio:"Ical", agencia:"", link:"", estado:"pending", grupo:"Educación confesional", categorias:[], importes:[{"cantidad": 150000, "concepto": "desglose estimado proporcional, total 300.000 € para dos provincias", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["escuelas-catolicas", "multiterritorial"], notas:"Pieza multiterritorial (regla M), desglose estimado proporcional sobre total de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para diciembre de 2026 | Alcance territorial: Valladolid|Salamanca"},
+  {id:"CYL-2026-E4-0016", fecha:"25/04/2026", titular:"Alcalde de Valladolid reclama el reconocimiento de la UNESCO para la Semana Santa", eje:4, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcalde de Valladolid", tema:"Semana Santa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["unesco", "patrimonio"], notas:""},
+  {id:"CYL-2026-E4-0017", fecha:"19/11/2026", titular:"Notable vecino de Valladolid pide reinstaurar el rezo en los plenos municipales", eje:4, provincia:"Valladolid", localidad:"Valladolid", medio:"El Norte de Castilla", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", descartado:true, motivoDescarte:"Particular sin cargo público", actor:"Presidente de la peña «Amigos del Rosario» (particular)", tema:"Rezo en instituciones", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["rezo", "plenos"], notas:"Particular sin cargo público ni representación institucional"},
+
+  /* ===== ZAMORA ===== */
+  {id:"CYL-2026-E1-0041", fecha:"16/03/2026", titular:"Alcaldesa de Zamora pronuncia el pregón de la Semana Santa", eje:1, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", admin:["Ayuntamiento"], participacion:"intervencion", autoridad:"Alcaldesa de Zamora", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["pregon", "semana-santa"], notas:""},
+  {id:"CYL-2026-E1-0042", fecha:"13/06/2026", titular:"Corporación municipal asiste a la procesión del Corpus Christi", eje:1, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Ayuntamiento"], participacion:"asistencia", autoridad:"Corporación municipal de Zamora", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["corpus", "procesion"], notas:""},
+  {id:"CYL-2026-E1-0043", fecha:"08/09/2026", titular:"Consejero de Cultura asiste a la misa de la Virgen del Tránsito y luego a la representación de la Hispanic", eje:1, provincia:"Zamora", localidad:"Toroes", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Junta"], participacion:"asistencia", autoridad:"Consejero de Cultura y Turismo", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["hispanic", "virgen-del-transito"], notas:""},
+  {id:"CYL-2026-E1-0044", fecha:"04/05/2026", titular:"Presidente de la Diputación preside el acto de ofrecimiento de flores a la Virgen del Moral", eje:1, provincia:"Zamora", localidad:"Fermoselle", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Actos con autoridades", admin:["Diputación"], participacion:"protocolo", autoridad:"Presidente de la Diputación de Zamora", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["romeria", "ofrecimiento"], notas:""},
+  {id:"CYL-2026-E1-0045", fecha:"[09/2026]", titular:"Capitán de la Guardia Civil asiste a la romería del Cristo del Valle", eje:1, provincia:"Zamora", localidad:"Alcañices", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"approx", grupo:"Actos militares", admin:["Estado"], participacion:"asistencia", autoridad:"Capitán de la Comandancia de la Guardia Civil", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cuerpos-seguridad", "romeria"], notas:"Fecha de mes aproximado"},
+  {id:"CYL-2026-E1-0047", fecha:"12/09/2026", titular:"Encuentro Interprovincial de Cofradías con asistencia de las tres diputaciones", eje:1, provincia:"Zamora", localidad:"Salamanca", medio:"Tribuna de Salamanca", agencia:"", link:"https://example.org/encuentro-interprovincial", estado:"verified", grupo:"Actos con autoridades", admin:["Diputación"], participacion:"asistencia", autoridad:"Presidente de la Diputación de Zamora", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["cofradias", "encuentro-interprovincial"], notas:"Pieza multiterritorial (regla M): mismo acto replicado en tres provincias | Alcance territorial: Salamanca|Zamora|Ávila"},
+  {id:"CYL-2026-E2-0018", fecha:"14/07/2026", titular:"Convenio de la Diputación con la Diócesis para restauración de iglesias", eje:2, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Restauración bienes religiosos", categorias:[], importes:[{"cantidad": 60000, "concepto": "Convenio de restauración de iglesias", "unidad": "EUR"}], boletin:{"tipo": "BOP", "numero": "754/26", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["restauracion", "convenio"], notas:""},
+  {id:"CYL-2026-E2-0019", fecha:"12/09/2026?", titular:"Apertura turística de los templos del casco histórico", eje:2, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"pending", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 8500, "concepto": "Apertura turística de templos", "unidad": "EUR"}], boletin:{"tipo": "BOCyL", "numero": "9416", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "casco-historico"], notas:"Discrepancia de fecha entre fuentes: 12 o 14 de septiembre"},
+  {id:"CYL-2026-E2-0021", fecha:"20/03/2026", titular:"Programa de Apertura de Monumentos de Semana Santa (desglose provincial)", eje:2, provincia:"Zamora", localidad:"Provincia", medio:"Astorga Digital", agencia:"", link:"https://example.org/apertura-monumentos-semana-santa-2026", estado:"pending", grupo:"Turismo religioso", categorias:[], importes:[{"cantidad": 21962, "concepto": "desglose estimado proporcional — total 65.885 € para tres provincias", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["apertura-templos", "semana-santa", "multiterritorial"], notas:"Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026 | Alcance territorial: Salamanca|Zamora|Soria"},
+  {id:"CYL-2026-E3-0018", fecha:"09/09/2026", titular:"Convenio de la Diputación de Zamora con Cáritas", eje:3, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 32000, "concepto": "Convenio anual de acción social", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["caritas", "convenio"], notas:""},
+  {id:"CYL-2026-E3-0019", fecha:"27/11/2026", titular:"Subvención de la Junta al Banco de Alimentos de Zamora", eje:3, provincia:"Zamora", localidad:"Zamora", medio:"BDNS", agencia:"", link:"", estado:"verified", grupo:"Asistencia social", categorias:[], importes:[{"cantidad": 18000, "concepto": "Subvención a banco de alimentos (ACT: AS)", "unidad": "EUR"}], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["banco-alimentos"], notas:""},
+  {id:"CYL-2026-E4-0018", fecha:"02/03/2026", titular:"Alcaldesa de Zamora responde a las críticas por el gasto público en Semana Santa: «no se toca»", eje:4, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Semana Santa", actor:"Alcaldesa de Zamora", tema:"Semana Santa", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["criticas", "gasto-publico"], notas:""},
+  {id:"CYL-2026-E4-0019", fecha:"13/06/2026", titular:"Presidente de la Diputación de Zamora califica el convenio con la diócesis de «política de Estado»", eje:4, provincia:"Zamora", localidad:"Zamora", medio:"La Opinión de Zamora", agencia:"", link:"", estado:"verified", grupo:"Discursos institucionales", actor:"Presidente de la Diputación de Zamora", tema:"Convenios Iglesia-administración", categorias:[], importes:[], boletin:{"tipo": "", "numero": "", "expediente": "", "fechaPublicacion": "", "link": ""}, tags:["convenios", "diocesis"], notas:""}];
+
+const FLUJOS_DINERO = [
+
+  /* ===== ÁVILA ===== */
+  {provincia:"Ávila", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Diputación de Ávila", destino:"Obispado de Ávila", cantidad:75000, concepto:"Convenio restauración iglesias no BIC", gru:"ID", reporteId:"CYL-2026-E2-0001", pendiente:false},
+  {provincia:"Ávila", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Obispado de Ávila", cantidad:333325, concepto:"Anualidad 2026 de subvención plurianual", gru:"ID", reporteId:"CYL-2026-E2-0002", pendiente:false},
+  {provincia:"Ávila", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Cáritas Diocesana de Ávila", cantidad:116806, concepto:"Subvención a servicios sociales (ACT: AS)", gru:"ID", reporteId:"CYL-2026-E3-0001", pendiente:false},
+  {provincia:"Ávila", eje:3, programa:"Servicios sociales", origen:"Ayuntamiento de Arévalo", destino:"Parroquia de San Martín", cantidad:1500, concepto:"Subvención línea IC (ACT: IC)", gru:"ID", reporteId:"CYL-2026-E3-0002", pendiente:false},
+
+  /* ===== BURGOS ===== */
+  {provincia:"Burgos", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Diputación de Burgos", destino:"Diócesis de Burgos", cantidad:2000000, concepto:"Plan de restauración de iglesias", gru:"ID", reporteId:"CYL-2026-E2-0003", pendiente:false},
+  {provincia:"Burgos", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Burgos - Iglesias", cantidad:150000, concepto:"Aporte Junta de Castilla y León", gru:"ID", reporteId:"CYL-2026-E2-0004", pendiente:false},
+  {provincia:"Burgos", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Diputación de Burgos", destino:"Diócesis de Burgos - Iglesias", cantidad:160000, concepto:"Aporte Diputación de Burgos", gru:"ID", reporteId:"CYL-2026-E2-0004", pendiente:false},
+  {provincia:"Burgos", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Ayuntamiento de Poza", destino:"Diócesis de Burgos - Iglesias", cantidad:60000, concepto:"Aporte Ayuntamiento de Poza", gru:"ID", reporteId:"CYL-2026-E2-0004", pendiente:false},
+  {provincia:"Burgos", eje:3, programa:"Servicios sociales", origen:"Diputación de Burgos", destino:"Cáritas Diocesana de Burgos", cantidad:40000, concepto:"Convenio de inclusión social", gru:"ID", reporteId:"CYL-2026-E3-0003", pendiente:false},
+  {provincia:"Burgos", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Banco de Alimentos de Burgos", cantidad:25000, concepto:"Subvención a banco de alimentos (ACT: AS)", gru:"EC", reporteId:"CYL-2026-E3-0004", pendiente:true},
+  {provincia:"Burgos", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Banco de Alimentos de Burgos", cantidad:25000, concepto:"Subvención a banco de alimentos (ACT: AS)", gru:"EC", reporteId:"CYL-2026-E3-0005", pendiente:true},
+
+  /* ===== LEÓN ===== */
+  {provincia:"León", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de León", cantidad:54000, concepto:"Restauración de cubierta de la catedral", gru:"ID", reporteId:"CYL-2026-E2-0005", pendiente:false},
+  {provincia:"León", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Diócesis de León", cantidad:12000, concepto:"Apertura de templos en Semana Santa", gru:"ID", reporteId:"CYL-2026-E2-0006", pendiente:false},
+  {provincia:"León", eje:3, programa:"Educación", origen:"Junta de Castilla y León", destino:"Fundación Diocesana de Enseñanza de León", cantidad:150000, concepto:"Concierto educativo, plazas concertadas", gru:"ID", reporteId:"CYL-2026-E3-0006", pendiente:false},
+  {provincia:"León", eje:3, programa:"Educación", origen:"Xunta de Galicia", destino:"Seminario Mayor de Astorga", cantidad:30000, concepto:"Subvención educativa a seminario", gru:"OR", reporteId:"CYL-2026-E3-0007", pendiente:false},
+
+  /* ===== PALENCIA ===== */
+  {provincia:"Palencia", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Palencia", cantidad:28000, concepto:"Restauración de retablo mayor", gru:"ID", reporteId:"CYL-2026-E2-0007", pendiente:false},
+  {provincia:"Palencia", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Ayuntamiento de Palencia", destino:"Ermita de San Juan de Baños (propiedad municipal)", cantidad:45000, concepto:"Rehabilitación para centro de interpretación", gru:"OC", reporteId:"CYL-2026-E2-0008", pendiente:false},
+  {provincia:"Palencia", eje:3, programa:"Servicios sociales", origen:"M. de T. Digital", destino:"Esclavas de la Virgen", cantidad:10250, concepto:"Subvención a funcionamiento (ACT: FUN)", gru:"OR", reporteId:"CYL-2026-E3-0008", pendiente:false},
+  {provincia:"Palencia", eje:3, programa:"Servicios sociales", origen:"Ayuntamiento de Palencia", destino:"Cáritas Diocesana de Palencia", cantidad:230000, concepto:"Convenio anual de acción social", gru:"ID", reporteId:"CYL-2026-E3-0009", pendiente:false},
+
+  /* ===== SALAMANCA ===== */
+  {provincia:"Salamanca", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Junta de Cofradías de Salamanca", cantidad:16000, concepto:"Subvención a cofradías de Semana Santa", gru:"EC", reporteId:"CYL-2026-E2-0009", pendiente:false},
+  {provincia:"Salamanca", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Diputación de Salamanca", destino:"Diócesis de Salamanca", cantidad:120000, concepto:"Restauración de cubierta de la Catedral Vieja", gru:"ID", reporteId:"CYL-2026-E2-0010", pendiente:false},
+  {provincia:"Salamanca", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Diócesis de Salamanca", cantidad:21961, concepto:"desglose estimado proporcional — total 65.885 € para tres provincias", gru:"ID", reporteId:"CYL-2026-E2-0020", pendiente:true},
+  {provincia:"Salamanca", eje:3, programa:"Servicios sociales", origen:"Diputación de Salamanca", destino:"Cáritas Diocesana de Salamanca", cantidad:99763, concepto:"Convenio intervención colectivos desfavorecidos", gru:"ID", reporteId:"CYL-2026-E3-0010", pendiente:false},
+  {provincia:"Salamanca", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Cáritas Diocesana de Salamanca", cantidad:60000, concepto:"Convocatoria anunciada, importe previsto", gru:"ID", reporteId:"CYL-2026-E3-0011", pendiente:true},
+  {provincia:"Salamanca", eje:3, programa:"Educación", origen:"Junta de Castilla y León", destino:"Escuelas Católicas de Salamanca", cantidad:150000, concepto:"desglose estimado proporcional, total 300.000 € para dos provincias", gru:"EC", reporteId:"CYL-2026-E3-0021", pendiente:true},
+
+  /* ===== SEGOVIA ===== */
+  {provincia:"Segovia", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Segovia", cantidad:22000, concepto:"Restauración de conjunto románico", gru:"ID", reporteId:"CYL-2026-E2-0011", pendiente:false},
+  {provincia:"Segovia", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Comarca (Segovia)", destino:"Parroquia de San Miguel de Sepúlveda", cantidad:6200, concepto:"Apertura turística de templos", gru:"ID", reporteId:"CYL-2026-E2-0012", pendiente:false},
+  {provincia:"Segovia", eje:3, programa:"Servicios sociales", origen:"Ayuntamiento de Segovia", destino:"Cáritas Diocesana de Segovia", cantidad:45000, concepto:"Convenio anual de acción social", gru:"ID", reporteId:"CYL-2026-E3-0012", pendiente:false},
+  {provincia:"Segovia", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Diócesis de Segovia", cantidad:89000, concepto:"Subvención línea IC", gru:"ID", reporteId:"CYL-2026-E3-0013", pendiente:false},
+
+  /* ===== SORIA ===== */
+  {provincia:"Soria", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Osma-Soria", cantidad:9500, concepto:"Restauración de torre", gru:"ID", reporteId:"CYL-2026-E2-0013", pendiente:false},
+  {provincia:"Soria", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Osma-Soria", cantidad:15000, concepto:"Restauración del conjunto catedralicio", gru:"ID", reporteId:"CYL-2026-E2-0014", pendiente:true},
+  {provincia:"Soria", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Diócesis de Osma-Soria", cantidad:15000, concepto:"Restauración del conjunto catedralicio", gru:"ID", reporteId:"CYL-2026-E2-0015", pendiente:true},
+  {provincia:"Soria", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Diócesis de Osma-Soria", cantidad:21962, concepto:"desglose estimado proporcional — total 65.885 € para tres provincias", gru:"ID", reporteId:"CYL-2026-E2-0022", pendiente:true},
+  {provincia:"Soria", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Cáritas Diocesana de Soria", cantidad:55000, concepto:"Subvención a servicios sociales (ACT: AS)", gru:"ID", reporteId:"CYL-2026-E3-0014", pendiente:false},
+  {provincia:"Soria", eje:3, programa:"Servicios sociales", origen:"M. de Igualdad", destino:"Congregación Siervas de San José", cantidad:18000, concepto:"Subvención a inserción laboral (ACT: AS)", gru:"OR", reporteId:"CYL-2026-E3-0015", pendiente:false},
+
+  /* ===== VALLADOLID ===== */
+  {provincia:"Valladolid", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Junta de Castilla y León", destino:"Archidiócesis de Valladolid", cantidad:30000, concepto:"Restauración de fachada", gru:"ID", reporteId:"CYL-2026-E2-0016", pendiente:false},
+  {provincia:"Valladolid", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Archidiócesis de Valladolid", cantidad:45000, concepto:"Programa de apertura de monumentos", gru:"ID", reporteId:"CYL-2026-E2-0017", pendiente:false},
+  {provincia:"Valladolid", eje:3, programa:"Servicios sociales", origen:"Ayuntamiento de Valladolid", destino:"Cáritas Diocesana de Valladolid", cantidad:350000, concepto:"Convenio anual de acción social", gru:"ID", reporteId:"CYL-2026-E3-0016", pendiente:false},
+  {provincia:"Valladolid", eje:3, programa:"Educación", origen:"Junta de Castilla y León", destino:"Federación Católica de AMPAs de Valladolid", cantidad:12000, concepto:"Subvención educativa (ACT: ED)", gru:"EC", reporteId:"CYL-2026-E3-0017", pendiente:false},
+  {provincia:"Valladolid", eje:3, programa:"Educación", origen:"Junta de Castilla y León", destino:"Escuelas Católicas de Valladolid", cantidad:150000, concepto:"desglose estimado proporcional, total 300.000 € para dos provincias", gru:"EC", reporteId:"CYL-2026-E3-0020", pendiente:true},
+
+  /* ===== ZAMORA ===== */
+  {provincia:"Zamora", eje:2, tipoE2:"conservacion", programa:"Conservación de patrimonio", origen:"Diputación de Zamora", destino:"Diócesis de Zamora", cantidad:60000, concepto:"Convenio de restauración de iglesias", gru:"ID", reporteId:"CYL-2026-E2-0018", pendiente:false},
+  {provincia:"Zamora", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Diócesis de Zamora", cantidad:8500, concepto:"Apertura turística de templos", gru:"ID", reporteId:"CYL-2026-E2-0019", pendiente:true},
+  {provincia:"Zamora", eje:2, tipoE2:"turismo", programa:"Turismo religioso", origen:"Junta de Castilla y León", destino:"Diócesis de Zamora", cantidad:21962, concepto:"desglose estimado proporcional — total 65.885 € para tres provincias", gru:"ID", reporteId:"CYL-2026-E2-0021", pendiente:true},
+  {provincia:"Zamora", eje:3, programa:"Servicios sociales", origen:"Diputación de Zamora", destino:"Cáritas Diocesana de Zamora", cantidad:32000, concepto:"Convenio anual de acción social", gru:"ID", reporteId:"CYL-2026-E3-0018", pendiente:false},
+  {provincia:"Zamora", eje:3, programa:"Servicios sociales", origen:"Junta de Castilla y León", destino:"Banco de Alimentos de Zamora", cantidad:18000, concepto:"Subvención a banco de alimentos (ACT: AS)", gru:"EC", reporteId:"CYL-2026-E3-0019", pendiente:false}];
+
+const CAPELANIAS = [
+
+  /* ===== ÁVILA ===== */
+  {provincia:"Ávila", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:18000, origen:"Junta de CyL · Sacyl", destino:"Complejo Asistencial de Ávila", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Ávila", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9500, origen:"Junta de CyL · Sacyl", destino:"Hospital Nuestra Señora de Sonsoles", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Ávila", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8500, origen:"Junta de CyL · Sacyl", destino:"Centro de Salud Mental de Ávila", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Ávila", subtipo:"militar", periodo:"2026", numero:1, costeAnual:22000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Ávila", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Ávila", subtipo:"militar", periodo:"2026", numero:1, costeAnual:11000, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Ávila", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"Coste 2026 sin confirmar; la cifra procede de la partida homóloga de 2025"},
+
+  /* ===== BURGOS ===== */
+  {provincia:"Burgos", subtipo:"sanitaria", periodo:"2026", numero:2, costeAnual:36000, origen:"Junta de CyL · Sacyl", destino:"Hospital Universitario de Burgos", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Burgos", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:12000, origen:"Junta de CyL · Sacyl", destino:"Hospital Santos Reyes (Aranda de Duero)", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Burgos", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:10000, origen:"Junta de CyL · Sacyl", destino:"Hospital Santiago Apóstol (Miranda de Ebro)", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Burgos", subtipo:"militar", periodo:"2026", numero:1, costeAnual:24000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Burgos", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Burgos", subtipo:"militar", periodo:"2026", numero:1, costeAnual:12000, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Burgos", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"approx", reporteId:"", notas:"Coste anual estimado a partir del contrato de 2025"},
+
+  /* ===== LEÓN ===== */
+  {provincia:"León", subtipo:"sanitaria", periodo:"2026", numero:2, costeAnual:34000, origen:"Junta de CyL · Sacyl", destino:"Complejo Asistencial Universitario de León", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"León", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9000, origen:"Junta de CyL · Sacyl", destino:"Hospital Comarcal de Ponferrada", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"León", subtipo:"militar", periodo:"2026", numero:1, costeAnual:23000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de León", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"Posible duplicación con CYL-2026-CAP-0014 (misma provincia, subtipo, periodo y destino) — renovar el registro existente, no duplicarlo."},
+  {provincia:"León", subtipo:"militar", periodo:"2026", numero:1, costeAnual:23000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de León", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"DUPLICADO SEMBRADO PARA PRUEBA — misma clave natural provincia+subtipo+periodo; el validador debe distinguir renovación (periodo distinto) de duplicado real | Posible duplicación con CYL-2026-CAP-0013 (misma provincia, subtipo, periodo y destino) — renovar el registro existente, no duplicarlo."},
+  {provincia:"León", subtipo:"militar", periodo:"2026", numero:1, costeAnual:11500, origen:"Ministerio del Interior", destino:"Centro Penitenciario de León", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"Coste 2026 pendiente de confirmación por el Ministerio"},
+
+  /* ===== PALENCIA ===== */
+  {provincia:"Palencia", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:18500, origen:"Junta de CyL · Sacyl", destino:"Hospital Universitario de Palencia", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Palencia", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9200, origen:"Junta de CyL · Sacyl", destino:"Hospital San Telmo", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Palencia", subtipo:"sanitaria", periodo:"2026", numero:null, costeAnual:null, origen:"Junta de CyL · Sacyl", destino:"Centro de Salud Mental de Palencia", concepto:"Capellanía hospitalaria — media jornada", medio:"Consejería de Sanidad (respuesta a solicitud de información)", agencia:"", link:"", estado:"pending", reporteId:"", notas:"Coste no desglosado en la respuesta; plaza compartida con la del hospital"},
+  {provincia:"Palencia", subtipo:"militar", periodo:"2026", numero:1, costeAnual:22500, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Palencia", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Palencia", subtipo:"militar", periodo:"2026", numero:1, costeAnual:11500, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Dueñas", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"approx", reporteId:"", notas:"Coste anual estimado; sin desglose de jornada en la fuente"},
+
+  /* ===== SALAMANCA ===== */
+  {provincia:"Salamanca", subtipo:"sanitaria", periodo:"2026", numero:3, costeAnual:52000, origen:"Junta de CyL · Sacyl", destino:"Complejo Asistencial Universitario de Salamanca", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Salamanca", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:10000, origen:"Junta de CyL · Sacyl", destino:"Hospital Virgen de la Vega", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Salamanca", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9500, origen:"Junta de CyL · Sacyl", destino:"Hospital Clínico Universitario de Salamanca", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Salamanca", subtipo:"militar", periodo:"2026", numero:1, costeAnual:24500, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Salamanca", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Salamanca", subtipo:"militar", periodo:"2026", numero:1, costeAnual:12000, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Salamanca", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+
+  /* ===== SEGOVIA ===== */
+  {provincia:"Segovia", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:18000, origen:"Junta de CyL · Sacyl", destino:"Hospital General de Segovia", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Segovia", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9000, origen:"Junta de CyL · Sacyl", destino:"Centro de Salud Mental de Segovia", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Segovia", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8800, origen:"Junta de CyL · Sacyl", destino:"Hospital Nuestra Señora de la Misericordia", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Segovia", subtipo:"militar", periodo:"2026", numero:1, costeAnual:22000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Segovia", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Segovia", subtipo:"militar", periodo:"2026", numero:1, costeAnual:11000, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Segovia", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"Sin confirmación del coste para el ejercicio 2026"},
+
+  /* ===== SORIA ===== */
+  {provincia:"Soria", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:17500, origen:"Junta de CyL · Sacyl", destino:"Complejo Asistencial de Soria", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Soria", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8900, origen:"Junta de CyL · Sacyl", destino:"Centro de Salud Mental de Soria", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Soria", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8600, origen:"Junta de CyL · Sacyl", destino:"Hospital Santa Isabel (Almazán)", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Soria", subtipo:"militar", periodo:"2026", numero:1, costeAnual:21500, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Soria", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Soria", subtipo:"militar", periodo:"2026", numero:1, costeAnual:10500, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Soria", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"approx", reporteId:"", notas:"Coste anual estimado por extrapolación del ejercicio anterior"},
+
+  /* ===== VALLADOLID ===== */
+  {provincia:"Valladolid", subtipo:"sanitaria", periodo:"2026", numero:3, costeAnual:56000, origen:"Junta de CyL · Sacyl", destino:"Hospital Clínico Universitario de Valladolid", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Valladolid", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:12500, origen:"Junta de CyL · Sacyl", destino:"Hospital Río Hortega", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Valladolid", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:9800, origen:"Junta de CyL · Sacyl", destino:"Hospital de Medina del Campo", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Valladolid", subtipo:"militar", periodo:"2026", numero:2, costeAnual:48000, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Valladolid", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:"numero 2 plazas; coste anual es el total, no el unitario — el motor no debe duplicar al derivar flujos"},
+  {provincia:"Valladolid", subtipo:"militar", periodo:"2026", numero:1, costeAnual:12500, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Valladolid", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+
+  /* ===== ZAMORA ===== */
+  {provincia:"Zamora", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:17800, origen:"Junta de CyL · Sacyl", destino:"Complejo Asistencial de Zamora", concepto:"Capellanía hospitalaria — jornada completa", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Zamora", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8900, origen:"Junta de CyL · Sacyl", destino:"Centro de Salud Mental de Zamora", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Zamora", subtipo:"sanitaria", periodo:"2026", numero:1, costeAnual:8400, origen:"Junta de CyL · Sacyl", destino:"Hospital Comarcal de Benavente", concepto:"Capellanía hospitalaria — media jornada", medio:"BOCyL", agencia:"", link:"", estado:"approx", reporteId:"", notas:"Coste anual aproximado; cifra redondeada por la fuente"},
+  {provincia:"Zamora", subtipo:"militar", periodo:"2026", numero:1, costeAnual:21800, origen:"Ministerio de Defensa", destino:"Capellanía castrense de Zamora", concepto:"Capellanía castrense — jornada completa", medio:"BOE", agencia:"", link:"", estado:"verified", reporteId:"", notas:""},
+  {provincia:"Zamora", subtipo:"militar", periodo:"2026", numero:1, costeAnual:10800, origen:"Ministerio del Interior", destino:"Centro Penitenciario de Zamora", concepto:"Capellanía de prisiones — media jornada", medio:"BOE", agencia:"", link:"", estado:"pending", reporteId:"", notas:"A la espera de la respuesta a la solicitud de información"}];
+
+const EDUCACION = [
+];
+
+const CONVENIOS_VIGENTES = [
+
+  /* ===== ÁVILA ===== */
+  {provincia:"Ávila", eje:2, origen:"Junta de Castilla y León", destino:"Diócesis de Ávila", cantidad:628915, concepto:"Convenio plurianual de restauración de iglesias (3 anualidades)", fechaFirma:"[12/2025]", link:"", pendiente:false},
+
+  /* ===== BURGOS ===== */
+  {provincia:"Burgos", eje:2, origen:"Diputación de Burgos", destino:"Diócesis de Burgos", cantidad:2000000, concepto:"Marco de colaboración para el plan de restauración de templos", fechaFirma:"15/11/2025", link:"", pendiente:false},
+
+  /* ===== LEÓN ===== */
+  {provincia:"León", eje:2, origen:"Junta de Castilla y León · Sacyl", destino:"Diócesis de León", cantidad:46000, concepto:"Convenio de asistencia religiosa hospitalaria en centros de la provincia", fechaFirma:"03/11/2025", link:"", pendiente:false},
+
+  /* ===== PALENCIA ===== */
+  {provincia:"Palencia", eje:2, origen:"Diputación de Palencia", destino:"Cáritas Diocesana de Palencia", cantidad:70000, concepto:"Convenio marco de colaboración en programas de inclusión social (vigencia 2025-2028)", fechaFirma:"22/07/2024", link:"", pendiente:false},
+
+  /* ===== SALAMANCA ===== */
+  {provincia:"Salamanca", eje:2, origen:"Junta de Castilla y León", destino:"Universidad Pontificia de Salamanca", cantidad:310000, concepto:"Convenio plurianual de financiación de titulaciones canónicas", fechaFirma:"[10/2025]", link:"", pendiente:true},
+
+  /* ===== SEGOVIA ===== */
+  {provincia:"Segovia", eje:2, origen:"Ayuntamiento de Segovia", destino:"Junta de Cofradías de Segovia", cantidad:18500, concepto:"Convenio anual de colaboración en Semana Santa (renovable)", fechaFirma:"29/01/2026", link:"", pendiente:false},
+
+  /* ===== SORIA ===== */
+  {provincia:"Soria", eje:2, origen:"Junta de Castilla y León", destino:"Diócesis de Osma-Soria", cantidad:null, concepto:"Convenio de apertura turística de templos, importe pendiente de publicación", fechaFirma:"[12/2025]", link:"", pendiente:true},
+
+  /* ===== VALLADOLID ===== */
+  {provincia:"Valladolid", eje:2, origen:"Ayuntamiento de Valladolid", destino:"Arzobispado de Valladolid", cantidad:350000, concepto:"Convenio de conservación del patrimonio monumental de propiedad diocesana", fechaFirma:"18/12/2025", link:"", pendiente:true},
+
+  /* ===== ZAMORA ===== */
+  {provincia:"Zamora", eje:2, origen:"Diputación de Zamora", destino:"Diócesis de Zamora", cantidad:60000, concepto:"Convenio de mantenimiento del conjunto catedralicio", fechaFirma:"09/10/2025", link:"", pendiente:false},
+
+  /* ===== SALAMANCA ===== */
+  {provincia:"Salamanca", eje:2, origen:"Junta de Castilla y León", destino:"Escuelas Católicas de Castilla y León", cantidad:300000, concepto:"Convenio marco autonómico de apoyo educativo (firmado en Salamanca, alcance en dos provincias)", fechaFirma:"12/11/2025", link:"https://example.org/convenio-escuelas-catolicas-cyl", pendiente:false}];
+
+/*__FIN_DATOS__*/
+
+/* ---------- 2.B · INMATRICULACIONES ---------- */
+const INMATRICULACIONES = {
+  "Ávila":null, "Burgos":null, "León":null, "Palencia":null,
+  "Salamanca":null, "Segovia":null, "Soria":null, "Valladolid":null, "Zamora":null
+};
+
+/* ---------- 2.C · DIOCESIS / IRPF ---------- */
+const DIOCESIS = {
+  "Ávila":null, "Burgos":null, "León":null, "Palencia":null,
+  "Salamanca":null, "Segovia":null, "Soria":null, "Valladolid":null, "Zamora":null
+};
+
+
+/* ---------- 2.E · CONFIG ---------- */
+const CONFIG = {
+  rangoTemporal:"DD/MM/YYYY – DD/MM/YYYY",
+  versionDatos:"Año · Provincia (N reportes) · v2.3"
+};
+  /* ---------- 2.F · COLECCIONES SEPARADAS DE GASTO RECURRENTE ----------
+   CAPELANIAS y EDUCACION son la entrada ÚNICA de estos datos.
+   El motor deriva de ellas los flujos que computan en las sumas del
+   eje 3, el sankey y las porciones: NO se cargan además en
+   FLUJOS_DINERO (la derivación evita el doble cómputo mecánicamente).
+*/
+
+
+/* ============================================================
+   3 · MOTOR
+   ============================================================ */
+const fmtEUR = n => n==null ? "—" :
+  new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n);
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let vistaProvincia="CYL", vistaEje="G";
+
+const REPORTE_BY_ID = Object.fromEntries(REPORTES.map(r=>[r.id,r]));
+const esDescartado = id => !!id && !!(REPORTE_BY_ID[id] && REPORTE_BY_ID[id].descartado);
+
+function flujosDerivados(){
+  const fl=[];
+  CAPELANIAS.forEach(c=>fl.push({
+    provincia:c.provincia, eje:3, constante:"capellanias", subtipo:c.subtipo, numero:c.numero,
+    programa:c.subtipo==="militar"?"Capellanías militares":"Capellanías hospitalarias",
+    origen:c.origen, destino:c.destino, cantidad:c.costeAnual,
+    concepto:c.concepto||("Capellanía "+c.subtipo+(c.periodo?" · "+c.periodo:"")),
+    reporteId:c.reporteId||"", pendiente:c.estado==="pending"
+  }));
+  EDUCACION.forEach(e=>fl.push({
+    provincia:e.provincia, eje:3, constante:"educacion", partida:e.partida, numero:e.numero,
+    programa:"Educación",
+    origen:e.origen, destino:e.destino, cantidad:e.costeAnual,
+    concepto:e.concepto||((e.partida==="concierto"?"Plazas concertadas":"Profesorado de religión")+(e.periodo?" · "+e.periodo:"")),
+    reporteId:e.reporteId||"", pendiente:e.estado==="pending"
+  }));
+  return fl;
+}
+
+function reportesDe(prov, eje){
+  return REPORTES.filter(r=>
+    (prov==="CYL" || r.provincia===prov) && (!eje || r.eje===eje));
+}
+function flujosDe(prov, eje){
+  return FLUJOS_DINERO.concat(flujosDerivados()).filter(f=>
+    (prov==="CYL" || f.provincia===prov) && (!eje || f.eje===eje) && !esDescartado(f.reporteId));
+}
+function sumFlujos(flujos, filtro){
+  return flujos.filter(f=>!f.pendiente && (!filtro || filtro(f))).reduce((a,f)=>a+f.cantidad,0);
+}
+function ordenFecha(s){
+  if(!s) return 999999999;
+  const str=String(s);
+  const d=str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(d) return +d[3]*10000 + +d[2]*100 + +d[1];
+  const m=str.match(/(\d{1,2})\/(\d{4})/);
+  if(m) return +m[2]*10000 + +m[1]*100 + 1;
+  const q=str.match(/(\d{1,2})\/(\d{1,2})\/\D*(\d{4})/);
+  if(q) return +q[3]*10000 + +q[2]*100 + +q[1];
+  return 888888888;
+}
+
+function fichaReporte(r){
+  const e=ESTADOS[r.estado]||ESTADOS.pending;
+  const d=r.descartado
+    ? `<span class="estado descartado">⨯ Descartado — no computa</span>`
+    : "";
+  let imp="";
+  (r.importes||[]).forEach(i=>{
+    const v=(i.unidad??"EUR")==="EUR" ? fmtEUR(i.cantidad) : `${i.cantidad} ${i.unidad}`;
+    imp+=(imp?" · ":"")+`${v}${i.concepto?" — "+esc(i.concepto):""}`;
+  });
+  let bol="";
+  if(r.boletin && r.boletin.tipo){
+    const loc=r.boletin.numero||r.boletin.expediente||r.boletin.link;
+    bol=loc
+      ? `📄 ${esc(r.boletin.tipo)}${r.boletin.numero?" · "+esc(r.boletin.numero):""}${r.boletin.expediente?" · exp. "+esc(r.boletin.expediente):""}${r.boletin.link?` · <a href="${esc(r.boletin.link)}" target="_blank" rel="noopener">boletín</a>`:""}`
+      : `📄 ${esc(r.boletin.tipo)} · pendiente de localizar`;
+  }
+  return `<div class="reporte">
+    <b>${esc(r.titular)}</b><span class="estado ${e.clase}">${e.etiq}</span>${d}
+    <div class="rep-meta">${esc(r.fecha)} · ${esc(r.grupo||"")} · ${esc(r.localidad||"")} · ${esc(r.medio||"")}${r.agencia?" ("+esc(r.agencia)+")":""}${r.link?` · <a href="${esc(r.link)}" target="_blank" rel="noopener">noticia ↗</a>`:""}</div>
+    ${imp?`<div class="rep-importes">${imp}</div>`:""}
+    ${bol?`<div class="rep-boletin">${bol}</div>`:""}
+    ${r.motivoDescarte?`<div class="rep-meta" style="color:#8a8478">⨯ ${esc(r.motivoDescarte)}</div>`:""}
+    ${r.notas?`<div class="rep-meta" style="color:var(--alerta)">⚠ ${esc(r.notas)}</div>`:""}
+  </div>`;
+}
+function desglose(reps){
+  if(!reps.length) return `<section class="panel"><h2>Desglose de reportes</h2>
+    <div class="sin-datos"><b>🗂</b>Sin reportes para esta selección.</div></section>`;
+  const ordenados=[...reps].sort((a,b)=>ordenFecha(a.fecha)-ordenFecha(b.fecha));
+  return `<section class="panel"><h2>Desglose de reportes (${reps.length}) · orden cronológico</h2>`
+    +ordenados.map(fichaReporte).join("")+`</section>`;
+}
+
+/* ---------- V · Vista agregada (CYL) ---------- */
+const ETIQ_GRU = {
+  OR:"Órdenes religiosas católicas",
+  ID:"Iglesia católica diocesana",
+  EC:"Entidades confesionales católicas",
+  MIX:"Entidades mixtas",
+  EV:"Iglesias evangélicas",
+  JU:"Comunidades judías",
+  IS:"Comunidades islámicas",
+  HI:"Hinduistas",
+  ORT:"Ortodoxos",
+  BU:"Budistas",
+  OC:"Otras confesiones"
+};
+
+function origenGeneral(f){
+  const o=f.origen||"";
+  if(o==="Junta de Castilla y León") return "Junta de Castilla y León";
+  if(/^M\. /.test(o)||o.indexOf("Ministerio")===0) return "Estado";
+  /* Entes locales (ayuntamientos, diputaciones, comarcas): agrupan
+     SIEMPRE en su provincia de referencia, tomada del campo provincia
+     del flujo — nunca del nombre del ente. «Ayuntamiento de Poza»,
+     «Comarca (Burgos)» y «Diputación de Burgos» son, a efectos CYL,
+     todos «Burgos (local)». */
+  if(/^(Ayuntamiento|Diputación|Comarca)/.test(o)) return f.provincia+" (local)";
+  /* Cualquier otro ente (otras CCAA, UE...) conserva etiqueta propia */
+  return o;
+}
+function gruDe(f){
+  return f.gru || "OC";
+}
+function destinoGeneral(f){
+  return ETIQ_GRU[gruDe(f)] || f.destino;
+}
+const COLOR_LOCAL_PROV = {
+  "Ávila":"#ef6c00", "Burgos":"#bf360c", "León":"#8d6e63", "Palencia":"#78909c",
+  "Salamanca":"#6d4c41", "Segovia":"#a1887f", "Soria":"#5d4037",
+  "Valladolid":"#455a64", "Zamora":"#795548"
+};
+function colorDeOrigen(o){
+  if(COLOR_ORIGEN[o]) return COLOR_ORIGEN[o];
+  const m=o.match(/^(.*) \(local\)$/);
+  if(m && COLOR_LOCAL_PROV[m[1]]) return COLOR_LOCAL_PROV[m[1]];
+  return "#6f6a7c";
+}
+function flujosAgregados(flujos){
+  const acc={};
+  flujos.forEach(f=>{
+    const og=origenGeneral(f), dg=destinoGeneral(f);
+    const clave=og+"→"+dg+"|"+f.eje+"|"+(f.programa||"")+"|"+(f.pendiente?"p":"ok");
+    acc[clave]=acc[clave]||{
+      provincia:f.provincia, eje:f.eje, tipoE2:f.tipoE2, programa:f.programa||"",
+      origen:og, destino:dg, cantidad:0, reporteId:"", pendiente:!!f.pendiente, n:0
+    };
+    acc[clave].cantidad+=f.cantidad;
+    acc[clave].n++;
+  });
+  return Object.values(acc).map(a=>({
+    ...a, concepto:a.n+" línea(s) de subvención agregada(s)"
+  }));
+}
+
+function sankeySVG(flujos){
+  if(!flujos.length) return "";
+  const oTot={}, dTot={};
+  flujos.forEach(f=>{ oTot[f.origen]=(oTot[f.origen]||0)+f.cantidad; dTot[f.destino]=(dTot[f.destino]||0)+f.cantidad; });
+  const oKeys=Object.keys(oTot).sort((a,b)=>oTot[b]-oTot[a]);
+  const dKeys=Object.keys(dTot).sort((a,b)=>dTot[b]-dTot[a]);
+  const W=920, xIzq=235, xDer=690, anchoNodo=16, gap=16, margenSup=34, alturaUtil=380;
+  const granMax=Math.max(...Object.values(oTot),...Object.values(dTot));
+  const minFlowH=5;
+
+  /* 1 · Altura de cada cinta (con mínimo de legibilidad).
+     El importe mostrado sigue siendo el literal; la altura es solo geometría. */
+  const fhFlow=f=>Math.max(minFlowH, f.cantidad/granMax*alturaUtil);
+
+  /* 2 · DECLARADAS ANTES DE USARSE: altura de cada nodo = suma de sus cintas.
+     Así nunca hay desborde ni necesidad de clamp. */
+  const oNodeH={}, dNodeH={};
+  oKeys.forEach(k=>oNodeH[k]=0);
+  dKeys.forEach(k=>dNodeH[k]=0);
+  flujos.forEach(f=>{
+    oNodeH[f.origen]+=fhFlow(f);
+    dNodeH[f.destino]+=fhFlow(f);
+  });
+
+  /* 3 · Posiciones verticales de los nodos */
+  let y=margenSup, maxY=0;
+  const oPos={};
+  oKeys.forEach(k=>{ oPos[k]={y:y, h:oNodeH[k]}; y+=oNodeH[k]+gap; });
+  maxY=Math.max(maxY,y);
+  y=margenSup;
+  const dPos={};
+  dKeys.forEach(k=>{ dPos[k]={y:y, h:dNodeH[k]}; y+=dNodeH[k]+gap; });
+  maxY=Math.max(maxY,y);
+  const H=maxY+46;
+
+  /* 4 · Acumuladores de apilado dentro de cada nodo (declarados antes de los forEach de cintas) */
+  const oOff={}, dOff={};
+  oKeys.forEach(k=>oOff[k]=oPos[k].y);
+  dKeys.forEach(k=>dOff[k]=dPos[k].y);
+
+  let cintas="";
+  flujos.forEach(f=>{
+    const fh=fhFlow(f);
+    const y1=oOff[f.origen];  oOff[f.origen]+=fh;
+    const y2=dOff[f.destino]; dOff[f.destino]+=fh;
+    const xm=(xIzq+xDer)/2;
+    const color=COLOR_ORIGEN[f.origen]||"#6f6a7c";
+    const op=f.pendiente?0.15:0.38;
+    cintas+=`<path d="M${xIzq+anchoNodo},${y1} C${xm},${y1} ${xm},${y2} ${xDer},${y2} L${xDer},${y2+fh} C${xm},${y2+fh} ${xm},${y1+fh} ${xIzq+anchoNodo},${y1+fh} Z"
+      fill="${color}" opacity="${op}"><title>${esc(f.origen)} → ${esc(f.destino)}: ${fmtEUR(f.cantidad)} — ${esc(f.concepto||"")}${f.pendiente?" ⚠ PENDIENTE de verificación":""}</title></path>`;
+  });
+
+  let nodos="";
+  oKeys.forEach(k=>{
+    const color=COLOR_ORIGEN[k]||"#6f6a7c";
+    nodos+=`<rect x="${xIzq}" y="${oPos[k].y}" width="${anchoNodo}" height="${oPos[k].h}" rx="3" fill="${color}"><title>${esc(k)}: ${fmtEUR(oTot[k])}</title></rect>
+      <text x="${xIzq-8}" y="${oPos[k].y+oPos[k].h/2}" text-anchor="end" font-size="11" font-weight="600" fill="#2b2733">${esc(k)}</text>
+      <text x="${xIzq-8}" y="${oPos[k].y+oPos[k].h/2+13}" text-anchor="end" font-size="10" fill="#6f6a7c">${fmtEUR(oTot[k])}</text>`;
+  });
+  dKeys.forEach(k=>{
+    nodos+=`<rect x="${xDer}" y="${dPos[k].y}" width="${anchoNodo}" height="${dPos[k].h}" rx="3" fill="#3b2a9e"><title>${esc(k)}: ${fmtEUR(dTot[k])}</title></rect>
+      <text x="${xDer+anchoNodo+8}" y="${dPos[k].y+dPos[k].h/2}" font-size="11" font-weight="600" fill="#2b2733">${esc(k)}</text>
+      <text x="${xDer+anchoNodo+8}" y="${dPos[k].y+dPos[k].h/2+13}" font-size="10" fill="#6f6a7c">${fmtEUR(dTot[k])}</text>`;
+  });
+  const cab=`<text x="${xIzq}" y="14" font-size="10.5" font-weight="600" fill="#6f6a7c" letter-spacing="1">ADMINISTRACIÓN OTORGANTE</text>
+    <text x="${xDer}" y="14" font-size="10.5" font-weight="600" fill="#6f6a7c" letter-spacing="1" text-anchor="end">ENTIDAD DESTINATARIA</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" role="img" aria-label="Diagrama de flujos">${cab}${cintas}${nodos}</svg>`;
+}
+
+function panelFlujos(fl, tituloExtra){
+  const flujos = (vistaProvincia==="CYL") ? flujosAgregados(fl) : fl;
+  if(!flujos.length) return "";
+  const totalOK=sumFlujos(flujos);
+  const totalPend=flujos.filter(f=>f.pendiente).reduce((a,f)=>a+f.cantidad,0);
+  const leyenda=[...new Set(flujos.map(f=>f.origen))].map(o=>
+    `<span><i style="background:${COLOR_ORIGEN[o]||"#6f6a7c"}"></i>${esc(o)}</span>`).join("");
+  let t=`<section class="panel"><h2>Flujos de dinero público${tituloExtra?" · "+esc(tituloExtra):""}</h2>`
+    +sankeySVG(flujos)
+    +`<div class="sankey-leyenda">${leyenda}<span><i style="background:#c9c3d6;opacity:.35"></i>Cinta pálida = pendiente de verificación</span></div>
+    <p class="nota-panel">Total rastreado (excluye pendientes): <b>${fmtEUR(totalOK)}</b>${totalPend>0?` · Excluidos por discrepancia: ${fmtEUR(totalPend)}`:""}. Suma propia de importes recuperados — cota inferior, no gasto total.</p>
+    <h3 style="font-size:.85rem;margin:16px 0 8px">Detalle en tabla</h3>
+    <div class="tabla-scroll"><table>
+    <thead><tr><th>Origen</th><th>Destino</th><th>Concepto</th><th>Cantidad</th><th>Estado</th></tr></thead><tbody>`;
+  flujos.forEach(f=>{
+    t+=`<tr><td>${esc(f.origen)}</td><td>${esc(f.destino)}</td><td>${esc(f.concepto||"")}</td>
+    <td>${fmtEUR(f.cantidad)}</td><td>${f.pendiente?'<span class="estado pending">⚠ Pendiente</span>':'<span class="estado verified">✔</span>'}</td></tr>`;
+  });
+  return t+`</tbody></table></div></section>`;
+}
+
+function grid(cards, nota){
+  if(!cards.length) return `<section class="panel"><h2>Resumen</h2>
+    <div class="sin-datos"><b>📊</b>Sin datos cargados para esta selección.</div></section>`;
+  return `<div class="kpis">`+cards.map(c=>
+    `<div class="kpi"><div class="titulo">${esc(c.titulo)}</div><div class="valor">${c.valor}</div><div class="detalle">${esc(c.detalle)}</div></div>`
+  ).join("")+`</div>${nota?`<p class="nota-panel" style="margin:-8px 0 18px">${nota}</p>`:""}`;
+}
+
+  function tarjetaDescartes(prov, eje){
+  const desc=reportesDe(prov,eje).filter(r=>r.descartado);
+  if(!desc.length) return "";
+  return `<div class="kpis">
+    <div class="kpi" style="border-left:4px solid #8a8478">
+      <div class="titulo">Piezas descartadas</div>
+      <div class="valor" style="color:#8a8478">${desc.length}</div>
+      <div class="detalle">${desc.map(r=>esc(r.grupo||r.titular)).join(" · ")}</div>
+    </div>
+  </div>`;
+}
+  
+  function panelConveniosVigentes(prov, ejeNum){
+  if(ejeNum!==2) return "";
+  const conv=CONVENIOS_VIGENTES.filter(c=>prov==="CYL"||c.provincia===prov);
+  if(!conv.length) return "";
+  let t=`<section class="panel"><h2>Convenios plurianuales en ejecución durante 2026</h2>
+    <p class="nota-panel" style="margin:0 0 12px">Firmados fuera del rango temporal del informe. Se listan por su vigencia en 2026 pero <b>no computan en sumas ni en el diagrama de flujos</b>.</p>
+    <div class="tabla-scroll"><table>
+    <thead><tr><th>Convenio</th><th>Importe</th><th>Fecha de firma</th><th>Origen → Destino</th><th>Enlace</th></tr></thead><tbody>`;
+  conv.forEach(c=>{
+    t+=`<tr><td>${esc(c.concepto)}</td><td>${fmtEUR(c.cantidad)}</td><td>${esc(c.fechaFirma)}</td>
+    <td>${esc(c.origen)} → ${esc(c.destino)}</td>
+    <td>${c.link?`<a href="${esc(c.link)}" target="_blank" rel="noopener">ver ↗</a>`:"— pendiente"}</td></tr>`;
+  });
+  return t+`</tbody></table></div></section>`;
+}
+
+  /* ---------- Colecciones separadas: tarjetas y paneles ---------- */
+const CFG_CAPELLANIAS = {
+  sanitaria:{etiq:"Capellanías sanitarias",
+    det:"Asistencia religiosa en hospitales y centros sanitarios; gasto de la consejería competente de la Junta de Castilla y León."},
+  militar:{etiq:"Capellanías militares",
+    det:"Capellanías castrenses y de cuerpos y fuerzas de seguridad del Estado; gasto del Ministerio de Defensa o del Interior."}
+};
+const CFG_EDUCACION = {
+  profesorado:{etiq:"Profesorado de religión",
+    det:"Docentes de Religión Católica retribuidos por la Consejería de Educación de la Junta de Castilla y León."},
+  concierto:{etiq:"Plazas concertadas",
+    det:"Plazas en centros confesionales sostenidas con fondos públicos de la Consejería de Educación."}
+};
+
+function filtraColeccion(arr, prov){
+  return arr.filter(r => prov==="CYL" || r.provincia===prov);
+}
+function totColeccion(rs){
+  const ok=rs.filter(r=>r.estado!=="pending");
+  return {
+    n: ok.reduce((a,r)=>a+(r.numero||0),0),
+    coste: ok.reduce((a,r)=>a+(r.costeAnual||0),0),
+    pend: rs.filter(r=>r.estado==="pending")
+  };
+}
+function tarjetaColeccion(etiqueta, unidad, rs, prov, campo, subs){
+  if(!rs.length) return "";
+  const t=totColeccion(rs);
+  const provs=new Set(rs.map(r=>r.provincia)).size;
+  const linea=subs.map(s=>{
+    const st=totColeccion(rs.filter(r=>r[campo]===s.k));
+    return `${s.etiq}: ${st.n||"—"} · ${fmtEUR(st.coste)}`;
+  }).join(" — ");
+  return `<div class="regular-box">
+    <div class="titulo">${esc(etiqueta)}</div>
+    <div class="num">${t.n||"—"} <span style="font-size:.85rem;font-weight:500;color:var(--texto-suave)">${esc(unidad)}</span></div>
+    <div class="sub">${t.coste?fmtEUR(t.coste)+" / año":"coste anual sin dato"}</div>
+    ${linea?`<div class="sub">${linea}</div>`:""}
+    ${t.pend.length?`<div class="sub" style="color:var(--alerta)">⚠ ${t.pend.length} registro(s) pendiente(s), excluidos de la suma</div>`:""}
+    ${prov==="CYL"&&provs>1?`<div class="sub">${provs} provincia(s) con dato</div>`:""}
+  </div>`;
+}
+function tablaColeccion(rs){
+  let t=`<div class="tabla-scroll"><table>
+    <thead><tr><th>Provincia</th><th>Periodo</th><th>Nº</th><th>Coste anual</th><th>Origen → Destino</th><th>Fuente</th><th>Estado</th></tr></thead><tbody>`;
+  rs.forEach(r=>{
+    const e=ESTADOS[r.estado]||ESTADOS.pending;
+    t+=`<tr><td>${esc(r.provincia)}</td><td>${esc(r.periodo||"")}</td>
+      <td>${r.numero!=null?r.numero:"—"}</td>
+      <td>${r.costeAnual!=null?fmtEUR(r.costeAnual):"—"}</td>
+      <td>${esc(r.origen||"")}${r.destino?" → "+esc(r.destino):""}${r.notas?`<div class="rep-meta" style="color:var(--alerta)">⚠ ${esc(r.notas)}</div>`:""}</td>
+      <td>${esc(r.medio||"")}${r.link?` · <a href="${esc(r.link)}" target="_blank" rel="noopener noreferrer">ver ↗</a>`:""}</td>
+      <td><span class="estado ${e.clase}">${e.etiq}</span></td></tr>`;
+  });
+  return t+`</tbody></table></div>`;
+}
+function barrasProvinciales(rs){
+  const porProv={};
+  rs.forEach(r=>{
+    porProv[r.provincia]=porProv[r.provincia]||{n:0,coste:0};
+    if(r.estado!=="pending"){porProv[r.provincia].n+=r.numero||0;porProv[r.provincia].coste+=r.costeAnual||0;}
+  });
+  const arr=Object.entries(porProv).map(([p,v])=>({p,...v})).sort((a,b)=>b.coste-a.coste);
+  const max=Math.max(...arr.map(x=>x.coste),1);
+  return `<div style="margin:12px 0 4px"><h4 style="font-size:.8rem;margin-bottom:8px;color:var(--texto-suave)">Reparto provincial</h4>`
+    +arr.map(x=>`<div class="barra-item">
+      <div class="barra-label"><span>${esc(x.p)}</span><span class="barra-valor">${x.n?x.n+" · ":""}${fmtEUR(x.coste)}</span></div>
+      <div class="barra-track"><div class="barra-fill" style="width:${(x.coste/max*100).toFixed(1)}%">${fmtEUR(x.coste)}</div></div>
+    </div>`).join("")+`</div>`;
+}
+function panelColeccion(titulo, rs, campo, cfg, prov, tituloExtra){
+  if(!rs.length) return "";
+  let bloques="";
+  Object.keys(cfg).forEach(k=>{
+    const sub=rs.filter(r=>r[campo]===k); if(!sub.length) return;
+    bloques+=`<div style="margin-bottom:20px">
+      <h3 style="font-size:.9rem;margin-bottom:4px">${esc(cfg[k].etiq)}</h3>
+      <p class="nota-panel" style="margin:0 0 10px">${esc(cfg[k].det)}</p>
+      ${tablaColeccion(sub)}</div>`;
+  });
+  const t=totColeccion(rs);
+  return `<section class="panel"><h2>${esc(titulo)}${tituloExtra?" · "+esc(tituloExtra):""}</h2>
+    <p class="nota-panel" style="margin:0 0 14px">Gasto recurrente anualizado. Sus importes <b>computan en las sumas del eje 3</b>, el sankey y las porciones vía flujos derivados de esta colección — nunca se cargan además en FLUJOS_DINERO. Total rastreado: <b>${fmtEUR(t.coste)}</b>.</p>
+    ${bloques}${prov==="CYL"?barrasProvinciales(rs):""}</section>`;
+}
+function panelCapellanias(prov){
+  return panelColeccion("Capellanías", filtraColeccion(CAPELANIAS,prov), "subtipo", CFG_CAPELLANIAS, prov, prov==="CYL"?"CyL completo":prov);
+}
+function panelEducacion(prov){
+  return panelColeccion("Educación confesional", filtraColeccion(EDUCACION,prov), "partida", CFG_EDUCACION, prov, prov==="CYL"?"CyL completo":prov);
+}
+function tarjetaCapellanias(prov){
+  return tarjetaColeccion("Capellanías","plazas",filtraColeccion(CAPELANIAS,prov),prov,"subtipo",
+    [{k:"sanitaria",etiq:"Sanitarias"},{k:"militar",etiq:"Militares"}]);
+}
+function tarjetaEducacion(prov){
+  return tarjetaColeccion("Educación confesional","docentes/plazas",filtraColeccion(EDUCACION,prov),prov,"partida",
+    [{k:"profesorado",etiq:"Profesorado"},{k:"concierto",etiq:"Conciertos"}]);
+}
+
+/* ---------- Diagramas de porciones (vista General) ---------- */
+const COLOR_PROGRAMA = {
+  "Conservación de patrimonio":"#3b2a9e",
+  "Turismo religioso":"#c77700",
+  "Servicios sociales":"#0f8a5f",
+  "Capellanías hospitalarias":"#8a54c9",
+  "Educación":"#c02626"
+};
+
+function porcionSVG(datos,colores){
+  if(!datos.length) return "";
+  const total=datos.reduce((a,d)=>a+d.valor,0);
+  const cx=110,cy=110,r=95,ancho=28;
+  let ang=-Math.PI/2,trozos="",leyenda="";
+  
+  datos.forEach(d=>{
+    const frac=d.valor/total;
+    const aFin=ang+frac*2*Math.PI;
+    const grande=(aFin-ang)>Math.PI?1:0;
+    
+    const Px=(radio,a)=>cx+radio*Math.cos(a);
+    const Py=(radio,a)=>cy+radio*Math.sin(a);
+    
+    const color=colores[d.nombre]||"#6f6a7c";
+    
+    trozos+=`<path d="
+      M ${Px(r,ang)} ${Py(r,ang)}
+      A ${r} ${r} 0 ${grande} 1 ${Px(r,aFin)} ${Py(r,aFin)}
+      L ${Px(r-ancho,aFin)} ${Py(r-ancho,aFin)}
+      A ${r-ancho} ${r-ancho} 0 ${grande} 0 ${Px(r-ancho,ang)} ${Py(r-ancho,ang)}
+      Z"
+      fill="${color}" style="fill:${color}!important" stroke="#fff" stroke-width="1">
+      <title>${esc(d.nombre)}: ${fmtEUR(d.valor)} (${(frac*100).toFixed(1)}%)</title>
+    </path>`;
+    
+    leyenda+=`<div><i style="background:${color}"></i>${esc(d.nombre)} — <b>${(frac*100).toFixed(1)}%</b> · ${fmtEUR(d.valor)}</div>`;
+    
+    ang=aFin;
+  });
+  
+  return `<div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center">
+    <svg viewBox="0 0 220 220" style="width:200px;height:200px;flex-shrink:0">${trozos}
+      <circle cx="${cx}" cy="${cy}" r="67" fill="var(--panel)"></circle>
+      <text x="${cx}" y="${cy-4}" text-anchor="middle" font-size="11" fill="#6f6a7c">TOTAL</text>
+      <text x="${cx}" y="${cy+12}" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2b2733">${fmtEUR(total)}</text>
+    </svg>
+    <div class="porcion-leyenda">${leyenda}</div>
+  </div>`;
+}
+
+function agruparPorTipo(origen){
+  if(origen.includes("Diputación")) return "Diputaciones";
+  if(origen.includes("Ayuntamiento")) return "Ayuntamientos";
+  return origen;
+}
+function panelPorciones(prov){
+  const fl=flujosDe(prov).filter(f=>!f.pendiente);
+  if(!fl.length) return "";
+  const porPrograma={}, porAdmin={};
+  fl.forEach(f=>{
+    porPrograma[f.programa]=(porPrograma[f.programa]||0)+f.cantidad;
+    const clave = (prov==="CYL") ? origenGeneral(f) : f.origen;
+    porAdmin[clave]=(porAdmin[clave]||0)+f.cantidad;
+  });
+  const dProg=Object.entries(porPrograma).map(([nombre,valor])=>({nombre,valor}))
+    .sort((a,b)=>b.valor-a.valor);
+  const dAdm=Object.entries(porAdmin).map(([nombre,valor])=>({nombre,valor}))
+    .sort((a,b)=>b.valor-a.valor);
+  const coloresAdmin={};
+  Object.keys(porAdmin).forEach(k=>coloresAdmin[k]=colorDeOrigen(k));
+  return `<section class="panel"><h2>Reparto del dinero rastreado</h2>
+  <div class="porciones-cajas">
+    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por tipo de programa</h3>${porcionSVG(dProg,COLOR_PROGRAMA)}</div>
+    <div><h3 style="font-size:.85rem;margin-bottom:10px">Por administración otorgante</h3>${porcionSVG(dAdm,coloresAdmin)}</div>
+  </div>
+  <p class="nota-panel">Porcentajes sobre ${fmtEUR(dProg.reduce((a,d)=>a+d.valor,0))} rastreados (excluye pendientes y descartados).</p></section>`;
+}
+  
+  function panelRankings(prov){
+  if(prov!=="CYL") return "";
+  const fl=flujosDe(prov).filter(f=>!f.pendiente && (agruparPorTipo(f.origen)==="Ayuntamientos" || agruparPorTipo(f.origen)==="Diputaciones"));
+  if(!fl.length) return "";
+  
+  const aytos={}, dptos={};
+  fl.forEach(f=>{
+    if(agruparPorTipo(f.origen)==="Ayuntamientos"){
+      aytos[f.origen]=(aytos[f.origen]||0)+f.cantidad;
+    }else if(agruparPorTipo(f.origen)==="Diputaciones"){
+      dptos[f.origen]=(dptos[f.origen]||0)+f.cantidad;
+    }
+  });
+  
+  const aytoArr=Object.entries(aytos).map(([nombre,valor])=>({nombre,valor})).sort((a,b)=>b.valor-a.valor);
+  const dpτοArr=Object.entries(dptos).map(([nombre,valor])=>({nombre,valor})).sort((a,b)=>b.valor-a.valor);
+  
+  if(!aytoArr.length && !dpτοArr.length) return "";
+  
+  const maxVal=Math.max(...aytoArr.map(x=>x.valor),...dpτοArr.map(x=>x.valor),1);
+  
+  function renderBaras(arr,titulo){
+    if(!arr.length) return "";
+    let t=`<div><h3 style="font-size:.85rem;margin-bottom:12px">${titulo}</h3>`;
+    arr.forEach(item=>{
+      const pct=(item.valor/maxVal*100).toFixed(1);
+      t+=`<div class="barra-item">
+        <div class="barra-label"><span>${esc(item.nombre)}</span><span class="barra-valor">${fmtEUR(item.valor)}</span></div>
+        <div class="barra-track"><div class="barra-fill" style="width:${pct}%">${fmtEUR(item.valor)}</div></div>
+      </div>`;
+    });
+    return t+`</div>`;
+  }
+  
+  return `<section class="panel"><h2>Comparativa por nivel administrativo (CyL completo)</h2>
+  <div class="ranking-cajas">
+    ${renderBaras(aytoArr,"Ayuntamientos ordenados por importe")}
+    ${renderBaras(dpτοArr,"Diputaciones ordenadas por importe")}
+  </div>
+  <p class="nota-panel">Solo se muestran entidades con flujos de dinero registrados.</p></section>`;
+}
+  
+function kpiGeneral(prov){
+  const reps=reportesDe(prov), cards=[];
+  const porEje={1:0,2:0,3:0,4:0};
+  reps.forEach(r=>porEje[r.eje]=(porEje[r.eje]||0)+1);
+  const ambito=prov==="CYL"?PROVINCIAS:[prov];
+  let f=0,st=0,ibi=0,hayF=false;
+  ambito.forEach(p=>{const im=INMATRICULACIONES[p];
+    if(im){f+=im.fincas||0; st+=im.sinTitulo||0; ibi+=im.ibiEstimado||0; hayF=true;}});
+  if(reps.length) cards.push({titulo:"Reportes",valor:reps.length,detalle:`E1:${porEje[1]} · E2:${porEje[2]} · E3:${porEje[3]} · E4:${porEje[4]}`});
+  if(porEje[1]) cards.push({titulo:"Presencia institucional",valor:porEje[1],detalle:"Actos religiosos con autoridades"});
+  if(hayF) cards.push({titulo:"Fincas inmatriculadas",valor:f,detalle:`${st} sin título · IBI est.: ${ibi?fmtEUR(ibi):"sin dato"}`});
+    [["capellanias",tarjetaCapellanias],["educacion",tarjetaEducacion]].forEach(([k])=>{
+    if(k==="capellanias"){ const rs=filtraColeccion(CAPELANIAS,prov);
+      if(rs.length){ const t=totColeccion(rs);
+        cards.push({titulo:"Capellanías", valor:t.n+" plazas",
+          detalle:`${fmtEUR(t.coste)} / año · sanitarias y militares · computa en eje 3`}); } }
+    else { const rs=filtraColeccion(EDUCACION,prov);
+      if(rs.length){ const t=totColeccion(rs);
+        cards.push({titulo:"Educación confesional", valor:t.n+" docentes/plazas",
+          detalle:`${fmtEUR(t.coste)} / año · profesorado y conciertos · computa en eje 3`}); } }
+  });
+  return grid(cards,"Consulta cada eje para su desglose económico específico.");
+}
+
+function kpiEje1(prov){
+  const reps=reportesDe(prov,1);
+  if(!reps.length) return grid([]);
+  const actos=new Set(reps.map(r=>r.grupo)).size;
+  const admins=new Set();
+  reps.forEach(r=>(r.admin||[]).forEach(a=>admins.add(a)));
+  const org=reps.filter(r=>r.participacion==="organizacion").length;
+  const inter=reps.filter(r=>r.participacion==="intervencion").length;
+  return grid([
+    {titulo:"Reportes",valor:reps.length,detalle:"Actos con presencia institucional"},
+    {titulo:"Actos distintos",valor:actos,detalle:"Ciclo festivo-religioso cubierto"},
+    {titulo:"Administraciones implicadas",valor:admins.size,detalle:admins.size?[...admins].join(" · "):"Sin identificar en las fuentes"},
+    {titulo:"Organización directa",valor:org,detalle:`Ayuntamiento/entidad organiza el acto${inter?` · ${inter} con intervención hablada`:""}`}
+  ]);
+}
+
+function kpiEje2(prov){
+  const reps=reportesDe(prov,2);
+  const flujos=flujosDe(prov,2);
+  if(!reps.length&&!flujos.length) return grid([]);
+  const convIds=reps.filter(r=>r.estado!=="pending"&&(r.categorias||[]).includes("estructura")).map(r=>r.id);
+  const costeConv=sumFlujos(flujos,f=>convIds.includes(f.reporteId));
+  const singulares=flujos.filter(f=>!f.pendiente && !convIds.includes(f.reporteId));
+  let edif=0,hayE=false;
+  reps.forEach(r=>{if(r.edificio!=null){edif+=r.edificio;hayE=true;}});
+  const conserv=sumFlujos(flujos,f=>f.tipoE2==="conservacion");
+  const turismo=sumFlujos(flujos,f=>f.tipoE2==="turismo");
+  const cards=[{titulo:"Reportes",valor:reps.length,detalle:"Patrimonio con financiación pública"}];
+  if(convIds.length) cards.push({titulo:"Convenios",valor:convIds.length,detalle:`Coste rastreado: ${fmtEUR(costeConv)}`});
+  if(singulares.length) cards.push({titulo:"Ayudas singulares",valor:singulares.length,detalle:`Coste rastreado: ${fmtEUR(singulares.reduce((a,f)=>a+f.cantidad,0))}`});
+  if(hayE) cards.push({titulo:"Edificios intervenidos",valor:edif,detalle:"Según literales de los reportes"});
+  cards.push({titulo:"En listado de inmatriculaciones",valor:"—",detalle:"Requiere cruce finca a finca (no disponible)"});
+  const im=prov==="CYL"?null:INMATRICULACIONES[prov];
+  if(im) cards.push({titulo:"Inmatriculaciones (provincia)",valor:im.fincas,detalle:`${im.sinTitulo} sin título · IBI est.: ${im.ibiEstimado?fmtEUR(im.ibiEstimado):"sin dato"}`});
+  cards.push({titulo:"Dinero a conservación",valor:fmtEUR(conserv),detalle:"Flujos verificados (cota inferior)"});
+  cards.push({titulo:"Dinero a turismo/apertura",valor:fmtEUR(turismo),detalle:"Flujos verificados (cota inferior)"});
+  cards.push({titulo:"Beneficio por entradas",valor:"—",detalle:"Pendiente de datos de visitantes (cierre estival)"});
+  return grid(cards,"Las tarjetas sin dato permanecen visibles para recordar el vacío de información, no como dato nulo.");
+}
+
+function kpiEje3(prov){
+  const reps=reportesDe(prov,3);
+  const flujos=flujosDe(prov,3);
+  const cards=[];
+  const conv=reps.filter(r=>Array.isArray(r.importes)&&r.importes.length);
+  if(reps.length) cards.push({titulo:"Reportes",valor:reps.length,detalle:"Servicios y otras facetas"});
+  if(conv.length) cards.push({titulo:"Convenios y ayudas",valor:conv.length,detalle:`Coste rastreado: ${fmtEUR(sumFlujos(flujos))}`});
+  const cap=filtraColeccion(CAPELANIAS,prov), edu=filtraColeccion(EDUCACION,prov);
+  if(cap.length){ const t=totColeccion(cap);
+    cards.push({titulo:"Capellanías",valor:t.n+" plazas",detalle:`${fmtEUR(t.coste)} / año · incluido en las sumas de este eje`}); }
+  if(edu.length){ const t=totColeccion(edu);
+    cards.push({titulo:"Educación confesional",valor:t.n+" docentes/plazas",detalle:`${fmtEUR(t.coste)} / año · incluido en las sumas de este eje`}); }
+  if(!cards.length) return grid([]);
+  return grid(cards,"Importes pendientes excluidos de las sumas. Capellanías y educación tienen panel propio de lectura.");
+}
+
+function kpiEje4(prov){
+  const reps=reportesDe(prov,4);
+  if(!reps.length) return grid([]);
+  const temas=[...new Set(reps.map(r=>r.grupo))];
+  return grid([
+    {titulo:"Reportes",valor:reps.length,detalle:temas.slice(0,4).join(" · ")||""}
+  ]);
+}
+
+function resumenEconomico(prov){
+  const fl=flujosDe(prov);
+  if(!fl.length) return "";
+  const rastreado=sumFlujos(fl);
+  const rast2=sumFlujos(fl,f=>f.eje===2), rast3=sumFlujos(fl,f=>f.eje===3);
+  const im=prov==="CYL" ? {ibi:PROVINCIAS.reduce((a,p)=>a+((INMATRICULACIONES[p]||{}).ibiEstimado||0),0),hay:PROVINCIAS.some(p=>INMATRICULACIONES[p])}
+                        : (INMATRICULACIONES[prov]?{ibi:INMATRICULACIONES[prov].ibiEstimado||0,hay:true}:{hay:false});
+  const txtEst = !im.hay ? "sin datos de inmatriculaciones"
+               : im.ibi>0 ? "cifra estimada sobre el registro provincial"
+               : "registro de inmatriculaciones cargado, IBI aún sin estimar";
+  return `<section class="panel"><h2>Resumen económico · dinero público hacia lo religioso</h2>
+  <div class="eco-cajas">
+    <div class="eco-box eco-literal">
+      <h3 style="color:var(--exito)">✔ Rastreado (cifras literales)</h3>
+      <div class="figura" style="color:var(--exito)">${fmtEUR(rastreado)}</div>
+      <div class="detalle">Suma propia de importes recuperados en reportes verificados — cota inferior, no gasto total.<br>Eje 2 (patrimonio): ${fmtEUR(rast2)} · Eje 3 (servicios): ${fmtEUR(rast3)}${prov==="CYL"?" (provincias cargadas)":""}</div>
+    </div>
+    <div class="eco-box eco-estimado">
+      <h3 style="color:var(--aviso)">≈ Estimado (inferencias)</h3>
+      <div class="figura" style="color:var(--aviso)">${im.ibi>0?fmtEUR(im.ibi):"—"}</div>
+      <div class="detalle">Exención IBI estimada sobre inmatriculaciones — ${txtEst}.<br>No es gasto público corriente, es evasión patrimonial acumulativa.</div>
+    </div>
+    <div class="eco-box eco-privado">
+      <h3 style="color:#7a7490">● Privado (no público)</h3>
+      <div class="figura" style="color:#7a7490">—</div>
+      <div class="detalle">Donaciones diocesanas, aportaciones de fieles.<br>Fuera del alcance del informe: no son dinero público.</div>
+    </div>
+  </div>
+    <p class="nota-panel">Las tres cajas no se suman entre sí: rastreado es literal, estimado es inferencia metodológica, privado no entra en ningún total de gasto público.</p></section>`;
+}
+
+/* ---------- Motor de renderizado ---------- */
+function renderVista(){
+  document.querySelectorAll("#navProv button").forEach(b=>b.classList.toggle("activo",b.dataset.p===vistaProvincia));
+  document.querySelectorAll("#navEje button").forEach(b=>b.classList.toggle("activo",b.dataset.e===vistaEje));
+
+  let html="";
+        if(vistaEje==="G"){
+    html+=kpiGeneral(vistaProvincia)+resumenEconomico(vistaProvincia);
+    html+=panelFlujos(flujosDe(vistaProvincia), vistaProvincia==="CYL"?"CyL completo":`de ${vistaProvincia}`);
+    html+=panelPorciones(vistaProvincia);
+    html+=panelConveniosVigentes(vistaProvincia, 2);
+    html+=panelRankings(vistaProvincia);
+    html+=kpiGeneral(vistaProvincia)+resumenEconomico(vistaProvincia);
+    html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);      
+   }else{
+    const ejeNum=Number(vistaEje);
+    let fnKPI;
+    switch(vistaEje){
+      case "1":fnKPI=kpiEje1;break;
+      case "2":fnKPI=kpiEje2;break;
+      case "3":fnKPI=kpiEje3;break;
+      case "4":fnKPI=kpiEje4;break;
+    }
+    html+=fnKPI(vistaProvincia);
+    html+=tarjetaDescartes(vistaProvincia, ejeNum);
+        if(ejeNum===2||ejeNum===3)
+        if(ejeNum===3)
+      html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);{
+      html+=panelFlujos(flujosDe(vistaProvincia,ejeNum), ejeNum===2?"Patrimonio (conservación + turismo)":"Servicios y otras facetas");
+    }
+    html+=panelConveniosVigentes(vistaProvincia, ejeNum);
+    html+=desglose(reportesDe(vistaProvincia,ejeNum));
+  }
+  document.getElementById("vista").innerHTML=html;
+}
+
+/* ---------- Inicialización ---------- */
+(function(){
+  const navProv=document.getElementById("navProv"), navEje=document.getElementById("navEje");
+
+  ["CYL",...PROVINCIAS].forEach(p=>{
+    const btn=document.createElement("button");
+    btn.textContent=p; btn.dataset.p=p;
+    btn.onclick=()=>{ vistaProvincia=p; vistaEje="G"; renderVista(); };
+    navProv.appendChild(btn);
+  });
+
+  Object.keys(EJES).forEach(e=>{
+    const btn=document.createElement("button");
+    btn.textContent=EJES[e].corto; btn.dataset.e=e;
+    btn.onclick=()=>{ vistaEje=e; renderVista(); };
+    navEje.appendChild(btn);
+  });
+
+  const btnGen=document.createElement("button");
+  btnGen.textContent="General / Resumen"; btnGen.dataset.e="G";
+  btnGen.onclick=()=>{ vistaEje="G"; renderVista(); };
+  navEje.insertBefore(btnGen, navEje.firstChild);
+
+  renderVista();
+})();
+</script>
+</body>
+</html>
