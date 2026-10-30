@@ -195,9 +195,10 @@ def detectar_duplicados(filas_flujo):
                         "verificar y corregir a mano.")
                 f["notas"] = ((f["notas"].strip() + " | ").rstrip(" |")
                               + nota if (f["notas"] or "").strip() else nota)
-            error(f"Duplicado sospechoso {clave[0]} · {clave[1]} → "
+            aviso(f"Duplicado sospechoso {clave[0]} · {clave[1]} → "
                   f"{clave[2]} · {clave[3]} € · {fecha}: marcados pending "
-                  + "/".join(sorted({x['id'] for x in fs})))
+                  + "/".join(sorted({x['id'] for x in fs}))
+                  + " — computarán en sumas cuando se verifique a mano")
 
 
 # ------------------------------------------------------------------ emisión
@@ -437,7 +438,8 @@ def main():
 
     # ---- ordenación: provincia (Ávila→Zamora) y dentro por id
     def orden(r):
-        return (ORDEN_PROV.get(r["provincia"], 99), r["id"])
+        return (ORDEN_PROV.get(r["provincia"], 99),
+                r.get("id", r.get("reporteId", "")))
     reportes.sort(key=lambda r: orden(r))
     flujos.sort(key=orden)
 
