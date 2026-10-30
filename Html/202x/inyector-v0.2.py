@@ -7,7 +7,7 @@ Observatorio del laicismo · Castilla y León
 Uso:
     python build.py                 # valida e inyecta en el HTML madre
     python build.py --check         # solo valida, no toca el HTML
-    python build.py --csv csv --html Madre-v2.4.html
+    python build.py --csv csv --html Madre-v3.0.html
 
 Entradas (carpeta csv/, todas opcionales salvo que se indique):
     eje1.csv, eje2.csv, eje3.csv, eje4.csv   · reportes (+ flujo en 2 y 3)
@@ -319,6 +319,8 @@ def main():
     ap = argparse.ArgumentParser(description="Inyector CSV → HTML madre")
     ap.add_argument("--csv", default=str(CARPETA_CSV))
     ap.add_argument("--html", default=str(HTML_MADRE))
+    ap.add_argument("--out", default="Informe-vigilancia.html",
+                    help="nombre del informe generado (no toca la plantilla)")
     ap.add_argument("--check", action="store_true",
                     help="solo validar, no escribir el HTML")
     args = ap.parse_args()
@@ -529,23 +531,27 @@ def main():
         emitir("CONVENIOS_VIGENTES", convenios, convenio_a_literal)
     )
 
-    # ---- inyección en el HTML madre
+       # ---- inyección en el HTML (crea informe nuevo, no sobrescribe plantilla)
     if not HTML_MADRE.exists():
-        error(f"No encuentro el HTML madre: {HTML_MADRE}")
+        error(f"No encuentro la plantilla: {HTML_MADRE}")
         sys.exit(1)
+    
     src = HTML_MADRE.read_text(encoding="utf-8")
     i, j = src.find(MARCA_INI), src.find(MARCA_FIN)
     if i == -1 or j == -1 or j < i:
-        error(f"El HTML madre no contiene los marcadores {MARCA_INI} / "
+        error(f"La plantilla no contiene los marcadores {MARCA_INI} / "
               f"{MARCA_FIN}. Colócalos rodeando las antiguas constantes.")
         sys.exit(1)
+    
     nuevo = (src[:i + len(MARCA_INI)] + "\n" + bloques +
              "\n" + src[j:])
-    shutil.copy(HTML_MADRE, HTML_MADRE.with_suffix(".bak.html"))
-    HTML_MADRE.write_text(nuevo, encoding="utf-8")
-    print(f"✔ Inyectado en {HTML_MADRE} (copia previa en "
-          f"{HTML_MADRE.with_suffix('.bak.html')}). "
-          f"Con error no se escribe; con aviso, sí.")
+    
+    # Crear archivo nuevo en lugar de sobrescribir la plantilla
+    INFORME_FINAL = Path(args.out)
+    if INFORME_FINAL.exists():
+        print(f"ℹ Sobrescribiendo {INFORME_FINAL}...")
+    INFORME_FINAL.write_text(nuevo, encoding="utf-8")
+    print(f"✔ Informe generado: {INFORME_FINAL} (plantilla intacta)")
 
 
 if __name__ == "__main__":
