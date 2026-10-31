@@ -290,17 +290,18 @@ function desglose(reps){
 
 /* ---------- V · Vista agregada (CYL) ---------- */
 const ETIQ_GRU = {
-  OR:"Órdenes religiosas católicas",
   ID:"Iglesia católica diocesana",
+  OR:"Órdenes religiosas católicas",
   EC:"Entidades confesionales católicas",
   MIX:"Entidades mixtas",
+  CRI:"Entidades cristianas",
   EV:"Iglesias evangélicas",
-  JU:"Comunidades judías",
-  IS:"Comunidades islámicas",
-  HI:"Hinduistas",
-  ORT:"Ortodoxos",
-  BU:"Budistas",
-  OC:"Otras confesiones"
+  COR:"Comunidades ortodoxas",
+  CJ:"Comunidades judías",
+  CI:"Comunidades islámicas",
+  CB:"Comunidades budistas",
+  CH:"Comunidades hinduistas",
+  Z:"Otros"
 };
 
 function origenGeneral(f){
@@ -317,7 +318,7 @@ function origenGeneral(f){
   return o;
 }
 function gruDe(f){
-  return f.gru || "OC";
+  return f.gru || "Z";
 }
 function destinoGeneral(f){
   return ETIQ_GRU[gruDe(f)] || f.destino;
@@ -828,7 +829,6 @@ function renderVista(){
     html+=panelPorciones(vistaProvincia);
     html+=panelConveniosVigentes(vistaProvincia, 2);
     html+=panelRankings(vistaProvincia);
-    html+=kpiGeneral(vistaProvincia)+resumenEconomico(vistaProvincia);
     html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);      
    }else{
     const ejeNum=Number(vistaEje);
@@ -841,11 +841,12 @@ function renderVista(){
     }
     html+=fnKPI(vistaProvincia);
     html+=tarjetaDescartes(vistaProvincia, ejeNum);
-        if(ejeNum===2||ejeNum===3)
-        if(ejeNum===3)
-      html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);{
-      html+=panelFlujos(flujosDe(vistaProvincia,ejeNum), ejeNum===2?"Patrimonio (conservación + turismo)":"Servicios y otras facetas");
-    }
+      if(ejeNum===3)
+    html+=panelCapellanias(vistaProvincia)+panelEducacion(vistaProvincia);
+      if(ejeNum===2||ejeNum===3){
+    html+=panelFlujos(flujosDe(vistaProvincia,ejeNum),
+    ejeNum===2?"Patrimonio (conservación + turismo)":"Servicios y otras facetas");
+}
     html+=panelConveniosVigentes(vistaProvincia, ejeNum);
     html+=desglose(reportesDe(vistaProvincia,ejeNum));
   }

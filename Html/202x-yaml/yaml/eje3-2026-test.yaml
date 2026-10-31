@@ -1,6 +1,3 @@
-# esquema: 1.0
-# eje3.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
-
 - id: CYL-2026-E3-0001
   fecha: 15/10/2026
   titular: Subvención de la Junta a Cáritas Diocesana de Ávila
@@ -15,10 +12,9 @@
   origen: Junta de Castilla y León
   destino: Cáritas Diocesana de Ávila
   cantidad: 116806
-  concepto: "Subvención a servicios sociales (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a servicios sociales (ACT: AS)'
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0002
   fecha: 03/03/2026
   titular: Subvención del Ayuntamiento de Arévalo a la parroquia de San Martín
@@ -28,15 +24,14 @@
   estado: verified
   grupo: Financiación directa a la Iglesia
   tags: iglesia-catolica|ayuntamiento
-  notas: "Caso esquina: municipio pequeño como financiador"
+  notas: 'Caso esquina: municipio pequeño como financiador'
   eje: 3
   origen: Ayuntamiento de Arévalo
   destino: Parroquia de San Martín
   cantidad: 1500
-  concepto: "Subvención línea IC (ACT: IC)"
-  programa: Servicios sociales
+  concepto: 'Subvención línea IC (ACT: IC)'
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0003
   fecha: 20/06/2026
   titular: Convenio de la Diputación de Burgos con Cáritas para programas de inclusión
@@ -51,9 +46,8 @@
   destino: Cáritas Diocesana de Burgos
   cantidad: 40000
   concepto: Convenio de inclusión social
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0004
   fecha: 30/09/2026
   titular: Subvención de la Junta al Banco de Alimentos de Burgos
@@ -68,10 +62,9 @@
   origen: Junta de Castilla y León
   destino: Banco de Alimentos de Burgos
   cantidad: 25000
-  concepto: "Subvención a banco de alimentos (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a banco de alimentos (ACT: AS)'
   gru: EC
-
+  act: AS
 - id: CYL-2026-E3-0005
   fecha: 30/09/2026
   titular: Subvención de la Junta al Banco de Alimentos de Burgos (versión duplicada)
@@ -81,15 +74,15 @@
   estado: verified
   grupo: Asistencia social
   tags: banco-alimentos
-  notas: DUPLICADO SEMBRADO PARA PRUEBA (par B) — misma pieza volcada dos veces con ids distintos
+  notas: DUPLICADO SEMBRADO PARA PRUEBA (par B) — misma pieza volcada dos veces con
+    ids distintos
   eje: 3
   origen: Junta de Castilla y León
   destino: Banco de Alimentos de Burgos
   cantidad: 25000
-  concepto: "Subvención a banco de alimentos (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a banco de alimentos (ACT: AS)'
   gru: EC
-
+  act: AS
 - id: CYL-2026-E3-0006
   fecha: 10/09/2026
   titular: Conciertos educativos de la Junta con la Fundación Diocesana de Enseñanza
@@ -104,9 +97,8 @@
   destino: Fundación Diocesana de Enseñanza de León
   cantidad: 150000
   concepto: Concierto educativo, plazas concertadas
-  programa: Educación
   gru: ID
-
+  act: ED
 - id: CYL-2026-E3-0007
   fecha: 22/04/2026
   titular: Subvención de la Xunta de Galicia al Seminario Mayor de Astorga
@@ -116,15 +108,15 @@
   estado: verified
   grupo: Educación confesional
   tags: seminario|otra-comunidad
-  notas: "Caso esquina: financiador de otra comunidad autónoma, conserva etiqueta propia en vista CYL"
+  notas: 'Caso esquina: financiador de otra comunidad autónoma, conserva etiqueta
+    propia en vista CYL'
   eje: 3
   origen: Xunta de Galicia
   destino: Seminario Mayor de Astorga
   cantidad: 30000
   concepto: Subvención educativa a seminario
-  programa: Educación
   gru: OR
-
+  act: ED
 - id: CYL-2026-E3-0008
   fecha: 13/02/2026
   titular: Subvención M. de T. Digital a Esclavas de la Virgen
@@ -139,10 +131,9 @@
   origen: M. de T. Digital
   destino: Esclavas de la Virgen
   cantidad: 10250
-  concepto: "Subvención a funcionamiento (ACT: FUN)"
-  programa: Servicios sociales
+  concepto: 'Subvención a funcionamiento (ACT: FUN)'
   gru: OR
-
+  act: AS
 - id: CYL-2026-E3-0009
   fecha: 29/06/2026
   titular: Convenio del Ayuntamiento de Palencia con Cáritas Diocesana
@@ -158,9 +149,8 @@
   destino: Cáritas Diocesana de Palencia
   cantidad: 230000
   concepto: Convenio anual de acción social
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0010
   fecha: 06/08/2026
   titular: Convenio de la Diputación de Salamanca con Cáritas Diocesana
@@ -177,9 +167,8 @@
   destino: Cáritas Diocesana de Salamanca
   cantidad: 99763
   concepto: Convenio intervención colectivos desfavorecidos
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0011
   fecha: 05/09/2026
   titular: Junta anuncia convocatoria de ayudas a entidades confesionales sin resolución
@@ -189,15 +178,15 @@
   estado: pending
   grupo: Convocatorias
   tags: convocatoria|pendiente
-  notas: Convocatoria sin resolución publicada, pendiente hasta verificar BOCyL con resolución esperada en diciembre de 2026
+  notas: Convocatoria sin resolución publicada, pendiente hasta verificar BOCyL con
+    resolución esperada en diciembre de 2026
   eje: 3
   origen: Junta de Castilla y León
   destino: Cáritas Diocesana de Salamanca
   cantidad: 60000
   concepto: Convocatoria anunciada, importe previsto
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0012
   fecha: 18/07/2026
   titular: Convenio del Ayuntamiento de Segovia con Cáritas
@@ -212,9 +201,8 @@
   destino: Cáritas Diocesana de Segovia
   cantidad: 45000
   concepto: Convenio anual de acción social
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0013
   fecha: 23/12/2026
   titular: Subvención de la Junta a la Diócesis de Segovia (línea de Iglesia católica)
@@ -224,15 +212,14 @@
   estado: verified
   grupo: Financiación directa a la Iglesia
   tags: iglesia-catolica
-  notas: "ACT: IC, programa provisional, ver Bloque F"
+  notas: 'ACT: IC, programa provisional, ver Bloque F'
   eje: 3
   origen: Junta de Castilla y León
   destino: Diócesis de Segovia
   cantidad: 89000
   concepto: Subvención línea IC
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0014
   fecha: 11/10/2026
   titular: Subvención de la Junta a Cáritas Diocesana de Soria
@@ -246,10 +233,9 @@
   origen: Junta de Castilla y León
   destino: Cáritas Diocesana de Soria
   cantidad: 55000
-  concepto: "Subvención a servicios sociales (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a servicios sociales (ACT: AS)'
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0015
   fecha: 07/05/2026
   titular: Subvención M. de Igualdad a congregación por programa de empleo femenino
@@ -264,10 +250,9 @@
   origen: M. de Igualdad
   destino: Congregación Siervas de San José
   cantidad: 18000
-  concepto: "Subvención a inserción laboral (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a inserción laboral (ACT: AS)'
   gru: OR
-
+  act: AS
 - id: CYL-2026-E3-0016
   fecha: 15/07/2026
   titular: Convenio del Ayuntamiento de Valladolid con Cáritas
@@ -283,9 +268,8 @@
   destino: Cáritas Diocesana de Valladolid
   cantidad: 350000
   concepto: Convenio anual de acción social
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0017
   fecha: 28/08/2026
   titular: Subvención de la Junta a la Federación Católica de AMPAs
@@ -299,10 +283,9 @@
   origen: Junta de Castilla y León
   destino: Federación Católica de AMPAs de Valladolid
   cantidad: 12000
-  concepto: "Subvención educativa (ACT: ED)"
-  programa: Educación
+  concepto: 'Subvención educativa (ACT: ED)'
   gru: EC
-
+  act: ED
 - id: CYL-2026-E3-0018
   fecha: 09/09/2026
   titular: Convenio de la Diputación de Zamora con Cáritas
@@ -317,9 +300,8 @@
   destino: Cáritas Diocesana de Zamora
   cantidad: 32000
   concepto: Convenio anual de acción social
-  programa: Servicios sociales
   gru: ID
-
+  act: AS
 - id: CYL-2026-E3-0019
   fecha: 27/11/2026
   titular: Subvención de la Junta al Banco de Alimentos de Zamora
@@ -333,10 +315,9 @@
   origen: Junta de Castilla y León
   destino: Banco de Alimentos de Zamora
   cantidad: 18000
-  concepto: "Subvención a banco de alimentos (ACT: AS)"
-  programa: Servicios sociales
+  concepto: 'Subvención a banco de alimentos (ACT: AS)'
   gru: EC
-
+  act: AS
 - id: CYL-2026-E3-0020
   fecha: 12/11/2026
   titular: Programa autonómico de apoyo a Escuelas Católicas (desglose provincial)
@@ -346,16 +327,17 @@
   estado: pending
   grupo: Educación confesional
   tags: escuelas-catolicas|multiterritorial
-  notas: Pieza multiterritorial (regla M), desglose estimado proporcional sobre total de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para diciembre de 2026
+  notas: Pieza multiterritorial (regla M), desglose estimado proporcional sobre total
+    de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para
+    diciembre de 2026
   alcance: Valladolid|Salamanca
   eje: 3
   origen: Junta de Castilla y León
   destino: Escuelas Católicas de Valladolid
   cantidad: 150000
   concepto: desglose estimado proporcional, total 300.000 € para dos provincias
-  programa: Educación
   gru: EC
-
+  act: ED
 - id: CYL-2026-E3-0021
   fecha: 12/11/2026
   titular: Programa autonómico de apoyo a Escuelas Católicas (desglose provincial)
@@ -365,12 +347,14 @@
   estado: pending
   grupo: Educación confesional
   tags: escuelas-catolicas|multiterritorial
-  notas: Pieza multiterritorial (regla M), desglose estimado proporcional sobre total de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para diciembre de 2026
+  notas: Pieza multiterritorial (regla M), desglose estimado proporcional sobre total
+    de 300.000 € para dos provincias, verificación en resolución BOCyL prevista para
+    diciembre de 2026
   alcance: Valladolid|Salamanca
   eje: 3
   origen: Junta de Castilla y León
   destino: Escuelas Católicas de Salamanca
   cantidad: 150000
   concepto: desglose estimado proporcional, total 300.000 € para dos provincias
-  programa: Educación
   gru: EC
+  act: ED

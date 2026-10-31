@@ -1,7 +1,3 @@
-# esquema: 1.0
-# eje2.yaml — pruebas 2026 (traslación del CSV de prueba, IDs renumerados)
-# 22 piezas · 24 registros (regla $: tres líneas comparten CYL-2026-E2-0004)
-
 - id: CYL-2026-E2-0001
   fecha: 16/07/2026
   titular: Convenio Diputación-Obispado para restaurar 3 iglesias de la provincia
@@ -19,10 +15,8 @@
   destino: Obispado de Ávila
   cantidad: 75000
   concepto: Convenio restauración iglesias no BIC
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0002
   fecha: 24/05/2026
   titular: Obras en la iglesia de San Andrés (anualidad 2026 de subvención plurianual)
@@ -32,20 +26,20 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: restauracion|plurianual
-  notas: Anualidad 2026 del convenio plurianual de 628.915 € aprobado en diciembre de 2025 (concesión fuera de rango, vigencia en periodo)
+  notas: Anualidad 2026 del convenio plurianual de 628.915 € aprobado en diciembre
+    de 2025 (concesión fuera de rango, vigencia en periodo)
   fuente_oficial: BOCyL 9301
   eje: 2
   origen: Junta de Castilla y León
   destino: Obispado de Ávila
   cantidad: 333325
   concepto: Anualidad 2026 de subvención plurianual
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0003
   fecha: 15/03/2026
-  titular: Plan de la Diputación de Burgos para la restauración de iglesias de la diócesis
+  titular: Plan de la Diputación de Burgos para la restauración de iglesias de la
+    diócesis
   provincia: Burgos
   localidad: Burgos
   fuente: Diario de Burgos
@@ -58,10 +52,8 @@
   destino: Diócesis de Burgos
   cantidad: 2000000
   concepto: Plan de restauración de iglesias
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0004
   fecha: 05/03/2026
   titular: Restauración de iglesias de la Diócesis (programa pluriautoridad)
@@ -71,16 +63,15 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: restauracion|multiautoridad
-  notas: "Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación + Ayuntamiento"
+  notas: 'Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación
+    + Ayuntamiento'
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Burgos - Iglesias
   cantidad: 150000
   concepto: Aporte Junta de Castilla y León
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0004
   fecha: 05/03/2026
   titular: Restauración de iglesias de la Diócesis (programa pluriautoridad)
@@ -90,16 +81,15 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: restauracion|multiautoridad
-  notas: "Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación + Ayuntamiento"
+  notas: 'Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación
+    + Ayuntamiento'
   eje: 2
   origen: Diputación de Burgos
   destino: Diócesis de Burgos - Iglesias
   cantidad: 160000
   concepto: Aporte Diputación de Burgos
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0004
   fecha: 05/03/2026
   titular: Restauración de iglesias de la Diócesis (programa pluriautoridad)
@@ -109,16 +99,15 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: restauracion|multiautoridad
-  notas: "Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación + Ayuntamiento"
+  notas: 'Regla $: fusión de tres líneas económicas de la misma pieza — Junta + Diputación
+    + Ayuntamiento'
   eje: 2
   origen: Ayuntamiento de Poza
   destino: Diócesis de Burgos - Iglesias
   cantidad: 60000
   concepto: Aporte Ayuntamiento de Poza
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0005
   fecha: 10/06/2026
   titular: Restauración de la cubierta de la catedral de León
@@ -134,10 +123,8 @@
   destino: Diócesis de León
   cantidad: 54000
   concepto: Restauración de cubierta de la catedral
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0006
   fecha: 28/03/2026
   titular: Apertura de templos durante la Semana Santa de León
@@ -152,10 +139,8 @@
   destino: Diócesis de León
   cantidad: 12000
   concepto: Apertura de templos en Semana Santa
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0007
   fecha: 20/05/2026
   titular: Restauración del retablo mayor de la parroquia de San Miguel
@@ -170,10 +155,8 @@
   destino: Diócesis de Palencia
   cantidad: 28000
   concepto: Restauración de retablo mayor
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0008
   fecha: 08/07/2026
   titular: Rehabilitación de la ermita de San Juan de Baños para uso cultural
@@ -183,7 +166,8 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: rehabilitacion|ermita
-  notas: "Regla D: flujo codificado igualmente; el motor lo excluirá de sumas vía reporteId"
+  notas: 'Regla D: flujo codificado igualmente; el motor lo excluirá de sumas vía
+    reporteId'
   descartado: si
   motivo_descarte: Propiedad pública municipal + destino cultural no religioso
   eje: 2
@@ -191,10 +175,8 @@
   destino: Ermita de San Juan de Baños (propiedad municipal)
   cantidad: 45000
   concepto: Rehabilitación para centro de interpretación
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
-  gru: OC
-
+  gru: Z
+  act: RES
 - id: CYL-2026-E2-0009
   fecha: 21/03/2026
   titular: Subvención a las cofradías de la Semana Santa charra
@@ -209,10 +191,8 @@
   destino: Junta de Cofradías de Salamanca
   cantidad: 16000
   concepto: Subvención a cofradías de Semana Santa
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: EC
-
+  act: CF
 - id: CYL-2026-E2-0010
   fecha: 04/09/2026
   titular: Restauración de la cubierta de la Catedral Vieja
@@ -228,10 +208,8 @@
   destino: Diócesis de Salamanca
   cantidad: 120000
   concepto: Restauración de cubierta de la Catedral Vieja
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0011
   fecha: 12/06/2026
   titular: Restauración de iglesias románicas del sur de la provincia
@@ -247,10 +225,8 @@
   destino: Diócesis de Segovia
   cantidad: 22000
   concepto: Restauración de conjunto románico
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0012
   fecha: 15/08/2026
   titular: Apertura turística de los templos del arciprestazgo durante el verano
@@ -265,12 +241,10 @@
   destino: Parroquia de San Miguel de Sepúlveda
   cantidad: 6200
   concepto: Apertura turística de templos
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0013
-  fecha: "[06/2026]"
+  fecha: '[06/2026]'
   titular: Restauración de la torre de la concatedral de San Pedro
   provincia: Soria
   localidad: Soria
@@ -284,10 +258,8 @@
   destino: Diócesis de Osma-Soria
   cantidad: 9500
   concepto: Restauración de torre
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0014
   fecha: 03/09/2026
   titular: Subvención para la restauración del conjunto catedralicio
@@ -302,10 +274,8 @@
   destino: Diócesis de Osma-Soria
   cantidad: 15000
   concepto: Restauración del conjunto catedralicio
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0015
   fecha: 03/09/2026
   titular: Subvención para la restauración del conjunto catedralicio
@@ -315,16 +285,15 @@
   estado: verified
   grupo: Restauración bienes religiosos
   tags: restauracion|catedral
-  notas: DUPLICADO SEMBRADO PARA PRUEBA — misma pieza recogida por dos medios con ids distintos
+  notas: DUPLICADO SEMBRADO PARA PRUEBA — misma pieza recogida por dos medios con
+    ids distintos
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Osma-Soria
   cantidad: 15000
   concepto: Restauración del conjunto catedralicio
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0016
   fecha: 18/06/2026
   titular: Restauración de la fachada de la iglesia conventual de San Pablo
@@ -340,13 +309,12 @@
   destino: Archidiócesis de Valladolid
   cantidad: 30000
   concepto: Restauración de fachada
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0017
   fecha: 03/09/2026
-  titular: Templos vallisoletanos abiertos en el programa de Apertura de Monumentos Verano
+  titular: Templos vallisoletanos abiertos en el programa de Apertura de Monumentos
+    Verano
   provincia: Valladolid
   localidad: Valladolid
   fuente: Astorga Digital
@@ -358,10 +326,8 @@
   destino: Archidiócesis de Valladolid
   cantidad: 45000
   concepto: Programa de apertura de monumentos
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0018
   fecha: 14/07/2026
   titular: Convenio de la Diputación con la Diócesis para restauración de iglesias
@@ -377,10 +343,8 @@
   destino: Diócesis de Zamora
   cantidad: 60000
   concepto: Convenio de restauración de iglesias
-  programa: Conservación de patrimonio
-  tipo_e2: conservacion
   gru: ID
-
+  act: RES
 - id: CYL-2026-E2-0019
   fecha: 12/09/2026?
   titular: Apertura turística de los templos del casco histórico
@@ -390,17 +354,15 @@
   estado: pending
   grupo: Turismo religioso
   tags: apertura-templos|casco-historico
-  notas: "Discrepancia de fecha entre fuentes: 12 o 14 de septiembre"
+  notas: 'Discrepancia de fecha entre fuentes: 12 o 14 de septiembre'
   fuente_oficial: BOCyL 9416
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Zamora
   cantidad: 8500
   concepto: Apertura turística de templos
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0020
   fecha: 20/03/2026
   titular: Programa de Apertura de Monumentos de Semana Santa (desglose provincial)
@@ -411,17 +373,17 @@
   estado: pending
   grupo: Turismo religioso
   tags: apertura-templos|semana-santa|multiterritorial
-  notas: "Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026"
+  notas: 'Pieza multiterritorial (regla M): desglose estimado proporcional con residuo
+    de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales
+    de marzo de 2026'
   alcance: Salamanca|Zamora|Soria
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Salamanca
   cantidad: 21961
   concepto: desglose estimado proporcional — total 65.885 € para tres provincias
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0021
   fecha: 20/03/2026
   titular: Programa de Apertura de Monumentos de Semana Santa (desglose provincial)
@@ -432,17 +394,17 @@
   estado: pending
   grupo: Turismo religioso
   tags: apertura-templos|semana-santa|multiterritorial
-  notas: "Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026"
+  notas: 'Pieza multiterritorial (regla M): desglose estimado proporcional con residuo
+    de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales
+    de marzo de 2026'
   alcance: Salamanca|Zamora|Soria
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Zamora
   cantidad: 21962
   concepto: desglose estimado proporcional — total 65.885 € para tres provincias
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
-
+  act: CU
 - id: CYL-2026-E2-0022
   fecha: 20/03/2026
   titular: Programa de Apertura de Monumentos de Semana Santa (desglose provincial)
@@ -453,13 +415,131 @@
   estado: pending
   grupo: Turismo religioso
   tags: apertura-templos|semana-santa|multiterritorial
-  notas: "Pieza multiterritorial (regla M): desglose estimado proporcional con residuo de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales de marzo de 2026"
+  notas: 'Pieza multiterritorial (regla M): desglose estimado proporcional con residuo
+    de 1 € adjudicado a Zamora y Soria; verificación: resolución BOCyL de finales
+    de marzo de 2026'
   alcance: Salamanca|Zamora|Soria
   eje: 2
   origen: Junta de Castilla y León
   destino: Diócesis de Osma-Soria
   cantidad: 21962
   concepto: desglose estimado proporcional — total 65.885 € para tres provincias
-  programa: Turismo religioso
-  tipo_e2: turismo
   gru: ID
+  act: CU
+- id: CYL-2026-E2-0023-A
+  fecha: 12/02/2026
+  titular: La Junta destina 300.000 euros al escenario de Semana Santa en tres provincias
+  provincia: Burgos
+  localidad: Burgos
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi
+  estado: verified
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  cantidad: 80000
+  concepto: Subvención escenario Semana Santa — desglose provincial verificado
+  act: CF
+  gru: EC
+  notas: Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0023
+- id: CYL-2026-E2-0023-B
+  fecha: 12/02/2026
+  titular: La Junta destina 300.000 euros al escenario de Semana Santa en tres provincias
+  provincia: Valladolid
+  localidad: Valladolid
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi
+  estado: pending
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  cantidad: 120000
+  concepto: Subvención escenario Semana Santa — desglose provincial verificado
+  act: CF
+  gru: EC
+  notas: Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0023.
+    Verificación — BOCyL, probable marzo 2026
+- id: CYL-2026-E2-0023-C
+  fecha: 12/02/2026
+  titular: La Junta destina 300.000 euros al escenario de Semana Santa en tres provincias
+  provincia: Zamora
+  localidad: Zamora
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi
+  estado: verified
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  cantidad: 100000
+  concepto: Subvención escenario Semana Santa — desglose provincial verificado
+  act: CF
+  gru: EC
+  notas: Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0023
+- id: CYL-2026-E2-0024-A
+  fecha: 12/02/2026
+  titular: La Junta destina 100.001 euros a actuaciones de Semana Santa en tres provincias
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi-estimado
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  act: CF
+  gru: EC
+  provincia: Burgos
+  localidad: Burgos
+  cantidad: 33334
+  concepto: desglose estimado proporcional — total 100001 euros para tres provincias
+  estado: pending
+  notas: Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión,
+    probable marzo 2026
+- id: CYL-2026-E2-0024-B
+  fecha: 12/02/2026
+  titular: La Junta destina 100.001 euros a actuaciones de Semana Santa en tres provincias
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi-estimado
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  act: CF
+  gru: EC
+  provincia: Valladolid
+  localidad: Valladolid
+  cantidad: 33334
+  concepto: desglose estimado proporcional — total 100001 euros para tres provincias
+  estado: pending
+  notas: Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión,
+    probable marzo 2026
+- id: CYL-2026-E2-0024-C
+  fecha: 12/02/2026
+  titular: La Junta destina 100.001 euros a actuaciones de Semana Santa en tres provincias
+  fuente: Ical
+  link: https://www.ical.es/ejemplo-multi-estimado
+  grupo: Semana Santa 2026
+  alcance: burgos|valladolid|zamora
+  origen: Junta de Castilla y León
+  destino: Junta de Cofradías
+  act: CF
+  gru: EC
+  provincia: Zamora
+  localidad: Zamora
+  cantidad: 33333
+  concepto: desglose estimado proporcional — total 100001 euros para tres provincias
+  estado: pending
+  notas: Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión,
+    probable marzo 2026
+- id: CYL-2026-E2-0025
+  fecha: 20/03/2026
+  titular: Ávila queda fuera del programa de apertura de monumentos en Semana Santa
+    2026
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Ávilared
+  link: https://avilared.com/art/90714
+  estado: verified
+  grupo: Turismo religioso
+  act: CU
