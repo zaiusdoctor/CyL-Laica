@@ -479,7 +479,15 @@ const CONVENIOS_VIGENTES = [
   /* ===== SALAMANCA ===== */
   {provincia:"Salamanca", eje:2, origen:"Junta de Castilla y León", destino:"Escuelas Católicas de Castilla y León", cantidad:300000, concepto:"Convenio marco autonómico de apoyo educativo (firmado en Salamanca, alcance en dos provincias)", fechaFirma:"12/11/2025", link:"https://example.org/convenio-escuelas-catolicas-cyl", pendiente:false}];
 
+/* ---------- CONFIG ---------- */
+const CONFIG = {
+  rangoTemporal:"10/01/2026 – 23/12/2026",
+  versionDatos:"2026 · Castilla y León · 110 reportes · v1.1 (pipeline YAML)"
+};
+
 /*__FIN_DATOS__*/
+
+/* Las constantes que siguen están hardcodeadas para que el html funcione, están ambas vacías y pendientes de desarrollo, cuando se desarrollen se generarán automáticamente desde el yaml. */
 
 /* ---------- 2.B · INMATRICULACIONES ---------- */
 const INMATRICULACIONES = {
@@ -492,20 +500,6 @@ const DIOCESIS = {
   "Ávila":null, "Burgos":null, "León":null, "Palencia":null,
   "Salamanca":null, "Segovia":null, "Soria":null, "Valladolid":null, "Zamora":null
 };
-
-
-/* ---------- 2.E · CONFIG ---------- */
-const CONFIG = {
-  rangoTemporal:"DD/MM/YYYY – DD/MM/YYYY",
-  versionDatos:"Año · Provincia (N reportes) · v2.3"
-};
-  /* ---------- 2.F · COLECCIONES SEPARADAS DE GASTO RECURRENTE ----------
-   CAPELANIAS y EDUCACION son la entrada ÚNICA de estos datos.
-   El motor deriva de ellas los flujos que computan en las sumas del
-   eje 3, el sankey y las porciones: NO se cargan además en
-   FLUJOS_DINERO (la derivación evita el doble cómputo mecánicamente).
-*/
-
 
 /* ============================================================
    3 · MOTOR

@@ -433,6 +433,43 @@ def construir_reportes(colecciones):
             reportes.append(rep)
     return reportes, flujos, ids_conocidos
 
+def generar_config(reportes, rango_arg, etiqueta_arg):
+    """CONFIG: rango temporal (editorial o derivado) + versión de datos.
+    El rango derivado usa SOLO fechas exactas: las aproximadas
+    ([MM/AAAA], [DD-DD]/MM/AAAA) y las discrepantes (AAAA?) se
+    ignoran para no falsear la ventana."""
+    n = len(reportes)
+    anio = "—"
+    if reportes:
+        anios = [r["id"][4:8] for r in reportes if r.get("id")]
+        anio = max(set(anios), key=anios.count) if anios else "—"
+    if rango_arg:
+        rango = rango_arg
+    else:
+        exactas = []
+        for r in reportes:
+            f = txt(r, "fecha")
+            m = re.match(r"^(\d{2})/(\d{2})/(\d{4})$", f)
+            if m:
+                dia, mes, agno = m.groups()
+                exactas.append((agno, mes, dia))   # orden comparable
+        if exactas:
+            p, u = min(exactas), max(exactas)
+            fp = "/".join((p[2], p[1], p[0]))      # invertir: DD/MM/AAAA
+            fu = "/".join((u[2], u[1], u[0]))
+            rango = (fp + " – " + fu) if fp != fu else fp
+        else:
+            rango = "sin determinar"
+    etiqueta = etiqueta_arg or "v1.1 (pipeline YAML)"
+    if n:
+        version = f"{anio} · Castilla y León · {n} reportes · {etiqueta}"
+    else:
+        version = f"sin datos · {etiqueta}"
+    return ("/* ---------- CONFIG ---------- */\n"
+            f'const CONFIG = {{\n'
+            f'  rangoTemporal:{js(rango)},\n'
+            f'  versionDatos:{js(version)}\n'
+            f'}};\n')
 
 def main():
     global CARPETA_YAML, HTML_MADRE
@@ -443,6 +480,12 @@ def main():
                     help="nombre del informe generado (no toca la plantilla)")
     ap.add_argument("--check", action="store_true",
                     help="solo validar, no escribir el HTML")
+    ap.add_argument("--rango", default=None,
+                    help="rango temporal del informe, p. ej. "
+                         "'01/01/2026 - 30/09/2026'. Si no se indica, "
+                         "se deriva de las fechas exactas de los reportes.")
+    ap.add_argument("--etiqueta-version", default=None,
+                    help="etiqueta de version; por defecto 'v1.1 (pipeline YAML)'")
     args = ap.parse_args()
     CARPETA_YAML = Path(args.yaml)
     HTML_MADRE = Path(args.html)
@@ -716,7 +759,8 @@ def main():
         emitir("FLUJOS_DINERO", flujos, flujo_a_literal) + "\n" +
         emitir("CAPELANIAS", capellanias, capellanias_a_literal) + "\n" +
         emitir("EDUCACION", educacion, educacion_a_literal) + "\n" +
-        emitir("CONVENIOS_VIGENTES", convenios, convenio_a_literal)
+        emitir("CONVENIOS_VIGENTES", convenios, convenio_a_literal) + "\n" +
+        generar_config(reportes, args.rango, args.etiqueta_version)
     )
 
     # ---- inyección en el HTML (crea informe nuevo, no sobrescribe plantilla)
