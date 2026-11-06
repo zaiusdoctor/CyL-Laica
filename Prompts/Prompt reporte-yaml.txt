@@ -136,7 +136,7 @@ envolvente ni repetición de registros existentes.
 
 1. **POLÍTICA ÚNICA DE COMILLAS.** Todo dato o nota que contenga un
    dos puntos (`:`) — o cualquiera de `#`, `{`, `}`, `[`, `]`,
-   `&`, `*` — o que EMPIEZA por `-` o `?`, va SIEMPRE
+   `&`, `*` — o que EMPIECE por `-` o `?`, va SIEMPRE
    entrecomillado, sin excepción. La política completa:
    - `notas` y `concepto`: comillas simples SIEMPRE, contengan o
      no caracteres peligrosos.
@@ -155,10 +155,11 @@ envolvente ni repetición de registros existentes.
 4. **Comillas latinas en el interior de textos.** Dentro de los
    strings usa « » o apóstrofos; jamás comillas dobles tipográficas.
    Una comilla simple interior en valor con simples se duplica ('').
-5. **Booleans — asimetría documentada.** `pendiente` es booleano
-   (`true`/`false`, minúscula). `descartado` es TEXTO (`si`) por
-   compatibilidad con el CSV y la edición humana. No las uses
-   indistintamente.
+5. **Booleans — asimetría documentada.** `descartado` es TEXTO
+   (`si`) por compatibilidad con el CSV y la edición humana. El
+   booleano `pendiente` de convenios está SUPRIMIDO en v1.4:
+   su función la cubre `validacion: dudoso`. No uses unos valores
+   por otros.
 6. **Números como números.** Importes y contadores sin comillas,
    con punto decimal si lo hubiera (6135.36, 1234.56 en
    coste_anual), jamás coma, sin separador de miles (60000, no
@@ -245,9 +246,9 @@ de decisión siguiente.
 
 - **Macro-programa** desde ACT, enum de cinco valores:
   Conservación de patrimonio (RES), Turismo religioso (CU, CF),
-  Servicios sociales (resto), y el especial Capellanías
-  hospitalarias que solo el motor escribe al derivar flujos de la
-  colección CAP. (Educación se compone desde ED, UC, DEP.)
+  Educación (ED, UC, DEP), Servicios sociales (resto), y el
+  especial Capellanías hospitalarias que solo el motor escribe al
+  derivar flujos de la colección CAP.
 - **tipo_e2** (solo eje 2, DERIVADO — no se codifica):
   RES → conservacion; CU, CF → turismo.
 - **Eje** desde ACT según la tabla de la sección LOS EJES.
@@ -306,13 +307,15 @@ sus guías. `act` vive en la cabecera de los ejes; en capellanías y
 educación el campo análogo es `subtipo` y `partida` respectivamente.
 
 Cabecera común completa (los cuatro ejes): `id, fecha, titular,
-provincia, localidad?, fuente, link?, validacion, verificacion?,
+provincia, localidad?, fuente, link?, validacion, verificacion,
 grupo, act?, gru?, tags?, notas?, descartado?, motivo_descarte?,
 alcance?, fuente_oficial?`
 
-`verificacion` solo se escribe cuando vale `pendiente` (todo
-registro emitido) — es el único valor que el codificador produce,
-y su mera existencia lo documenta. Jamás se emite `verificado` ni
+`validacion` y `verificacion` son OBLIGATORIOS en todo registro
+emitido, en TODAS las colecciones (ejes, convenios, capellanías y
+educación). `verificacion` solo puede valer `pendiente` al salir
+de codificación — es su único valor posible aquí, y su mera
+existencia lo documenta. Jamás se emite `verificado` ni
 `desechado`: esos valores existen solo tras el pase manual.
 
 | Colección | Campos propios |
@@ -321,7 +324,7 @@ y su mera existencia lo documenta. Jamás se emite `verificado` ni
 | eje2 | edificio?, origen, destino, cantidad, concepto, gru |
 | eje3 | origen, destino, cantidad, concepto, gru |
 | eje4 | actor, tema |
-| convenios | origen, destino, cantidad?, concepto, fecha_firma, link?, pendiente, tags?, notas?, alcance? |
+| convenios | origen, destino, cantidad?, concepto, fecha_firma, link?, tags?, notas?, alcance? |
 | capellanias | subtipo, periodo, numero?, coste_anual?, origen, destino, concepto, fuente, link?, reporte_id?, notas? |
 | educacion | partida, periodo, numero?, coste_anual?, destino, concepto, fuente, link?, reporte_id?, notas? (origen INYECTADO por el inyector; no lo escribes) |
 
@@ -414,7 +417,8 @@ líneas de un mismo ID comparten validación (misma pieza).
 Sin campos económicos, sin penalización de validación. La pieza es
 noticiosa (exclusión de subvención), no una transferencia; no hay
 receptor identificable y por eso `gru` se omite. La verificación
-(eje 2 → enlace) la resolverá el pase manual.
+definitiva (eje 2 → contraste con fuentes oficiales) la resolverá
+el pase manual.
 
 ### EJEMPLO 4 — CAPELLANÍA
 
@@ -454,7 +458,7 @@ receptor identificable y por eso `gru` se omite. La verificación
 
 ### EJEMPLO 6 — REGLA M, MULTITERRITORIAL CON SUFIJOS
 
-**Camino 1 — desglose provincial verificado.** La Junta destina
+**Camino 1 — desglose provincial constatado.** La Junta destina
 300.000 € a escenario de Semana Santa en tres provincias y la
 fuente aporta la cifra de cada una. Un solo ID base (0031), tres
 registros con sufijo por orden alfabético, cada uno con su cifra
@@ -475,7 +479,7 @@ literal y su validación independiente por provincia:
   origen: Junta de Castilla y León
   destino: Junta de Cofradías
   cantidad: 80000
-  concepto: 'Subvención escenario Semana Santa — desglose provincial verificado'
+  concepto: 'Subvención escenario Semana Santa — desglose provincial constatado'
   act: CF
   gru: EC
   notas: 'Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0031'
@@ -493,7 +497,7 @@ literal y su validación independiente por provincia:
   origen: Junta de Castilla y León
   destino: Junta de Cofradías
   cantidad: 120000
-  concepto: 'Subvención escenario Semana Santa — desglose provincial verificado'
+  concepto: 'Subvención escenario Semana Santa — desglose provincial constatado'
   act: CF
   gru: EC
   notas: 'Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0031. Duda — confirmar cifra provincial en BOCyL, resolución de concesión, probable marzo 2026'
@@ -511,7 +515,7 @@ literal y su validación independiente por provincia:
   origen: Junta de Castilla y León
   destino: Junta de Cofradías
   cantidad: 100000
-  concepto: 'Subvención escenario Semana Santa — desglose provincial verificado'
+  concepto: 'Subvención escenario Semana Santa — desglose provincial constatado'
   act: CF
   gru: EC
   notas: 'Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0031'
@@ -598,7 +602,7 @@ de Sacyl», «a través de ILC».
 
 ## REGLAS DE CODIFICACIÓN
 
-**V · Validación y verificación (definición única).**
+**E · Validación y verificación (definición única).**
 DOS campos, DOS preguntas distintas.
 
 `validacion` — ¿la pieza cumple los requisitos para ser reporte?
@@ -614,11 +618,12 @@ La decide SIEMPRE el codificador, a partir del literal del barrido.
   formula EXPLÍCITAMENTE en notas (prefijo «Duda — …») y se lista
   en el Bloque F: el verificador necesita saber qué desbloquea.
 - `rechazado` — la pieza no cumple los requisitos para ser
-  reporte (no es laicismo-obervable, es publicidad de la propia
-  entidad sin dinero público, duplicado puro, fuera de ámbito…).
-  No recibe ID, no entra en el YAML, no lleva verificación. Se
-  documenta SOLO en el Bloque F: «Rechazado (sin ID): titular
-  breve → motivo».
+  reporte: no documenta relación instituciones públicas-Iglesia
+  observable en CyL, es publicidad de la propia entidad confesional
+  sin dinero público ni acto institucional, duplicado puro, o
+  fuera de ámbito. No recibe ID, no entra en el YAML, no lleva
+  verificación. Se documenta SOLO en el Bloque F: «Rechazado (sin
+  ID): titular breve → motivo».
 
 `verificacion` — ¿el contenido ha sido contrastado?
 El codificador emite SIEMPRE `pendiente` en todo registro
@@ -661,7 +666,7 @@ notas. Ver EL IDENTIFICADOR (sufijo) y Ejemplo 6.
 
 Dos caminos según la información disponible:
 
-1. **Desglose provincial conocido.** Cada registro consigna su
+1. **Desglose provincial constatado.** Cada registro consigna su
    cifra LITERAL de la fuente, con `validacion` independiente por
    provincia (aceptado si todo consta; dudoso si la provincia
    concreta presenta una duda a resolver).
@@ -676,7 +681,7 @@ Dos caminos según la información disponible:
    por orden alfabético de provincia (y sucesivos si es mayor que
    1) — regla determinista, documentada en notas.
 
-Resolución posterior: verificado el reparto real (BOCyL/BOP), se
+Resolución posterior: constatado el reparto real (BOCyL/BOP), se
 corrigen cantidades y `validacion: aceptado` — puede hacerse
 provincia a provincia, sin esperar a las demás. Si tras esfuerzo
 razonable no existe desglose, se consolida: `validacion: dudoso`
@@ -729,6 +734,17 @@ boletín del concedente. `fuente_oficial` es insumo del pase de
 verificación de los ejes 2 y 3: acelera el contraste, no sustituye
 la verificación ni modifica la validación por sí solo.
 
+**V · Convenios (contexto).** Firmados FUERA del rango del informe
+pero en ejecución dentro. No generan reportes ni flujos. Firmado
+DENTRO del rango con ejecución dentro → pieza normal en eje 2 o 3,
+no convenio. La doble presencia legítima (firma fuera de ventana +
+anualidad dentro) no es duplicado. Multiterritorial: UNA sola
+entrada, en la primera provincia codificada — aquí NO se aplican
+sufijos ni registros múltiples; el alcance territorial va en el
+concepto o notas. Si el importe carece de confirmación literal →
+`validacion: dudoso` con la duda anotada (función que antes
+cubría el campo `pendiente`, hoy suprimido).
+
 **R · Renovación y caso mixto (capellanías y educación).** Un mismo
 provincia+subtipo/partida+periodo+destino se actualiza, no se
 duplica. El ejercicio o curso siguiente es un registro NUEVO,
@@ -740,7 +756,7 @@ va al eje correspondiente SIN campos económicos, y el registro de
 capellanía/educación la referencia en `reporte_id` (Ejemplos 5 y 7).
 
 **X · Duplicados intra-informe.** Mismo hecho en dos filas del
-barrido → se codifica UNA SOLA VEZ (fuente local verificada o la
+barrido → se codifica UNA SOLA VEZ (fuente local más fiable o la
 más completa) y la doble cobertura se documenta en notas.
 
 **L · Links.** Todo `link` comienza por `https://`. Si el barrido
@@ -763,14 +779,14 @@ Lista numerada, un ítem por línea, si no aplica se escribe «—»:
 2. IDs actualizados o reclasificados: ID → destino → motivo.
 3. Descartes: ID → criterio. Rechazados (sin ID): titular breve →
    motivo.
-4. Dudosos y pendientes: ID → duda a resolver → verificación que
-   lo desbloquea (boletín y fecha probable, o enlace a rehabilitar).
+4. Dudosos: ID → duda a resolver → verificación que lo
+   desbloquea (boletín y fecha probable, o enlace a rehabilitar).
 5. Ambigüedades de act, gru o eje resueltas por criterio propio:
    campo → criterio.
 6. Categorías nuevas de origen (requerirán color en
    COLOR_ORIGEN): origen → sugerencia.
 7. Piezas multiterritoriales: ID base → provincias cubiertas →
-   camino aplicado (1 verificado / 2 estimado).
+   camino aplicado (1 constatado / 2 estimado).
 8. Capellanías y educación añadidas o actualizadas: provincia →
    subtipo/partida → periodo → coste anual.
 
