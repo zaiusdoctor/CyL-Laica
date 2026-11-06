@@ -1,0 +1,319 @@
+- id: CYL-2026-E1-0001
+  fecha: 03/05/2026
+  titular: Lluvia y devoción a partes iguales en Ávila para honrar a su patrón, San Segundo — misa pontifical y procesión con asistencia del alcalde José Manuel Sánchez Cabrera, la corporación municipal, el presidente de la Diputación Carlos García, el delegado territorial de la Junta José Francisco Hernández Herrero y la senadora Patricia Rodríguez
+  provincia: Ávila
+  localidad: Ávila
+  fuente: La Razón
+  link: https://www.larazon.es/castilla-y-leon/lluvia-devocion-partes-iguales-avila-honrar-patron-san-segundo_2026050269f623117b1d574ac665441d.html
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Alcalde, Corporación municipal, Presidente Diputación, Delegado territorial Junta, Senadora
+  participacion: Misa pontifical y procesión
+  admin: ayuntamiento|diputacion|junta|senado
+  notas: 'Fecha publicación 03/05/2026; fecha acto 02/05/2026. Discrepancia en nombre del alcalde entre fuentes: La Razón registra ''José Manuel''; BOP y Ávilared registran ''Jesús Manuel Sánchez Cabrera'' (BOP n.º 98, 26/05/2026)'
+- id: CYL-2026-E1-0002
+  fecha: 07/06/2026
+  titular: Solemne y calurosa procesión del Corpus Christi en Ávila — tras la custodia de Juan de Arfe, el alcalde y buena parte de la Corporación municipal; el concejal más joven, Fernando Toribio (Vox), portó la bandera de la ciudad
+  provincia: Ávila
+  localidad: Ávila
+  fuente: Diario de Ávila
+  link: https://www.diariodeavila.es/noticia/z7e74993a-0e37-468f-bc3c528a723612b3/202606/solemne-y-calurosa-procesion-del-corpus-christi-en-avila
+  estado: verified
+  grupo: Corpus Christi
+  autoridad: Alcalde, Corporación municipal, Concejal más joven
+  participacion: Procesión eucarística con custodia de Juan de Arfe
+- id: CYL-2026-E1-0003
+  fecha: 07/02/2026
+  titular: El alcalde de León asiste al concierto-presentación de la nueva procesión infantil «Caminando tras las huellas de Jesús» en la iglesia de Santa Marina la Real
+  provincia: León
+  localidad: León
+  fuente: Ayuntamiento de León
+  link: https://www.instagram.com/p/DUeBXBzCKrj
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Alcalde de León
+  participacion: Concierto-presentación procesión infantil en iglesia
+  admin: ayuntamiento
+- id: CYL-2026-E1-0004
+  fecha: 18/02/2026
+  titular: Presentación del cartel y pregonera de la Semana Santa de Villafranca del Bierzo con apoyo institucional del concejal de Cultura en el acto del Miércoles de Ceniza
+  provincia: León
+  localidad: Villafranca del Bierzo
+  fuente: Ayuntamiento de Villafranca del Bierzo
+  link: https://www.villafrancadelbierzo.org/noticia-completa.php?id=2820&t=
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Concejal de Cultura
+  participacion: Presentación cartel y pregonera
+  admin: ayuntamiento
+- id: CYL-2026-E1-0005
+  fecha: 11/03/2026
+  titular: El alcalde de Ponferrada acompaña a hermandades y cofradías en la presentación del programa de Semana Santa 2026 en el Museo de la Radio
+  provincia: León
+  localidad: Ponferrada
+  fuente: Ayuntamiento de Ponferrada
+  link: https://www.facebook.com/AytoPonferrada/posts/el-alcalde-marcomorala_-ha-acompa%C3%B1ado-a-los-representantes-de-las-hermandades-y-/1351235957030425
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Alcalde de Ponferrada
+  participacion: Presentación programa Semana Santa
+  admin: ayuntamiento
+- id: CYL-2026-E1-0006
+  fecha: 29/03/2026
+  titular: Incorporación de la Corporación Municipal a la Procesión de los Ramos desde el Antiguo Ayuntamiento
+  provincia: León
+  localidad: León
+  fuente: Diario de León
+  link: https://www.diariodeleon.es/leon/semana-santa/260329/2080088/semana-santa-leon-2026-programa-domingo-ramos-graficos-interactivos.html
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Corporación Municipal
+  participacion: Procesión de los Ramos
+  admin: ayuntamiento
+- id: CYL-2026-E1-0007
+  fecha: 29/03/2026
+  titular: "Traslado procesional de «Jesús Atado a la Columna»: incorporación de Autoridades y Representaciones a su llegada al Convento de Santa Clara (23:30 h)"
+  provincia: León
+  localidad: Astorga
+  fuente: Leonoticias
+  link: https://www.leonoticias.com/promocionales/astorga-prepara-semana-santa-2026-marcada-tradicion-20260327172020-nt.html
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Autoridades y Representaciones
+  participacion: Traslado procesional al Convento de Santa Clara
+  admin: ayuntamiento
+- id: CYL-2026-E1-0008
+  fecha: 03/04/2026
+  titular: "La Ronda de la madrugada del Viernes Santo: toques oficiales ante el Antiguo Ayuntamiento (recibidos por el alcalde), el Palacio Episcopal (obispo), el Palacio de los Guzmanes (presidente de la Diputación) y las Subdelegaciones de Defensa y Gobierno"
+  provincia: León
+  localidad: León
+  fuente: Leonoticias
+  link: https://www.leonoticias.com/semana-santa/programa-recorrido-procesiones-jueves-santo-leon-20260402103556-nt.html
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Alcalde, Obispo, Presidente Diputación, Subdelegaciones
+  participacion: Recepción de toques oficiales de la Ronda
+  admin: ayuntamiento|diputacion|gobierno
+- id: CYL-2026-E1-0009
+  fecha: 03/04/2026
+  titular: "Solemne y Oficial Procesión del Santo Entierro: las Autoridades locales relevan a los papones de las varas delanteras del Paso de la Virgen de la Soledad para pujar unas tiradas en la Plaza de San Isidoro, según el compromiso tradicional"
+  provincia: León
+  localidad: León
+  fuente: Junta Mayor de Cofradías y Hermandades
+  link: https://semanasantaleon.com/procesiones-y-recorridos/
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Autoridades locales
+  participacion: Procesión del Santo Entierro, relevos y pujas de tiradas
+  admin: ayuntamiento
+- id: CYL-2026-E1-0010
+  fecha: 12/06/2026
+  titular: "Fiestas de San Juan de Sahagún: acompañamiento de las autoridades por la Agrupación Musical desde el Ayuntamiento hasta la iglesia, misa solemne y procesión de la imagen y reliquia del santo"
+  provincia: León
+  localidad: Sahagún
+  fuente: León 24 Horas
+  link: https://leon24horas.net/provincia/sahagun-se-prepara-para-el-chupinazo-de-san-juan-con-sus-penas-y-su-apuesta-taurina-programa-completo/
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Autoridades
+  participacion: Acompañamiento procesional, misa solemne y procesión
+  admin: ayuntamiento
+- id: CYL-2026-E1-0011
+  fecha: "14/06/2026"
+  titular: Procesión del Corpus Christi desde la Catedral de León, presidida por el obispo y con participación del Cabildo Catedralicio y la Corporación Municipal
+  provincia: León
+  localidad: León
+  fuente: AhoraLeón
+  link: https://ahoraleon.com/dia-del-corpus-christi-en-leon-tradicion-procesion-y-memoria-viva-desde-la-catedral/
+  estado: approx
+  grupo: Corpus Christi
+  autoridad: Obispo, Cabildo Catedralicio, Corporación Municipal
+  participacion: Procesión del Corpus Christi desde la Catedral
+  admin: ayuntamiento
+  notas: 'Fecha aproximada [14/06/2026] según Diócesis de León; asistencia de la Corporación descrita en términos tradicionales, no de crónica nominal'
+- id: CYL-2026-E1-0012
+  fecha: 21/06/2026
+  titular: El alcalde de León, José Antonio Diez, encabeza la Corporación Municipal en la misa del Corpus Chico y posterior procesión de la Real Cofradía del Santísimo Sacramento de Minerva y la Santa Vera Cruz (Bien de Interés Turístico)
+  provincia: León
+  localidad: León
+  fuente: Diario de Castilla y León
+  link: https://www.diariodecastillayleon.es/leon/260621/107519/corpus-chico-viste-gala-calles-leon.html
+  estado: verified
+  grupo: Corpus Christi
+  autoridad: Alcalde José Antonio Diez, Corporación Municipal
+  participacion: Misa del Corpus Chico y procesión
+  admin: ayuntamiento
+- id: CYL-2026-E1-0013
+  fecha: 24/06/2026
+  titular: Misa oficial de San Juan, en la capilla del Cristo de la Victoria, con la asistencia de la Corporación Municipal dentro del programa de fiestas de San Juan y San Pedro
+  provincia: León
+  localidad: León
+  fuente: Diario de León
+  link: https://www.diariodeleon.es/leon/fiestas-san-juan-y-san-pedro/260612/2088085/programa-completo-fiestas-san-juan-san-pedro-2026-leon.html
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Corporación Municipal
+  participacion: Misa oficial en capilla del Cristo de la Victoria
+  admin: ayuntamiento
+- id: CYL-2026-E1-0014
+  fecha: 23/08/2026
+  titular: "Fiestas de Santa Marta: salida de la Corporación Municipal bajo mazas desde la Plaza Mayor y solemne misa en la Catedral en honor a la patrona, con asistencia de la Corporación y autoridades, cantada por la Coral Excelsior"
+  provincia: León
+  localidad: Astorga
+  fuente: El Faro Astorgano
+  link: https://www.elfaroastorgano.net/programa-fiestas-santa-marta-2026
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Corporación Municipal, autoridades
+  participacion: Salida bajo mazas, misa solemne en Catedral
+  admin: ayuntamiento
+- id: CYL-2026-E1-0015
+  fecha: 08/09/2026
+  titular: "Día del Bierzo: recepción de autoridades en el salón de plenos, incorporación de la corporación de Ponferrada bajo mazas a la Procesión Solemne de la Virgen de la Encina y Solemne Eucaristía del Bierzo con la ofrenda presentada por el alcalde de Borrenes, Eduardo Prada Blanco"
+  provincia: León
+  localidad: Ponferrada
+  fuente: El Bierzo Digital
+  link: https://www.elbierzodigital.com/encina-2026-programa-8-septiembre
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Corporación de Ponferrada, alcalde de Borrenes Eduardo Prada Blanco
+  participacion: Recepción institucional, procesión bajo mazas, Eucaristía con ofrenda
+  admin: ayuntamiento
+- id: CYL-2026-E1-0016
+  fecha: 15/09/2026
+  titular: "Fiestas patronales de La Virgen del Camino: tras la recepción de autoridades, misa solemne en la Basílica con la ofrenda de los Ayuntamientos del Voto y del pueblo, día de la patrona"
+  provincia: León
+  localidad: Valverde de la Virgen
+  fuente: iLeón
+  link: https://ileon.eldiario.es/cultura/seis-dias-fiestas-virgen-camino-verbenas-fuegos-artificiales-lucha-leonesa-mercado-artesanal_1_13496122.html
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Ayuntamientos del Voto
+  participacion: Recepción de autoridades, misa solemne con ofrenda
+  admin: ayuntamiento
+- id: CYL-2026-E1-0017
+  fecha: 02/02/2026
+  titular: La alcaldesa de Palencia, Miriam Andrés, participa en la fiesta de la Virgen de la Calle y realiza la tradicional petición de «ayuda para gobernar desde la empatía y reconocimiento al diferente» durante la Eucaristía en la Catedral (año sin procesión exterior por lluvia, celebrada íntegramente en la Seo)
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Ayuntamiento de Palencia
+  link: https://www.aytopalencia.es/noticia/miriam-andres-le-pide-la-virgen-de-la-calle-ayuda-para-gobernar-desde-la-empatia-y
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Alcaldesa Miriam Andrés
+  participacion: Eucaristía en la Catedral y petición tradicional
+  admin: ayuntamiento
+  notas: 'Edición sin procesión exterior por lluvia — bendición, procesión claustral y Eucaristía íntegramente en la Catedral (Diario Palentino, [02/2026])'
+- id: CYL-2026-E1-0018
+  fecha: 05/02/2026
+  titular: "Alcaldesa por un día en la festividad de Santa Águeda: la regidora de Baltanás, María José de la Fuente, entrega el bastón de mando a Teodora Masa durante una jornada que comienza con eucaristía en la parroquia de San Millán"
+  provincia: Palencia
+  localidad: Baltanás
+  fuente: El Norte de Castilla
+  link: https://www.elnortedecastilla.es/palencia/alcaldesa-dia-festividad-santa-agueda-20260205210437-nt.html
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Alcaldesa María José de la Fuente
+  participacion: Entrega de bastón de mando y eucaristía parroquial
+  admin: ayuntamiento
+- id: CYL-2026-E1-0019
+  fecha: 18/03/2026
+  titular: Presentación institucional de la Semana Santa 2026 en el salón de plenos con presencia de autoridades y de la Hermandad de Cofradías; la alcaldesa anuncia una inversión municipal superior a 45.000 €
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Ayuntamiento de Palencia
+  link: https://www.aytopalencia.es/noticia/la-semana-santa-de-palencia-ha-presentado-sus-novedades-con-un-programa-con-17-procesiones
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Autoridades y Hermandad de Cofradías
+  participacion: Presentación institucional en el salón de plenos
+  admin: ayuntamiento
+  notas: 'Pieza fronteriza — acto civil con objeto religioso. La inversión municipal declarada (superior a 45.000 €) no se codifica aquí; pendiente de tabular en eje 3 con fecha y fuente municipales para evitar doble cómputo'
+- id: CYL-2026-E1-0020
+  fecha: 29/03/2026
+  titular: "Domingo de Ramos: la presidenta de la Diputación, Ángeles Armisén, participa en la Procesión de Las Palmas, y el obispo Mikel Garciandía abre su homilía en la Catedral saludando expresamente a «autoridades, miembros de la hermandad de cofradías»"
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Diócesis de Palencia
+  link: https://www.diocesispalencia.org/index.php/el-obispo/mensajes-y-homilias/3761-homilia-de-nuestro-obispo-en-el-domingo-de-ramos-2026
+  estado: verified
+  grupo: Semana Santa 2026
+  autoridad: Presidenta de la Diputación Ángeles Armisén, obispo Mikel Garciandía
+  participacion: Procesión de Las Palmas y homilía en la Catedral
+  admin: diputacion
+  notas: 'Versión complementaria no verificada por extracción — vídeo de la Diputación de Palencia con la presidenta en la Procesión de Las Palmas (Facebook institucional), conservado del reporte previo'
+- id: CYL-2026-E1-0021
+  fecha: 02/04/2026
+  titular: "Jueves Santo: indulto del preso y Oración del Huerto ante autoridades locales y representantes cofrades"
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Palencia en la Red
+  estado: pending
+  grupo: Semana Santa 2026
+  autoridad: Autoridades locales
+  participacion: Indulto del preso y Oración del Huerto
+  admin: ayuntamiento|gobierno
+  notas: 'Enlace no recuperado en la extracción (error 404) — pieza pendiente a la espera de localizar la galería original o una versión espejo. El indulto es acto del Gobierno de España ejecutado en contexto litúrgico'
+- id: CYL-2026-E1-0022
+  fecha: 19/04/2026
+  titular: "Romería de Santo Toribio: procesión desde la iglesia de San Ignacio y Santa Inés hasta la ermita y misa oficiada por el obispo Mikel Garciandía; la alcaldesa Miriam Andrés, la Corporación y la alcaldesa infantil encabezan la Pedrea, con 10.100 bolsas en total elaboradas por la Fundación Personas Aspanis"
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Ayuntamiento de Palencia
+  link: https://www.aytopalencia.es/noticia/miles-de-bolsas-de-pan-y-quesillo-protagonizan-una-romeria-de-santo-toribio-que-aspira-ser
+  estado: verified
+  grupo: Romerías
+  autoridad: Alcaldesa Miriam Andrés, Corporación Municipal
+  participacion: Pedrea en la romería y misa oficiada por el obispo
+  admin: ayuntamiento
+- id: CYL-2026-E1-0023
+  fecha: 22/06/2026
+  titular: "San Juanillo: la alcaldesa Miriam Andrés, concejales y la Cofradía del Santo Sepulcro bendicen y reparten 3.000 plantas de tomillo —adquiridas por el Ayuntamiento al Centro Villa San José— desde las escalinatas de la Casa Consistorial, tras la procesión y la misa en la capilla del Santo Sepulcro; se venera además la reliquia de San Juan custodiada permanentemente en el despacho de Alcaldía"
+  provincia: Palencia
+  localidad: Palencia
+  fuente: Ayuntamiento de Palencia
+  link: https://www.aytopalencia.es/noticia/el-ayuntamiento-de-palencia-repartira-3000-plantas-de-tomillo-con-motivo-de-la-festividad-0
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Alcaldesa Miriam Andrés, concejales
+  participacion: Procesión, misa y reparto de tomillo desde la Casa Consistorial
+  admin: ayuntamiento
+  notas: 'Fecha de publicación 22/06/2026; fecha del acto 23/06/2026. La reliquia de San Juan se venera custodiada permanentemente en el despacho de Alcaldía'
+- id: CYL-2026-E1-0024
+  fecha: 02/09/2026
+  titular: "San Antolín: la comitiva con la alcaldesa Miriam Andrés, la presidenta de la Diputación Ángeles Armisén, el consejero y portavoz de la Junta Carlos Fernández Carriedo y el subdelegado del Gobierno Eduardo Santiago parte del Ayuntamiento en procesión hasta la Catedral, donde asisten a la eucaristía y beben el agua de la cripta"
+  provincia: Palencia
+  localidad: Palencia
+  fuente: ABC
+  link: https://www.abc.es/espana/castilla-leon/palencia-cumple-tradicion-reparto-agua-san-antolin-20260902162218-nt.html
+  estado: verified
+  grupo: Fiestas patronales
+  autoridad: Alcaldesa Miriam Andrés, presidenta de la Diputación Ángeles Armisén, consejero Carlos Fernández Carriedo, subdelegado del Gobierno Eduardo Santiago
+  participacion: Procesión desde el Ayuntamiento y eucaristía en la Catedral
+  admin: ayuntamiento|diputacion|junta|gobierno
+  notas: 'Agencia EFE. Precaución de deduplicación — no confundir con la pieza EFE del 02/09/2025 (edición anterior con el obispo Garciandía presidiendo); en 2026 presidió el obispo auxiliar Javier del Río'
+- id: CYL-2026-E1-0025
+  fecha: 08/09/2026
+  titular: "Baltanás celebra su día grande de Nuestra Señora de Revilla: la alcaldesa María José de la Fuente entrega la bandera antes de la romería, con procesión desde San Millán hasta la ermita y eucaristía con asistencia de numerosos representantes institucionales"
+  provincia: Palencia
+  localidad: Baltanás
+  fuente: El Norte de Castilla
+  link: https://www.elnortedecastilla.es/palencia/devocion-mariana-cruza-provincia-palencia-norte-sur-20260908222007-nt.html
+  estado: verified
+  grupo: Romerías
+  autoridad: Alcaldesa María José de la Fuente, representantes institucionales
+  participacion: Entrega de bandera, procesión y eucaristía
+  admin: ayuntamiento
+- id: CYL-2026-E1-0026
+  fecha: 21/09/2026
+  titular: "Romería Mayor de la Virgen del Brezo, organizada por el Ayuntamiento de Santibáñez de la Peña, la Diputación y la Cofradía del Brezo: ofrenda floral, misas en el santuario y en la explanada y procesión; el alcalde Manuel Mazas preside la entrega de premios del certamen de pintura durante la jornada"
+  provincia: Palencia
+  localidad: Santibáñez de la Peña
+  fuente: Diario de Valderrueda
+  link: https://www.diariodevalderrueda.es/texto-diario/mostrar/6023501/leones-vicente-soro-conquista-certamen-nacionalde-pintura-rapida-virgen-brezo
+  estado: verified
+  grupo: Romerías
+  autoridad: Alcalde Manuel Mazas
+  participacion: Ofrenda floral, misas y procesión; presidencia de la entrega de premios
+  admin: ayuntamiento|diputacion
+  notas: 'Errata corregida — el barrido traía «21//09/2026»; fecha correcta 21/09/2026 (regla T)'

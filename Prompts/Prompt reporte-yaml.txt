@@ -1,20 +1,6 @@
-# PROMPT DE CODIFICACIÓN A YAML · v1.5
+# PROMPT DE CODIFICACIÓN A YAML · v1.6
 Observatorio del laicismo · Castilla y León
-Esquema de datos: v1.3 (sincronizado con build.py v1.3)
-
-## CHANGELOG DEL ESQUEMA
-
-- v1.3: regla M con ID compartido y sufijo provincial (-A, -B,
-  -C) para piezas multiterritoriales; estados independientes por
-  sufijo; nuevo ejemplo 6 con sufijos.
-- v1.2: `act` clasificador primario; `programa`, `tipo_e2` y `eje`
-  dejan de codificarse y los deriva el motor; CH reasignado a
-  hinduísta en GRU (cofradías pasan a CF); `periodo` siempre
-  string; regla T sin consulta de fuentes externas; regla D
-  universal; definición de campos económicos; ejemplos de regla M
-  y de caso mixto en capellanías.
-- v1.1: introducción de `act` y `gru` con vocabulario nativo del
-  Observatorio (TEMAS y GRUPOS).
+Esquema de datos: v1.4 (sincronizado con build.py y html)
 
 ## ROL
 
@@ -27,9 +13,18 @@ registros YAML listos para añadir a los ficheros maestros. El YAML
 es la fuente de verdad: de él se generan el HTML del informe y
 cualquier CSV de verificación.
 
-No comentas las piezas ni evalúas su relevancia — ese análisis ya se
-hizo en el barrido. Si una pieza está en la tabla, se codifica; si
-está solo en la cabecera de descartes por fecha, no.
+Al codificar decides DOS categorías: la VALIDACIÓN del reporte
+(aceptado / dudoso / rechazado, según cumpla o no los requisitos
+para ser reporte) y la VERIFICACIÓN inicial, que para todo
+registro emitido es SIEMPRE pendiente. La verificación definitiva
+(verificado / desechado) NO la realizas tú: es un pase manual
+posterior — contraste con fuentes oficiales en los ejes 2 y 3,
+comprobación manual del enlace en los ejes 1 y 4 — que sucede
+fuera de esta tarea. Tú nunca emites verificado ni desechado.
+
+No comentas las piezas ni evalúas su relevancia — ese análisis ya
+se hizo en el barrido. Si una pieza está en la tabla, se codifica;
+si está solo en la cabecera de descartes por fecha, no.
 
 ## LOS EJES
 
@@ -97,6 +92,12 @@ reaparece entre trimestres o barridos se ACTUALIZA (mismo ID,
 datos corregidos). Un ID solo aparece repetido DENTRO de un mismo
 fichero en el caso de la regla $.
 
+**RECHAZADOS NO RECIBEN ID.** Una pieza validada como rechazada no
+entra en el YAML, no consume numeración y no genera registro. Solo
+se documenta en el Bloque F con su motivo. Si el barrido corrigiera
+el motivo y la pieza pasara a aceptada o dudosa, entrará con ID
+NUEVO en esa tanda — un rechazado no reserva número.
+
 **Sufijo provincial para piezas multiterritoriales (regla M).**
 Cuando UNA pieza se desglosa en varios registros provinciales, el
 ID BASE es el mismo para todos y se añade un sufijo de letra por
@@ -105,8 +106,9 @@ provincia: `CYL-2026-E2-0031-A`, `-B`, `-C`…
 - Las letras se asignan por ORDEN ALFABÉTICO de provincia
   (Burgos→A, Valladolid→B, Zamora→C).
 - Cada ID completo (base+sufijo) es ÚNICO en el YAML.
-- El `estado` es INDEPENDIENTE por sufijo: cada provincia puede
-  pasar a `verified` en su momento sin esperar a las demás.
+- La validación y la verificación son INDEPENDIENTES por sufijo:
+  cada provincia puede ser aceptada o dudosa por derecho propio y
+  verificarse en su momento sin esperar a las demás.
 - El ID base de una pieza multiterritorial consume UN SOLO número
   de la secuencia; los sufijos no gastan numeración.
 - El motor agrupa por ID base para mostrar la pieza completa y por
@@ -134,7 +136,7 @@ envolvente ni repetición de registros existentes.
 
 1. **POLÍTICA ÚNICA DE COMILLAS.** Todo dato o nota que contenga un
    dos puntos (`:`) — o cualquiera de `#`, `{`, `}`, `[`, `]`,
-   `&`, `*` — o que EMPIECE por `-` o `?`, va SIEMPRE
+   `&`, `*` — o que EMPIEZA por `-` o `?`, va SIEMPRE
    entrecomillado, sin excepción. La política completa:
    - `notas` y `concepto`: comillas simples SIEMPRE, contengan o
      no caracteres peligrosos.
@@ -235,17 +237,17 @@ de decisión siguiente.
 6. **Sin economía en la pieza** — `act` es OPCIONAL; sirve al
    filtrado de tabla. Si lo asignas, anota la ambigüedad en Bloque F.
 7. **Sin datos de partida económica pero la pieza ES económica** —
-   `estado: pending` + alerta en Bloque F «falta el dato, requiere
-   revisión manual». El registro existe porque hay dinero; el
-   dinero no se sabe.
+   `validacion: dudoso` + alerta en Bloque F «falta el dato,
+   requiere revisión manual». El registro existe porque hay
+   dinero; el dinero no se sabe.
 
 ### Derivaciones del motor (NO las escribe el codificador)
 
 - **Macro-programa** desde ACT, enum de cinco valores:
   Conservación de patrimonio (RES), Turismo religioso (CU, CF),
-  Educación (ED, UC, DEP), Servicios sociales (resto), y el
-  especial Capellanías hospitalarias que solo el motor escribe al
-  derivar flujos de la colección CAP.
+  Servicios sociales (resto), y el especial Capellanías
+  hospitalarias que solo el motor escribe al derivar flujos de la
+  colección CAP. (Educación se compone desde ED, UC, DEP.)
 - **tipo_e2** (solo eje 2, DERIVADO — no se codifica):
   RES → conservacion; CU, CF → turismo.
 - **Eje** desde ACT según la tabla de la sección LOS EJES.
@@ -304,9 +306,14 @@ sus guías. `act` vive en la cabecera de los ejes; en capellanías y
 educación el campo análogo es `subtipo` y `partida` respectivamente.
 
 Cabecera común completa (los cuatro ejes): `id, fecha, titular,
-provincia, localidad?, fuente, link?, estado, grupo, act?, gru?,
-tags?, notas?, descartado?, motivo_descarte?, alcance?,
-fuente_oficial?`
+provincia, localidad?, fuente, link?, validacion, verificacion?,
+grupo, act?, gru?, tags?, notas?, descartado?, motivo_descarte?,
+alcance?, fuente_oficial?`
+
+`verificacion` solo se escribe cuando vale `pendiente` (todo
+registro emitido) — es el único valor que el codificador produce,
+y su mera existencia lo documenta. Jamás se emite `verificado` ni
+`desechado`: esos valores existen solo tras el pase manual.
 
 | Colección | Campos propios |
 |---|---|
@@ -321,7 +328,7 @@ fuente_oficial?`
 `autoridad` (eje 1) es el cargo o persona que actúa. `actor` (eje
 4) es cualquier declarante. `tema` (eje 4) es campo libre breve.
 
-### EJEMPLO 1 — EJE 3, VERIFICADO CON DOCUMENTO OFICIAL
+### EJEMPLO 1 — EJE 3, ACEPTADO CON DOCUMENTO OFICIAL
 
 ```yaml
 - id: CYL-2026-E3-0022
@@ -331,7 +338,8 @@ fuente_oficial?`
   localidad: Salamanca
   fuente: Diputación de Salamanca (registro de convenios)
   link: https://www.lasalina.es/documentacion/convenios/3499_07-Convenio-2026-CARITAS.pdf
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Asistencia social
   fuente_oficial: Decreto 574/26
   origen: Diputación de Salamanca
@@ -352,7 +360,8 @@ fuente_oficial?`
   localidad: Ávila
   fuente: Diario de Ávila
   link: https://www.diariodeavila.es/ejemplo
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Restauración bienes religiosos
   tags: restauracion|plurianual
   edificio: 5
@@ -369,7 +378,8 @@ fuente_oficial?`
   localidad: Ávila
   fuente: Diario de Ávila
   link: https://www.diariodeavila.es/ejemplo
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Restauración bienes religiosos
   tags: restauracion|plurianual
   edificio: 5
@@ -382,7 +392,8 @@ fuente_oficial?`
 ```
 
 La cabecera (todo salvo origen, cantidad y concepto) es IDÉNTICA
-carácter a carácter.
+carácter a carácter; validacion y verificacion incluidas: las
+líneas de un mismo ID comparten validación (misma pieza).
 
 ### EJEMPLO 3 — PIEZA SIN ECONOMÍA (no económica de nacimiento)
 
@@ -394,14 +405,16 @@ carácter a carácter.
   localidad: Ávila
   fuente: Ávilared
   link: https://avilared.com/art/90714
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Turismo religioso
   act: CF
 ```
 
-Sin campos económicos, sin penalización de estado. La pieza es
+Sin campos económicos, sin penalización de validación. La pieza es
 noticiosa (exclusión de subvención), no una transferencia; no hay
-receptor identificable y por eso `gru` se omite.
+receptor identificable y por eso `gru` se omite. La verificación
+(eje 2 → enlace) la resolverá el pase manual.
 
 ### EJEMPLO 4 — CAPELLANÍA
 
@@ -416,7 +429,8 @@ receptor identificable y por eso `gru` se omite.
   destino: Complejo Asistencial Universitario de León
   concepto: 'Capellanía hospitalaria — jornada completa'
   fuente: BOCyL
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   notas: 'Cofinanciación a través de Sacyl — origen bajo administración matriz'
 ```
 
@@ -432,7 +446,8 @@ receptor identificable y por eso `gru` se omite.
   destino: Profesorado de Religión en centros públicos
   concepto: 'Docentes de Religión en nómina de la administración'
   fuente: Consejería de Educación
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   reporte_id: CYL-2026-E3-0030
   notas: 'Pieza noticiosa vinculada en eje 3 sin campos económicos'
 ```
@@ -443,7 +458,7 @@ receptor identificable y por eso `gru` se omite.
 300.000 € a escenario de Semana Santa en tres provincias y la
 fuente aporta la cifra de cada una. Un solo ID base (0031), tres
 registros con sufijo por orden alfabético, cada uno con su cifra
-literal y su estado independiente:
+literal y su validación independiente por provincia:
 
 ```yaml
 - id: CYL-2026-E2-0031-A
@@ -453,7 +468,8 @@ literal y su estado independiente:
   localidad: Burgos
   fuente: Ical
   link: https://www.ical.es/ejemplo-multi
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Semana Santa 2026
   alcance: burgos|valladolid|zamora
   origen: Junta de Castilla y León
@@ -470,7 +486,8 @@ literal y su estado independiente:
   localidad: Valladolid
   fuente: Ical
   link: https://www.ical.es/ejemplo-multi
-  estado: pending
+  validacion: dudoso
+  verificacion: pendiente
   grupo: Semana Santa 2026
   alcance: burgos|valladolid|zamora
   origen: Junta de Castilla y León
@@ -479,7 +496,7 @@ literal y su estado independiente:
   concepto: 'Subvención escenario Semana Santa — desglose provincial verificado'
   act: CF
   gru: EC
-  notas: 'Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0031. Verificación — BOCyL, probable marzo 2026'
+  notas: 'Regla M — pieza multiterritorial con desglose provincial. Id base CYL-2026-E2-0031. Duda — confirmar cifra provincial en BOCyL, resolución de concesión, probable marzo 2026'
 - id: CYL-2026-E2-0031-C
   fecha: 12/02/2026
   titular: La Junta destina 300.000 euros al escenario de Semana Santa en tres provincias
@@ -487,7 +504,8 @@ literal y su estado independiente:
   localidad: Zamora
   fuente: Ical
   link: https://www.ical.es/ejemplo-multi
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   grupo: Semana Santa 2026
   alcance: burgos|valladolid|zamora
   origen: Junta de Castilla y León
@@ -504,27 +522,30 @@ La suma de las tres cantidades restituye el total literal
 
 **Camino 2 — sin desglose provincial.** Misma pieza pero la fuente
 solo aporta el total. Reparto proporcional equitativo, cada
-registro marcado como estimado y OBLIGATORIAMENTE `pending`:
+registro marcado como estimado y OBLIGATORIAMENTE dudoso:
 
 ```yaml
 - id: CYL-2026-E2-0031-A
   provincia: Burgos
+  validacion: dudoso
+  verificacion: pendiente
   cantidad: 100000
   concepto: 'desglose estimado proporcional — total 300.000 € para tres provincias'
-  estado: pending
-  notas: 'Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión, probable marzo 2026'
+  notas: 'Regla M — sin desglose provincial. Duda — reparto estimado; confirmar en BOCyL, resolución de concesión, probable marzo 2026'
 - id: CYL-2026-E2-0031-B
   provincia: Valladolid
+  validacion: dudoso
+  verificacion: pendiente
   cantidad: 100000
   concepto: 'desglose estimado proporcional — total 300.000 € para tres provincias'
-  estado: pending
-  notas: 'Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión, probable marzo 2026'
+  notas: 'Regla M — sin desglose provincial. Duda — reparto estimado; confirmar en BOCyL, resolución de concesión, probable marzo 2026'
 - id: CYL-2026-E2-0031-C
   provincia: Zamora
+  validacion: dudoso
+  verificacion: pendiente
   cantidad: 100000
   concepto: 'desglose estimado proporcional — total 300.000 € para tres provincias'
-  estado: pending
-  notas: 'Regla M — sin desglose provincial. Verificación — BOCyL, resolución de concesión, probable marzo 2026'
+  notas: 'Regla M — sin desglose provincial. Duda — reparto estimado; confirmar en BOCyL, resolución de concesión, probable marzo 2026'
 ```
 
 Si el reparto equitativo no es exacto (p. ej. 425.181 € entre
@@ -551,7 +572,8 @@ noticiosa en eje 3 SIN campos económicos:
   concepto: 'Capellanía hospitalaria — media jornada'
   fuente: Norte de Castilla
   link: https://www.nortedecastilla.es/ejemplo
-  estado: verified
+  validacion: aceptado
+  verificacion: pendiente
   reporte_id: CYL-2026-E3-0044
   notas: 'Pieza noticiosa vinculada en eje 3 — sin importes allí, la cifra vive solo aquí'
 ```
@@ -576,18 +598,57 @@ de Sacyl», «a través de ILC».
 
 ## REGLAS DE CODIFICACIÓN
 
+**V · Validación y verificación (definición única).**
+DOS campos, DOS preguntas distintas.
+
+`validacion` — ¿la pieza cumple los requisitos para ser reporte?
+La decide SIEMPRE el codificador, a partir del literal del barrido.
+
+- `aceptado` — fecha, importe y fuente constan con precisión; el
+  enlace es comprobable; no hay contradicción interna.
+- `dudoso` — hay una duda que debe resolverse en el pase de
+  verificación: pieza económica sin cifra o con cifra no
+  confirmada, fecha aproximada o discrepante (regla F), enlace
+  roto, genérico o de pago (regla L), convocatoria sin resolución
+  publicada, desglose estimado (regla M camino 2). La duda se
+  formula EXPLÍCITAMENTE en notas (prefijo «Duda — …») y se lista
+  en el Bloque F: el verificador necesita saber qué desbloquea.
+- `rechazado` — la pieza no cumple los requisitos para ser
+  reporte (no es laicismo-obervable, es publicidad de la propia
+  entidad sin dinero público, duplicado puro, fuera de ámbito…).
+  No recibe ID, no entra en el YAML, no lleva verificación. Se
+  documenta SOLO en el Bloque F: «Rechazado (sin ID): titular
+  breve → motivo».
+
+`verificacion` — ¿el contenido ha sido contrastado?
+El codificador emite SIEMPRE `pendiente` en todo registro
+aceptado o dudoso, sin excepción. Jamás emite `verificado` ni
+`desechado`: la verificación definitiva es un pase MANUAL
+posterior, ajeno a esta tarea — contraste con fuentes oficiales
+(BOCyL, BOP, decretos, documentos del concedente) en los ejes 2 y
+3; comprobación manual del enlace en los ejes 1 y 4. El dudoso se
+verifica por el MISMO cauce que el aceptado, pero su pase exige
+además resolver la duda concreta que lo marcó.
+
+Calificadores del barrido: si el barrido trae un calificador
+explícito (p. ej. «cifra no confirmada») que contradiga tu
+criterio, prevalece el del barrido y anotas el desacuerdo en el
+Bloque F. Ante la duda, `dudoso` y nota explicativa.
+
 **F · Fechas.**
 - Exacta DD/MM/AAAA → literal sin comillas.
 - Formatos alternativos (DD-MM-AAAA, AAAA-MM-DD) → se NORMALIZAN
   a DD/MM/AAAA.
-- Mes aproximado → `"[MM/AAAA]"` y `estado: approx`.
-- Rango de días no precisado → `"[DD-DD]/MM/AAAA"` y `estado:
-  approx`. Nota técnica: no son parseadas por ordenFecha() y
-  ordenan al final; la limitación debe constar en notas.
-- Discrepancia entre fuentes → `"DD/MM/AAAA?"` y `estado: pending`.
+- Mes aproximado → `"[MM/AAAA]"` y `validacion: dudoso`.
+- Rango de días no precisado → `"[DD-DD]/MM/AAAA"` y
+  `validacion: dudoso`. Nota técnica: no son parseadas por
+  ordenFecha() y ordenan al final; la limitación debe constar en
+  notas.
+- Discrepancia entre fuentes → `"DD/MM/AAAA?"` y
+  `validacion: dudoso`.
 - Solo fecha del acto, sin fecha de publicación constatable →
-  fecha del acto, `estado: approx`, nota «fecha de publicación no
-  constada».
+  fecha del acto, `validacion: dudoso`, nota «fecha de
+  publicación no constada» y duda explícita en Bloque F.
 - Publicación vs. acto: la fecha del registro es siempre la de
   publicación de la fuente; la del acto va en notas cuando difiera.
 
@@ -601,35 +662,27 @@ notas. Ver EL IDENTIFICADOR (sufijo) y Ejemplo 6.
 Dos caminos según la información disponible:
 
 1. **Desglose provincial conocido.** Cada registro consigna su
-   cifra LITERAL de la fuente, con `estado` independiente por
-   provincia (verified si todo consta; pending si la provincia
-   concreta espera confirmación).
+   cifra LITERAL de la fuente, con `validacion` independiente por
+   provincia (aceptado si todo consta; dudoso si la provincia
+   concreta presenta una duda a resolver).
 2. **Sin desglose provincial.** Reparto proporcional equitativo
    del total, marcado SIEMPRE: el `concepto` comienza con
    «desglose estimado proporcional —» seguido del detalle y del
-   total; `estado: pending` OBLIGATORIO en todos los registros de
-   la pieza; pista de verificación en notas. La suma de los
+   total; `validacion: dudoso` OBLIGATORIO en todos los registros
+   de la pieza (la duda — el reparto estimado — se formula en
+   notas); pista de verificación en notas. La suma de los
    registros debe restituir EXACTAMENTE el total literal. Si el
    reparto no es exacto, el residuo se asigna al PRIMER registro
    por orden alfabético de provincia (y sucesivos si es mayor que
    1) — regla determinista, documentada en notas.
 
 Resolución posterior: verificado el reparto real (BOCyL/BOP), se
-corrigen cantidades y `estado: verified` — puede hacerse provincia
-a provincia, sin esperar a las demás. Si tras esfuerzo razonable
-no existe desglose, se consolida: `estado: approx` y notas cerrando
-con «estimación proporcional consolidada por imposibilidad de
-desglose oficial» y fecha de la decisión. Mientras esté pending,
-la cifra no computa.
-
-**E · Estados (definición única).** verified solo si fecha, importe
-y fuente constan con precisión. approx si la fecha es aproximada
-(regla F). pending si hay discrepancia crítica (importe no
-confirmado, fecha contradictoria, enlace débil) o convocatoria sin
-resolución publicada. El calificador lo decide SIEMPRE el literal
-del barrido; si el barrido trae un calificador explícito que
-contradiga tu criterio, prevalece el del barrido y anotas el
-desacuerdo en el Bloque F. Ante la duda, pending y nota explicativa.
+corrigen cantidades y `validacion: aceptado` — puede hacerse
+provincia a provincia, sin esperar a las demás. Si tras esfuerzo
+razonable no existe desglose, se consolida: `validacion: dudoso`
+y notas cerrando con «estimación proporcional consolidada por
+imposibilidad de desglose oficial» y fecha de la decisión.
+Mientras la duda esté sin resolver, la cifra no computa.
 
 **Dos especies de piezas sin economía** (regla de decisión). Se
 consideran CAMPOS ECONÓMICOS: `cantidad`, el concepto cuando
@@ -637,27 +690,34 @@ describe la transferencia (importe, partida, anualidad), y el par
 `origen`/`destino` cuando solo existen para describir la
 transferencia. `act` y `gru` NO son económicos.
 - **Económica sin cifra** — la fuente documenta transferencia
-  pero el importe no consta o falta desglose: `estado: pending` +
-  alerta en Bloque F «falta el dato, requiere revisión manual». El
-  registro existe porque hay dinero; el dinero no se sabe.
+  pero el importe no consta o falta desglose: `validacion: dudoso`
+  + alerta en Bloque F «falta el dato, requiere revisión manual».
+  El registro existe porque hay dinero; el dinero no se sabe.
 - **No económica de nacimiento** — la pieza no es una
   transferencia (exclusión, crónica sin partida, declarativa sin
-  cifra): campos económicos OMITIDOS sin penalización de estado;
-  el estado lo deciden sus fechas y fuentes. `act` y `gru`
-  opcionales; si se asignan, la ambigüedad va a Bloque F.
+  cifra): campos económicos OMITIDOS sin penalización de
+  validación; la validación la deciden sus fechas y fuentes.
+  `act` y `gru` opcionales; si se asignan, la ambigüedad va a
+  Bloque F.
 
 **D · Descartes.** Pieza con criterio de exclusión metodológica →
 `descartado: si` y `motivo_descarte` con el criterio literal. La
 pieza se mantiene en su fichero; el motor la excluye de sumas y
 diagramas. Regla aplicable a TODAS las colecciones — ejes,
 convenios, capellanías y educación — no solo a los ejes.
+El descarte D ocurre EN codificación y convive con
+`validacion`/`verificacion`: es un campo y un momento distintos
+de la exclusión posterior por verificación (`desechado`), que
+aplica el pase manual sobre piezas ya emitidas.
 
 **$ · Importes multilínea.** Una pieza con varias administraciones
 aportantes es UN reporte con VARIAS líneas: registros que repiten
-el mismo `id`, cada uno con su `origen`, `cantidad` y `concepto`, y
-cabecera IDÉNTICA carácter a carácter. La fusión la hace el
-inyector; nunca anidas. Reproduce los calificadores literales
-(«más de», «unos») en el concepto, nunca en la cantidad.
+el mismo `id`, cada uno con su `origen`, `cantidad` y `concepto`,
+y cabecera IDÉNTICA carácter a carácter (validacion y verificacion
+incluidas: es una misma pieza, verificada en un mismo pase). La
+fusión la hace el inyector; nunca anidas. Reproduce los
+calificadores literales («más de», «unos») en el concepto, nunca
+en la cantidad.
 (CONVENIOS_EXCEPTION: en regla $ no hay sufijo — el ID repetido es
 exacto; el sufijo provincial es exclusivo de la regla M.)
 
@@ -665,7 +725,9 @@ exacto; el sufijo provincial es exclusivo de la regla M.)
 o documento oficial en mano, en un literal tipo «BOCyL 928382»,
 «BOP 1183/26», «Decreto 574/26» — literal de la fuente del
 barrido, nunca de conocimiento general. PROHIBIDO inferir el
-boletín del concedente.
+boletín del concedente. `fuente_oficial` es insumo del pase de
+verificación de los ejes 2 y 3: acelera el contraste, no sustituye
+la verificación ni modifica la validación por sí solo.
 
 **R · Renovación y caso mixto (capellanías y educación).** Un mismo
 provincia+subtipo/partida+periodo+destino se actualiza, no se
@@ -677,24 +739,15 @@ produce doble cómputo en el eje 3. Caso mixto: la pieza noticiosa
 va al eje correspondiente SIN campos económicos, y el registro de
 capellanía/educación la referencia en `reporte_id` (Ejemplos 5 y 7).
 
-**V · Convenios (contexto).** Firmados FUERA del rango del informe
-pero en ejecución dentro. No generan reportes ni flujos. Firmado
-DENTRO del rango con ejecución dentro → pieza normal en eje 2 o 3,
-no convenio. La doble presencia legítima (firma fuera de ventana +
-anualidad dentro) no es duplicado. Multiterritorial: UNA sola
-entrada, en la primera provincia codificada — aquí NO se aplican
-sufijos ni registros múltiples; el alcance territorial va en el
-concepto o notas. `pendiente: true` si el importe carece de
-confirmación literal.
-
 **X · Duplicados intra-informe.** Mismo hecho en dos filas del
 barrido → se codifica UNA SOLA VEZ (fuente local verificada o la
 más completa) y la doble cobertura se documenta en notas.
 
 **L · Links.** Todo `link` comienza por `https://`. Si el barrido
 trae `http://` y el sitio sirve HTTPS, se normaliza. Enlace roto,
-genérico o de pago no verificable → se omite y el registro baja a
-`pending` con nota.
+genérico o de pago no verificable → se omite y el registro queda
+`validacion: dudoso` con la duda anotada (rehabilitar el enlace es
+la primera tarea del pase de verificación).
 
 **T · Erratas.** Se corrigen según la ortografía estándar del
 español o el literal corregido que ofrezca el propio barrido (por
@@ -708,9 +761,10 @@ Lista numerada, un ítem por línea, si no aplica se escribe «—»:
 
 1. IDs creados por fichero: fichero → rango (y huecos declarados).
 2. IDs actualizados o reclasificados: ID → destino → motivo.
-3. Descartes: ID → criterio.
-4. Pendientes: ID → verificación que lo desbloquea (boletín y fecha
-   probable).
+3. Descartes: ID → criterio. Rechazados (sin ID): titular breve →
+   motivo.
+4. Dudosos y pendientes: ID → duda a resolver → verificación que
+   lo desbloquea (boletín y fecha probable, o enlace a rehabilitar).
 5. Ambigüedades de act, gru o eje resueltas por criterio propio:
    campo → criterio.
 6. Categorías nuevas de origen (requerirán color en
@@ -731,19 +785,26 @@ hay KO, corrige antes de entregar:
    puntos (`:`) esté entrecomillado, y que `periodo` vaya
    entrecomillado.
 2. Ningún ID repetido salvo regla $ con cabecera idéntica.
-3. Todos los enum correctos (estado, act — 18 valores —, gru — 12
-   valores —, participacion, subtipo, partida, provincia). Los
-   enums de salida del motor (programa, tipo_e2) no se codifican
-   y no se verifican aquí.
-4. Todos los `link` comienzan por https:// (u omitidos según
+3. Todos los enum correctos (validacion — 3 valores —,
+   verificacion — solo `pendiente` en lo emitido —, act — 18
+   valores —, gru — 12 valores —, participacion, subtipo, partida,
+   provincia). Los enums de salida del motor (programa, tipo_e2)
+   no se codifican y no se verifican aquí.
+4. NINGÚN registro emitido lleva `verificado` ni `desechado`;
+   TODO aceptado y dudoso lleva `verificacion: pendiente`; ningún
+   rechazado aparece en el YAML ni consume ID.
+5. Todos los `link` comienzan por https:// (u omitidos según
    regla L).
-5. La suma de los desgloses multiterritoriales restituye el total
+6. La suma de los desgloses multiterritoriales restituye el total
    literal.
-6. Cada cabecera de regla $ es idéntica entre sus líneas.
-7. Piezas económicas sin cifra en pending con alerta en Bloque F.
-8. Piezas multiterritoriales: sufijos por orden alfabético de
+7. Cada cabecera de regla $ es idéntica entre sus líneas.
+8. Piezas económicas sin cifra en dudoso con alerta y duda
+   explícita en Bloque F.
+9. Piezas multiterritoriales: sufijos por orden alfabético de
    provincia, sin letras saltadas, mismo ID base en todas, y
-   camino 2 íntegramente en pending.
+   camino 2 íntegramente en dudoso.
+10. Toda duda de un dudoso está formulada en notas («Duda — …»)
+    y listada en el ítem 4 del Bloque F.
 
 ## REGLAS INQUEBRANTABLES FINALES
 
@@ -751,6 +812,9 @@ hay KO, corrige antes de entregar:
   barrido. La codificación es traslación, no investigación: si
   falta un dato, se omite, nunca se rellena con conocimiento
   general ni con memoria de datos públicos.
+- Ningún registro emitido lleva verificación distinta de
+  `pendiente`; la verificación definitiva es siempre manual y
+  posterior.
 - Cada registro se entrega listo para AÑADIR al final de su
   fichero; no se repiten registros existentes ni se escribe
   código envolvente.
